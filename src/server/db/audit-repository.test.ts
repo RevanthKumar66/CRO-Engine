@@ -8,6 +8,8 @@ const mockReplaceOne = vi.fn().mockResolvedValue({});
 const mockFindOne = vi.fn().mockResolvedValue(null);
 const mockCreateIndex = vi.fn().mockResolvedValue({});
 const mockToArray = vi.fn().mockResolvedValue([]);
+const mockCountDocuments = vi.fn().mockResolvedValue(1);
+const mockAggregate = vi.fn().mockReturnValue({ toArray: () => Promise.resolve([]) });
 
 vi.mock('./mongodb-client', () => {
   return {
@@ -17,13 +19,18 @@ vi.mock('./mongodb-client', () => {
           replaceOne: (...args: any[]) => mockReplaceOne(...args),
           findOne: (...args: any[]) => mockFindOne(...args),
           createIndex: (...args: any[]) => mockCreateIndex(...args),
-          find: () => ({
-            sort: () => ({
-              limit: () => ({
-                toArray: () => mockToArray(),
-              }),
-            }),
-          }),
+          countDocuments: (...args: any[]) => mockCountDocuments(...args),
+          aggregate: (...args: any[]) => mockAggregate(...args),
+          find: () => {
+            const chain = {
+              project: () => chain,
+              sort: () => chain,
+              skip: () => chain,
+              limit: () => chain,
+              toArray: () => mockToArray(),
+            };
+            return chain;
+          },
         }),
       }),
     }),
@@ -109,5 +116,33 @@ describe('AuditRepository Tests', () => {
     expect(result).toHaveLength(2);
     expect(result[0].id).toBe('aud_1');
     expect((result[0] as any)._id).toBeUndefined();
+  });
+
+  it('should successfully fetch audits with filters', async () => {
+    const mockList = [
+      {
+        id: 'aud_1',
+        storeUrl: 'https://store1.com',
+        overallScore: 80,
+        analyzedAt: '2026-07-04T12:00:00Z',
+        pageScores: {},
+        recommendations: [],
+      },
+    ];
+    mockToArray.mockResolvedValueOnce(mockList);
+    mockCountDocuments.mockResolvedValueOnce(1);
+
+    const result = await AuditRepository.findWithFilters({
+      search: 'store1',
+      status: 'completed',
+      sort: 'newest',
+      page: 1,
+      limit: 10,
+    });
+
+    expect(mockToArray).toHaveBeenCalledTimes(1);
+    expect(result.audits).toHaveLength(1);
+    expect(result.pagination.total).toBe(1);
+    expect(result.pagination.totalPages).toBe(1);
   });
 });

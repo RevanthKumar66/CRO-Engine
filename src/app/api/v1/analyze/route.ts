@@ -36,13 +36,15 @@ export async function POST(request: NextRequest) {
     const aiDuration = Date.now() - aiStart;
     logger.info('AI Analysis completed', { requestId, durationMs: aiDuration });
 
+    const totalDuration = Date.now() - startTime;
+    auditReport.analysisTime = parseFloat((totalDuration / 1000).toFixed(2));
+
     // 3. Persist the generated AuditReport in MongoDB Atlas
     const dbStart = Date.now();
     await AuditRepository.save(auditReport);
     const dbDuration = Date.now() - dbStart;
     logger.info('Database persistence completed', { requestId, durationMs: dbDuration });
 
-    const totalDuration = Date.now() - startTime;
     logger.info('Audit request successfully processed', {
       requestId,
       totalDurationMs: totalDuration,

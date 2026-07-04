@@ -63,6 +63,21 @@ export interface PageSnapshot {
   trust?: TrustSignals;
 }
 
+export interface BrandingData {
+  storeName?: string;
+  domain?: string;
+  title?: string;
+  description?: string;
+  logoUrl?: string;
+  faviconUrl?: string;
+  appleTouchIcon?: string;
+  ogImage?: string;
+  themeColor?: string;
+  brandColor?: string;
+  language?: string;
+  platform?: string;
+}
+
 export interface WebsiteSnapshot {
   storeUrl: string;
   isShopify: boolean;
@@ -70,5 +85,6 @@ export interface WebsiteSnapshot {
   navigation: NavigationSnapshot;
   pages: PageSnapshot[];
   globalTrust: TrustSignals;
+  branding?: BrandingData;
 }
 export default WebsiteSnapshot;

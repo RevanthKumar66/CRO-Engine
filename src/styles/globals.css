@@ -85,3 +85,13 @@
 .glassmorphic-card:hover {
   border-color: var(--accent-violet);
 }
+
+/* PWA Safe Area Spacing Improvements */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  footer {
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)) !important;
+  }
+}

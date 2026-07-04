@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -125,6 +125,16 @@ export default function LandingPage() {
     defaultValues: { url: '' },
   });
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlParam = params.get('url');
+      if (urlParam) {
+        setValue('url', urlParam, { shouldValidate: true });
+      }
+    }
+  }, [setValue]);
+
   // Intelligent loading — tick through phases with realistic timing
   const runLoadingSequence = async (auditId: string) => {
     setIsSubmitting(true);
@@ -176,16 +186,18 @@ export default function LandingPage() {
   // ─── Intelligent Loading Screen ─────────────────────────────────────────────
   if (isSubmitting) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-3.5rem)] px-4">
-        <div className="w-full max-w-sm space-y-8">
-          <div className="space-y-1">
-            <h2 className="text-xl font-bold tracking-tight text-text-primary">
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-6rem)] px-4 py-8">
+        <div className="w-full max-w-sm space-y-5 sm:space-y-8">
+          <div className="space-y-0.5">
+            <h2 className="text-lg sm:text-xl font-bold tracking-tight text-text-primary">
               Analyzing Storefront
             </h2>
-            <p className="text-sm text-text-secondary">Running conversion heuristics...</p>
+            <p className="text-xs sm:text-sm text-text-secondary">
+              Running conversion heuristics...
+            </p>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {LOADING_PHASES.map((phase, index) => {
               const isDone = completedPhases.has(index);
               const isCurrent = currentPhase === index && !isDone;
@@ -199,7 +211,7 @@ export default function LandingPage() {
                   }`}
                 >
                   <div
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+                    className={`flex h-5 w-5 sm:h-6 sm:w-6 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
                       isDone
                         ? 'border-accent-emerald bg-accent-emerald/10 text-accent-emerald'
                         : isCurrent
@@ -208,15 +220,15 @@ export default function LandingPage() {
                     }`}
                   >
                     {isDone ? (
-                      <Check className="h-3.5 w-3.5" />
+                      <Check className="h-3 w-3" />
                     ) : isCurrent ? (
-                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      <Loader2 className="h-3 w-3 animate-spin" />
                     ) : (
-                      <Icon className="h-3.5 w-3.5" />
+                      <Icon className="h-3 w-3" />
                     )}
                   </div>
                   <span
-                    className={`text-sm transition-colors duration-200 ${
+                    className={`text-xs sm:text-sm transition-colors duration-200 ${
                       isDone
                         ? 'text-accent-emerald font-medium'
                         : isCurrent
@@ -232,7 +244,9 @@ export default function LandingPage() {
           </div>
 
           <div className="h-px bg-border-muted" />
-          <p className="text-xs text-text-muted text-center">This usually takes 10–20 seconds</p>
+          <p className="text-[10px] sm:text-xs text-text-muted text-center">
+            This usually takes 10–20 seconds
+          </p>
         </div>
       </div>
     );
@@ -244,7 +258,7 @@ export default function LandingPage() {
       {/* ── Hero ── */}
       <section
         id="hero"
-        className="relative overflow-hidden border-b border-border-muted/30 pt-8 pb-16 md:pt-10 md:pb-20 bg-gradient-to-b from-bg-primary via-bg-primary to-bg-secondary/40"
+        className="relative overflow-hidden border-b border-border-muted/30 pt-8 pb-10 sm:pb-16 md:pt-10 md:pb-20 bg-gradient-to-b from-bg-primary via-bg-primary to-bg-secondary/40"
       >
         {/* Soft corner blobs */}
         <div className="absolute top-[-15%] left-[-8%] w-[300px] h-[300px] bg-sky-400/30 rounded-full blur-3xl animate-pulse pointer-events-none" />
@@ -259,11 +273,11 @@ export default function LandingPage() {
                 alt="CRO Engine"
                 width={80}
                 height={80}
-                className="h-20 w-auto object-contain"
+                className="h-12 sm:h-20 w-auto object-contain"
                 style={{ mixBlendMode: 'multiply' }}
                 priority
               />
-              <h1 className="text-4xl md:text-[2.75rem] font-bold tracking-tight leading-[1.2] text-text-primary">
+              <h1 className="text-[19px] sm:text-[28px] md:text-[2.75rem] font-semibold sm:font-bold tracking-tight leading-[1.3] text-text-primary">
                 Find Conversion Bottlenecks
                 <br />
                 <span className="text-accent-violet">Before Your Customers Do.</span>
@@ -271,40 +285,42 @@ export default function LandingPage() {
             </div>
 
             {/* Subheading */}
-            <p className="text-sm md:text-base text-text-secondary leading-relaxed max-w-xl mx-auto pt-1">
-              Analyze any Shopify storefront using AI and receive prioritized conversion
-              recommendations in seconds.
+            <p className="text-xs sm:text-sm md:text-base text-text-secondary leading-relaxed max-w-lg mx-auto pt-0.5 px-4 sm:px-0">
+              Get AI-powered Shopify conversion audits in seconds.
             </p>
           </div>
 
           {/* ── URL Form ── */}
           <div className="max-w-2xl mx-auto mt-8">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2 items-center w-full">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center w-full"
+            >
               <div className="flex-1">
                 <input
                   id="url"
                   type="text"
                   placeholder="https://your-store.com"
                   disabled={isSubmitting}
-                  className="w-full h-12 rounded-md border border-border-muted bg-bg-secondary px-4 text-sm text-text-primary placeholder:text-text-muted transition-colors duration-150 focus:border-accent-violet focus:outline-none focus:ring-1 focus:ring-accent-violet disabled:opacity-60"
+                  className="w-full h-10 sm:h-12 rounded-md border border-border-muted bg-bg-secondary px-3.5 sm:px-4 text-xs sm:text-sm text-text-primary placeholder:text-text-muted transition-colors duration-150 focus:border-accent-violet focus:outline-none focus:ring-1 focus:ring-accent-violet disabled:opacity-60"
                   {...register('url')}
                 />
               </div>
               <Button
                 type="submit"
                 disabled={isSubmitting || isButtonLoading}
-                className="h-12 px-6 shrink-0 inline-flex items-center gap-2 font-semibold transition-all duration-150"
+                className="h-10 sm:h-12 px-5 sm:px-6 shrink-0 inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold transition-all duration-150 w-full sm:w-auto"
                 variant="primary"
               >
                 {isButtonLoading ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin" />
                     <span>Analyzing...</span>
                   </>
                 ) : (
                   <>
                     <span>Analyze Store</span>
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </>
                 )}
               </Button>
@@ -357,25 +373,29 @@ export default function LandingPage() {
       {/* ── How It Works ── */}
       <section
         id="how-it-works"
-        className="pt-14 pb-16 md:pt-16 md:pb-20 border-b border-border-muted/30 bg-bg-primary"
+        className="pt-10 pb-10 sm:pt-16 sm:pb-20 border-b border-border-muted/30 bg-bg-primary"
       >
-        <Container className="space-y-10">
+        <Container className="space-y-6 sm:space-y-10">
           <div className="text-center max-w-xl mx-auto space-y-2">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">How It Works</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold sm:font-bold tracking-tight">
+              How It Works
+            </h2>
             <p className="text-sm text-text-secondary">
               Three steps from URL to actionable CRO intelligence.
             </p>
           </div>
 
           {/* Cards with flow arrows */}
-          <div className="flex flex-col md:flex-row items-stretch gap-0 max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-stretch gap-0 max-w-4xl mx-auto px-4 sm:px-0">
             {/* Step 1 */}
-            <div className="flex-1 rounded-lg border border-border-muted p-6 glassmorphic-card">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-violet/10 text-accent-violet">
-                <Laptop className="h-4.5 w-4.5" />
+            <div className="flex-1 rounded-lg border border-border-muted p-4 sm:p-6 glassmorphic-card">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-accent-violet/10 text-accent-violet">
+                <Laptop className="h-4 sm:h-4.5 w-4 sm:w-4.5" />
               </div>
-              <h3 className="text-sm font-semibold mt-4 text-text-primary">1. Scan</h3>
-              <p className="text-xs text-text-secondary mt-2 leading-relaxed">
+              <h3 className="text-xs sm:text-sm font-semibold mt-3 sm:mt-4 text-text-primary">
+                1. Scan
+              </h3>
+              <p className="text-[11px] sm:text-xs text-text-secondary mt-1.5 sm:mt-2 leading-relaxed">
                 We extract CTAs, headings, product layout, and copy from public storefront pages —
                 no installation needed.
               </p>
@@ -385,17 +405,19 @@ export default function LandingPage() {
             <div className="hidden md:flex items-center justify-center px-2 text-border-muted flex-shrink-0">
               <ChevronRight className="h-5 w-5 text-text-muted" />
             </div>
-            <div className="flex md:hidden items-center justify-center py-2 text-text-muted">
-              <span className="text-sm">↓</span>
+            <div className="flex md:hidden items-center justify-center py-1.5 text-text-muted">
+              <span className="text-xs">↓</span>
             </div>
 
             {/* Step 2 */}
-            <div className="flex-1 rounded-lg border border-border-muted p-6 glassmorphic-card">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-violet/10 text-accent-violet">
-                <Sparkles className="h-4.5 w-4.5" />
+            <div className="flex-1 rounded-lg border border-border-muted p-4 sm:p-6 glassmorphic-card">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-accent-violet/10 text-accent-violet">
+                <Sparkles className="h-4 sm:h-4.5 w-4 sm:w-4.5" />
               </div>
-              <h3 className="text-sm font-semibold mt-4 text-text-primary">2. Analyze</h3>
-              <p className="text-xs text-text-secondary mt-2 leading-relaxed">
+              <h3 className="text-xs sm:text-sm font-semibold mt-3 sm:mt-4 text-text-primary">
+                2. Analyze
+              </h3>
+              <p className="text-[11px] sm:text-xs text-text-secondary mt-1.5 sm:mt-2 leading-relaxed">
                 Gemini AI maps layouts against e-commerce psychology heuristics to pinpoint exactly
                 where buyers drop off.
               </p>
@@ -405,17 +427,19 @@ export default function LandingPage() {
             <div className="hidden md:flex items-center justify-center px-2 flex-shrink-0">
               <ChevronRight className="h-5 w-5 text-text-muted" />
             </div>
-            <div className="flex md:hidden items-center justify-center py-2 text-text-muted">
-              <span className="text-sm">↓</span>
+            <div className="flex md:hidden items-center justify-center py-1.5 text-text-muted">
+              <span className="text-xs">↓</span>
             </div>
 
             {/* Step 3 */}
-            <div className="flex-1 rounded-lg border border-border-muted p-6 glassmorphic-card">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-violet/10 text-accent-violet">
-                <TrendingUp className="h-4.5 w-4.5" />
+            <div className="flex-1 rounded-lg border border-border-muted p-4 sm:p-6 glassmorphic-card">
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-accent-violet/10 text-accent-violet">
+                <TrendingUp className="h-4 sm:h-4.5 w-4 sm:w-4.5" />
               </div>
-              <h3 className="text-sm font-semibold mt-4 text-text-primary">3. Recommendations</h3>
-              <p className="text-xs text-text-secondary mt-2 leading-relaxed">
+              <h3 className="text-xs sm:text-sm font-semibold mt-3 sm:mt-4 text-text-primary">
+                3. Recommendations
+              </h3>
+              <p className="text-[11px] sm:text-xs text-text-secondary mt-1.5 sm:mt-2 leading-relaxed">
                 Receive prioritized, developer-ready tasks ranked by impact and implementation
                 effort.
               </p>
@@ -425,56 +449,60 @@ export default function LandingPage() {
       </section>
 
       {/* ── Capabilities ── */}
-      <section className="py-14 md:py-18 bg-bg-primary/50">
-        <Container className="space-y-10">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Engine Capabilities</h2>
-            <p className="text-sm text-text-secondary">
+      <section className="py-10 md:py-18 bg-bg-primary/50">
+        <Container className="space-y-6 sm:space-y-10 px-4 sm:px-0">
+          <div className="text-center max-w-xl mx-auto space-y-1 sm:space-y-2">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold sm:font-bold tracking-tight">
+              Engine Capabilities
+            </h2>
+            <p className="text-xs sm:text-sm text-text-secondary">
               Every audit covers the full Shopify customer journey.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 max-w-5xl mx-auto">
             {[
               {
-                icon: <TrendingUp className="h-5 w-5 text-accent-violet" />,
+                icon: <TrendingUp className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-accent-violet" />,
                 title: 'Improve Conversion',
                 desc: 'Pinpoint missing value propositions and CTAs directly affecting purchase rates.',
               },
               {
-                icon: <ShieldCheck className="h-5 w-5 text-accent-violet" />,
+                icon: <ShieldCheck className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-accent-violet" />,
                 title: 'Increase Trust',
                 desc: 'Analyze cart configurations to surface missing trust signals and policy clearances.',
               },
               {
-                icon: <Smartphone className="h-5 w-5 text-accent-violet" />,
+                icon: <Smartphone className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-accent-violet" />,
                 title: 'Mobile UX',
                 desc: 'Identify CTA sizing and tap-target issues limiting mobile conversions.',
               },
               {
-                icon: <Zap className="h-5 w-5 text-accent-violet" />,
+                icon: <Zap className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-accent-violet" />,
                 title: 'Copy Quality',
                 desc: 'Evaluate whether headlines communicate outcomes or just describe products.',
               },
               {
-                icon: <BarChart3 className="h-5 w-5 text-accent-violet" />,
+                icon: <BarChart3 className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-accent-violet" />,
                 title: 'Page Scoring',
                 desc: 'Each page type — homepage, PDP, collection, cart — gets an individual CRO score.',
               },
               {
-                icon: <CheckCircle2 className="h-5 w-5 text-accent-violet" />,
+                icon: <CheckCircle2 className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-accent-violet" />,
                 title: 'Dev-Ready Tasks',
                 desc: 'Each recommendation comes with actionable steps ready for engineering execution.',
               },
             ].map(({ icon, title, desc }) => (
               <div
                 key={title}
-                className="glassmorphic-card rounded-lg border border-border-muted p-5 space-y-2 flex flex-col"
+                className="glassmorphic-card rounded-lg border border-border-muted p-4 sm:p-5 space-y-1.5 flex flex-col"
               >
                 {icon}
-                <h4 className="text-sm font-semibold text-text-primary">{title}</h4>
-                <p className="text-xs text-text-secondary leading-relaxed flex-1">{desc}</p>
-                <span className="inline-flex items-center gap-1 text-xs text-accent-violet font-medium pt-1 hover:underline cursor-pointer">
+                <h4 className="text-xs sm:text-sm font-semibold text-text-primary">{title}</h4>
+                <p className="text-[11px] sm:text-xs text-text-secondary leading-relaxed flex-1">
+                  {desc}
+                </p>
+                <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs text-accent-violet font-medium pt-1 hover:underline cursor-pointer">
                   Learn More <ChevronRight className="h-3 w-3" />
                 </span>
               </div>

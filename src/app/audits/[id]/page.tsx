@@ -33,6 +33,42 @@ import { Loading } from '@/components/common/Loading';
 import { routes } from '@/config/routes';
 import { AuditReport, Recommendation } from '../../../../types';
 
+const BrandIcon: React.FC<{
+  logoUrl?: string;
+  faviconUrl?: string;
+  storeName: string;
+}> = ({ logoUrl, faviconUrl, storeName }) => {
+  const [logoFailed, setLogoFailed] = useState(false);
+  const [favFailed, setFavFailed] = useState(false);
+
+  if (logoUrl && !logoFailed) {
+    return (
+      <img
+        src={logoUrl}
+        alt={`${storeName} logo`}
+        onError={() => setLogoFailed(true)}
+        className="h-8 w-auto max-w-[150px] object-contain"
+        style={{ mixBlendMode: 'multiply' }}
+        loading="lazy"
+      />
+    );
+  }
+
+  if (faviconUrl && !favFailed) {
+    return (
+      <img
+        src={faviconUrl}
+        alt={`${storeName} favicon`}
+        onError={() => setFavFailed(true)}
+        className="h-5 w-5 object-contain"
+        loading="lazy"
+      />
+    );
+  }
+
+  return null;
+};
+
 // Score helpers
 const getScoreLabel = (score: number) => {
   if (score >= 80) return { label: 'Good Performance', color: 'text-accent-emerald' };
@@ -144,13 +180,20 @@ export default function AuditDetailsPage() {
   if (error || !audit) {
     return (
       <Container>
-        <PageWrapper className="flex flex-col items-center justify-center min-h-[calc(100vh-12rem)] text-center space-y-6">
-          <AlertCircle className="h-14 w-14 text-accent-rose" />
-          <h2 className="text-xl font-bold text-text-primary">Audit Not Found</h2>
-          <p className="max-w-md text-sm text-text-secondary">
+        <PageWrapper className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] py-8 text-center space-y-4 sm:space-y-6">
+          <AlertCircle className="h-10 w-10 sm:h-14 sm:w-14 text-accent-rose" />
+          <h2 className="text-lg sm:text-xl font-semibold sm:font-bold text-text-primary">
+            Audit Not Found
+          </h2>
+          <p className="max-w-xs sm:max-w-md text-xs sm:text-sm text-text-secondary leading-relaxed">
             {error || 'The audit report you requested does not exist or has expired.'}
           </p>
-          <Button onClick={() => router.push(routes.web.home)} variant="secondary" size="sm">
+          <Button
+            onClick={() => router.push(routes.web.home)}
+            variant="secondary"
+            size="sm"
+            className="h-9 sm:h-8"
+          >
             <ArrowLeft className="h-4 w-4 mr-2" /> Start New Audit
           </Button>
         </PageWrapper>
@@ -176,35 +219,39 @@ export default function AuditDetailsPage() {
         <Container>
           <div className="flex items-center justify-between py-4">
             <Button variant="ghost" onClick={() => router.push(routes.web.home)} size="sm">
-              <ArrowLeft className="h-4 w-4 mr-1.5" /> New Audit
+              <ArrowLeft className="h-4 w-4 mr-1.5" />{' '}
+              <span className="hidden sm:inline">New Audit</span>
             </Button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={handleCopyReport}
-                className="inline-flex items-center gap-1.5 rounded-md border border-border-muted px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                className="inline-flex items-center justify-center h-8 w-8 sm:w-auto sm:gap-1.5 rounded-md border border-border-muted sm:px-3 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                title="Copy Report"
               >
                 {copied ? (
                   <Check className="h-3.5 w-3.5 text-accent-emerald" />
                 ) : (
                   <Copy className="h-3.5 w-3.5" />
                 )}
-                {copied ? 'Copied!' : 'Copy Report'}
+                <span className="hidden sm:inline">{copied ? 'Copied!' : 'Copy Report'}</span>
               </button>
               <button
                 onClick={() => router.push(routes.web.home)}
-                className="inline-flex items-center gap-1.5 rounded-md border border-border-muted px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                className="inline-flex items-center justify-center h-8 w-8 sm:w-auto sm:gap-1.5 rounded-md border border-border-muted sm:px-3 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                title="Analyze Another"
               >
                 <RefreshCw className="h-3.5 w-3.5" />
-                Analyze Another
+                <span className="hidden sm:inline">Analyze Another</span>
               </button>
               <a
                 href={audit.storeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-md border border-border-muted px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                className="inline-flex items-center justify-center h-8 w-8 sm:w-auto sm:gap-1.5 rounded-md border border-border-muted sm:px-3 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                title="View Store"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
-                View Store
+                <span className="hidden sm:inline">View Store</span>
               </a>
             </div>
           </div>
@@ -239,40 +286,117 @@ export default function AuditDetailsPage() {
 
       <Container>
         <PageWrapper className="space-y-8">
+          {/* ── Branded Report Header ── */}
+          <Card className="glassmorphic-card p-4 sm:p-5 rounded-md border-border-muted/50 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div className="flex items-center gap-4">
+              <BrandIcon
+                logoUrl={audit.logoUrl}
+                faviconUrl={audit.faviconUrl}
+                storeName={audit.storeName || audit.storeUrl}
+              />
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h1 className="text-base sm:text-lg font-semibold sm:font-bold tracking-tight text-text-primary leading-tight">
+                    {audit.storeName || audit.storeUrl.replace(/^https?:\/\/(www\.)?/, '')}
+                  </h1>
+                  {audit.platform === 'shopify' ? (
+                    <span className="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded bg-accent-violet/10 text-accent-violet border border-accent-violet/20 uppercase tracking-wider">
+                      Shopify
+                    </span>
+                  ) : null}
+                </div>
+                <div className="flex items-center gap-2 text-xs text-text-secondary flex-wrap">
+                  <span>
+                    {audit.domain ||
+                      audit.storeUrl.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]}
+                  </span>
+                  <span className="text-border-muted">•</span>
+                  <span>
+                    Analyzed:{' '}
+                    {new Date(audit.analyzedAt || audit.createdAt || '').toLocaleString(undefined, {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </span>
+                  {audit.analysisTime ? (
+                    <>
+                      <span className="text-border-muted">•</span>
+                      <span>Duration: {audit.analysisTime}s</span>
+                    </>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            {/* Right side stats */}
+            <div className="flex items-center gap-4 shrink-0 justify-between md:justify-end">
+              <div className="text-right">
+                <span className="text-[9px] text-text-muted uppercase font-bold tracking-wider block">
+                  Status
+                </span>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-accent-emerald mt-0.5">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> Completed
+                </span>
+              </div>
+              <div className="border-l border-border-muted/50 h-8 hidden md:block" />
+              <div className="flex items-center gap-2">
+                <div className="text-right">
+                  <span className="text-[9px] text-text-muted uppercase font-bold tracking-wider block">
+                    Overall Score
+                  </span>
+                  <span className={cn('text-xs font-bold block mt-0.5', scoreInfo.color)}>
+                    {scoreInfo.label}
+                  </span>
+                </div>
+                <div
+                  className={cn(
+                    'flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full border-2 text-xs sm:text-base font-extrabold shrink-0',
+                    getScoreRingColor(audit.overallScore)
+                  )}
+                >
+                  {audit.overallScore}
+                </div>
+              </div>
+            </div>
+          </Card>
+
           {/* ── Overview Section ── */}
-          <div id="overview" className="grid md:grid-cols-3 gap-5">
+          <div id="overview" className="grid md:grid-cols-3 gap-4 sm:gap-5">
             {/* Store + page scores */}
             <Card className="glassmorphic-card md:col-span-2">
-              <CardHeader className="pb-4">
-                <span className="text-xs text-accent-violet font-semibold uppercase tracking-wider">
+              <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-4">
+                <span className="text-[10px] sm:text-xs text-accent-violet font-semibold uppercase tracking-wider">
                   Storefront Audit
                 </span>
-                <CardTitle className="text-xl mt-1 break-all leading-snug">
+                <CardTitle className="text-lg sm:text-xl font-semibold sm:font-bold mt-1 break-all leading-snug">
                   {audit.storeUrl}
                 </CardTitle>
-                <CardDescription className="text-xs">
+                <CardDescription className="text-[10px] sm:text-xs">
                   Analyzed on{' '}
                   {new Date(audit.analyzedAt).toLocaleDateString('en-US', { dateStyle: 'long' })}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-3 border-t border-border-muted/30 pt-4">
+              <CardContent className="p-4 pt-0 border-t border-border-muted/30 pt-4 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
                 {Object.entries(audit.pageScores).map(([page, score]) => {
                   const trend = getPageTrend(score);
                   return (
                     <div
                       key={page}
-                      className="rounded-md border border-border-muted p-3 text-center space-y-1"
+                      className="rounded-md border border-border-muted p-2.5 sm:p-3 text-center space-y-1 bg-bg-secondary/20"
                     >
-                      <span className="text-xs text-text-secondary font-medium capitalize block">
+                      <span className="text-[10px] sm:text-xs text-text-secondary font-medium capitalize block">
                         {page === 'pdp' ? 'PDP' : page}
                       </span>
                       <div
-                        className={`text-xl font-bold ${score >= 80 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-amber' : 'text-accent-rose'}`}
+                        className={`text-lg sm:text-xl font-extrabold ${score >= 80 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-amber' : 'text-accent-rose'}`}
                       >
                         {score}
                       </div>
                       <div
-                        className={`inline-flex items-center gap-0.5 text-xs font-medium ${trend.color}`}
+                        className={`inline-flex items-center gap-0.5 text-[10px] sm:text-xs font-medium ${trend.color}`}
                       >
                         {trend.icon}
                         <span>{trend.label}</span>
@@ -284,13 +408,13 @@ export default function AuditDetailsPage() {
             </Card>
 
             {/* Overall score card */}
-            <Card className="glassmorphic-card flex flex-col items-center justify-center p-6 text-center gap-3">
-              <span className="text-xs font-semibold text-text-secondary uppercase tracking-wide">
+            <Card className="glassmorphic-card flex flex-col items-center justify-center p-4 sm:p-6 text-center gap-2 sm:gap-3">
+              <span className="text-[10px] sm:text-xs font-semibold text-text-secondary uppercase tracking-wide">
                 Overall Score
               </span>
               <div
                 className={cn(
-                  'flex h-24 w-24 items-center justify-center rounded-full border-4 text-3xl font-extrabold',
+                  'flex h-16 w-16 sm:h-24 sm:w-24 items-center justify-center rounded-full border-4 text-xl sm:text-3xl font-extrabold',
                   getScoreRingColor(audit.overallScore)
                 )}
               >
@@ -302,7 +426,7 @@ export default function AuditDetailsPage() {
                   <Star
                     key={i}
                     className={cn(
-                      'h-4 w-4',
+                      'h-3.5 w-3.5 sm:h-4 sm:w-4',
                       filled ? 'fill-accent-amber text-accent-amber' : 'text-border-muted'
                     )}
                   />
@@ -324,13 +448,15 @@ export default function AuditDetailsPage() {
           </div>
 
           {/* ── Recommendations Section ── */}
-          <div id="recommendations" ref={recsRef} className="space-y-5">
+          <div id="recommendations" ref={recsRef} className="space-y-4 sm:space-y-5">
             {/* Section header with filters and progress */}
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between border-b border-border-muted/30 pb-4">
               <div className="space-y-0.5">
-                <h3 className="text-base font-bold tracking-tight">Optimization Opportunities</h3>
+                <h3 className="text-sm sm:text-base font-semibold sm:font-bold tracking-tight">
+                  Optimization Opportunities
+                </h3>
                 {totalRecs > 0 && (
-                  <p className="text-xs text-text-muted">
+                  <p className="text-[10px] sm:text-xs text-text-muted">
                     Completed{' '}
                     <span className="font-semibold text-text-secondary">
                       {completedCount} / {totalRecs}
@@ -340,11 +466,11 @@ export default function AuditDetailsPage() {
                 )}
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="w-full sm:w-auto flex flex-row gap-2">
                 <select
                   value={filterPageType}
                   onChange={(e) => setFilterPageType(e.target.value)}
-                  className="rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
+                  className="flex-1 sm:flex-initial rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-[11px] sm:text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
                 >
                   <option value="all">All Pages</option>
                   <option value="homepage">Homepage</option>
@@ -355,7 +481,7 @@ export default function AuditDetailsPage() {
                 <select
                   value={filterImpact}
                   onChange={(e) => setFilterImpact(e.target.value)}
-                  className="rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
+                  className="flex-1 sm:flex-initial rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-[11px] sm:text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
                 >
                   <option value="all">All Impact</option>
                   <option value="HIGH">High Impact</option>
@@ -387,7 +513,7 @@ export default function AuditDetailsPage() {
                       )}
                     >
                       {/* Card Header — badges + mark complete top-right */}
-                      <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5 pb-4 border-b border-border-muted/30">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-5 pt-4 sm:pt-5 pb-3 sm:pb-4 border-b border-border-muted/30">
                         <div className="flex items-center gap-2">
                           <span className="text-accent-violet">
                             {getCategoryIcon(rec.category)}
@@ -396,7 +522,7 @@ export default function AuditDetailsPage() {
                             {rec.pageType} — {rec.category}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                           <Badge variant={rec.impact === 'HIGH' ? 'destructive' : 'warning'}>
                             {rec.impact} Impact
                           </Badge>
@@ -405,7 +531,7 @@ export default function AuditDetailsPage() {
                           <button
                             onClick={() => toggleChecklist(rec.id)}
                             className={cn(
-                              'inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-medium transition-colors duration-150',
+                              'inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs font-medium transition-colors duration-150',
                               isCompleted
                                 ? 'border-accent-emerald/30 bg-accent-emerald/5 text-accent-emerald'
                                 : 'border-border-muted text-text-secondary hover:border-accent-violet hover:text-accent-violet'
@@ -425,35 +551,37 @@ export default function AuditDetailsPage() {
                       </div>
 
                       {/* Card Body — spacing instead of dividers */}
-                      <div className="px-5 py-5 space-y-5">
+                      <div className="px-4 sm:px-5 py-4 sm:py-5 space-y-4 sm:space-y-5">
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">
+                          <h4 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-text-muted mb-1">
                             Finding
                           </h4>
-                          <p className="text-sm text-text-primary leading-relaxed">{rec.finding}</p>
+                          <p className="text-xs sm:text-sm text-text-primary leading-relaxed">
+                            {rec.finding}
+                          </p>
                         </div>
 
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">
+                          <h4 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-text-muted mb-1">
                             Rationale
                           </h4>
-                          <p className="text-sm text-text-secondary leading-relaxed">
+                          <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
                             {rec.rationale}
                           </p>
                         </div>
 
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-2">
+                          <h4 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">
                             Developer Tasks
                           </h4>
-                          <ul className="space-y-2">
+                          <ul className="space-y-1.5 sm:space-y-2">
                             {rec.actionSteps.map((step, idx) => (
                               <li
                                 key={idx}
-                                className="flex items-start gap-2.5 text-sm text-text-secondary"
+                                className="flex items-start gap-2 text-xs sm:text-sm text-text-secondary"
                               >
                                 {/* Interactive checkbox feel */}
-                                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-border-muted bg-bg-secondary">
+                                <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded border border-border-muted bg-bg-secondary">
                                   <span className="h-1.5 w-1.5 rounded-sm bg-accent-violet" />
                                 </span>
                                 <span className="leading-relaxed">{step}</span>

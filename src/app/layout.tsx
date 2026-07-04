@@ -4,6 +4,10 @@ import '../styles/globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 
+export const viewport = {
+  themeColor: '#1e40af',
+};
+
 export const metadata: Metadata = {
   title: {
     default: 'CRO Engine — Shopify Conversion Rate Optimization',
@@ -21,7 +25,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'CRO Engine Team' }],
   applicationName: 'CRO Engine',
-  themeColor: '#1e40af',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://cro-engine.vercel.app'),
   alternates: {
     canonical: '/',
