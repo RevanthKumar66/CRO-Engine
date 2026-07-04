@@ -723,8 +723,8 @@ CONTENT SAMPLE: [2000 chars of minified body text]"`}
             {/* ── 15. Testing ──────────────────────────────────────── */}
             <SectionTitle id="testing">15. Testing Strategy</SectionTitle>
             <Callout type="info">
-              Core principle: "Test the contract, not the implementation." Each test verifies
-              behavior from the outside, making tests robust to internal refactoring.
+              Core principle: &quot;Test the contract, not the implementation.&quot; Each test
+              verifies behavior from the outside, making tests robust to internal refactoring.
             </Callout>
             <Table
               headers={['Test Suite', 'Cases', 'Coverage']}
@@ -835,8 +835,8 @@ jobs:
             </P>
             <P>
               <strong>2. Vector embeddings:</strong> Could we embed past recommendations and
-              semantically search them to provide "similar findings" context — improving AI quality
-              without increasing prompt length?
+              semantically search them to provide &quot;similar findings&quot; context — improving
+              AI quality without increasing prompt length?
             </P>
             <P>
               <strong>3. Fine-tuning:</strong> Could a fine-tuned model on historical CRO audit data

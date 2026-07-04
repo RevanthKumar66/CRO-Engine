@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import {
   CheckCircle2,
   ShieldCheck,
@@ -253,11 +254,14 @@ export default function LandingPage() {
           <div className="flex flex-col items-center text-center max-w-2xl mx-auto space-y-3">
             {/* Logo + Heading tightly grouped */}
             <div className="flex flex-col items-center gap-2">
-              <img
+              <Image
                 src="/assets/cro-ico-logo.png"
                 alt="CRO Engine"
+                width={80}
+                height={80}
                 className="h-20 w-auto object-contain"
                 style={{ mixBlendMode: 'multiply' }}
+                priority
               />
               <h1 className="text-4xl md:text-[2.75rem] font-bold tracking-tight leading-[1.2] text-text-primary">
                 Find Conversion Bottlenecks
