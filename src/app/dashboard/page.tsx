@@ -7,7 +7,7 @@ import {
   AlertCircle,
   Plus,
   RefreshCw,
-  LayoutDashboard,
+  BarChart3,
   Calendar,
   Clock,
   ExternalLink,
@@ -194,11 +194,11 @@ export default function DashboardPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border-muted/30 pb-5">
           <div className="space-y-0.5">
             <h1 className="text-lg sm:text-xl font-semibold sm:font-bold tracking-tight text-text-primary flex items-center gap-2">
-              <LayoutDashboard className="h-4.5 w-4.5 text-accent-violet" />
+              <BarChart3 className="h-4.5 w-4.5 text-accent-violet" />
               Audit History
             </h1>
             <p className="text-[11px] sm:text-xs text-text-secondary">
-              Review and manage conversion optimization reports for analyzed storefronts.
+              Review and manage conversion optimization reports.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-2 w-full sm:w-auto">
@@ -343,7 +343,7 @@ export default function DashboardPage() {
         ) : audits.length === 0 ? (
           <div className="rounded-lg border border-dashed border-border-muted bg-bg-secondary p-12 text-center max-w-xl mx-auto space-y-3">
             <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-accent-violet/10 text-accent-violet">
-              <LayoutDashboard className="h-5 w-5" />
+              <BarChart3 className="h-5 w-5" />
             </div>
             <div className="space-y-1">
               <h3 className="text-sm font-bold text-text-primary">No Audits Found</h3>

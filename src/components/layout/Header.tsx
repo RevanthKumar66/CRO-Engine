@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BookOpen, LayoutDashboard } from 'lucide-react';
+import { FileText, BarChart3 } from 'lucide-react';
 import { routes } from '@/config/routes';
 import { Container } from '../common/Container';
 
@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
               className="inline-flex items-center gap-1.5 rounded-md px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary hover:bg-bg-secondary"
               title="Documentation"
             >
-              <BookOpen className="h-3.5 w-3.5" />
+              <FileText className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Docs</span>
             </Link>
             <Link
@@ -42,7 +42,7 @@ export const Header: React.FC = () => {
               className="inline-flex items-center gap-1.5 rounded-md border border-border-muted bg-bg-secondary px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium text-text-primary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
               title="Dashboard"
             >
-              <LayoutDashboard className="h-3.5 w-3.5" />
+              <BarChart3 className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Dashboard</span>
             </Link>
           </nav>
