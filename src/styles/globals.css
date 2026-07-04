@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* Define theme variables for Tailwind CSS v4 */
+@theme {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: var(--bg-card);
+  --color-border-muted: var(--border-muted);
+  --color-border-accent: var(--border-accent);
+
+  --color-accent-violet: var(--accent-violet);
+  --color-accent-violet-glow: var(--accent-violet-glow);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-rose: var(--accent-rose);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+
+  --shadow-glow: var(--shadow-glow);
+}
+
+/* Custom Properties definitions for Light-first SaaS theme */
+:root {
+  /* Colors */
+  --bg-primary: #ffffff;             /* Soft White */
+  --bg-secondary: #f8fafc;           /* Off-White / Light Blue-Gray */
+  --bg-card: #ffffff;                /* Card base */
+  --border-muted: #e2e8f0;           /* Slate 200 */
+  --border-accent: #cbd5e1;          /* Slate 300 */
+
+  /* Accents */
+  --accent-violet: #1e40af;          /* Deep Blue */
+  --accent-violet-glow: #eff6ff;     /* Very Light Blue highlight */
+  --accent-emerald: #059669;         /* Muted Success Green */
+  --accent-amber: #d97706;           /* Muted Warning Amber */
+  --accent-rose: #dc2626;            /* Muted Error Red */
+
+  /* Typography Text Colors */
+  --text-primary: #0f172a;           /* Deep Slate (Zinc 900) */
+  --text-secondary: #475569;         /* Neutral Gray (Slate 600) */
+  --text-muted: #64748b;             /* Slate 500 */
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  /* Border Radii - 6px */
+  --radius-sm: 6px;
+  --radius-md: 6px;
+  --radius-lg: 6px;
+
+  /* Shadows */
+  --shadow-glow: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+}
+
+/* Base resets & styles using tailwind layers */
+@layer base {
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* Card details (Stripe/Linear inspired) */
+.glassmorphic-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  transition: border-color 150ms ease;
+}
+
+.glassmorphic-card:hover {
+  border-color: var(--accent-violet);
+}

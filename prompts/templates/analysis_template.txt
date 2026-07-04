@@ -1,0 +1,25 @@
+Analyze this Shopify storefront metadata.
+
+Store URL: {{storeUrl}}
+
+Homepage Content:
+```html
+{{homepageMinified}}
+```
+
+Product Detail Page (PDP) Content:
+```html
+{{pdpMinified}}
+```
+
+Collection Page Content:
+```html
+{{collectionMinified}}
+```
+
+Cart Page Content:
+```html
+{{cartMinified}}
+```
+
+Apply CRO Heuristics and output the structured JSON report matching the responseSchema configuration.
