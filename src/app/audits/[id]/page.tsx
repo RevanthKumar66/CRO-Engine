@@ -453,11 +453,11 @@ export default function AuditDetailsPage() {
                 )}
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="w-full sm:w-auto flex flex-row gap-2">
                 <select
                   value={filterPageType}
                   onChange={(e) => setFilterPageType(e.target.value)}
-                  className="rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
+                  className="flex-1 sm:flex-initial rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
                 >
                   <option value="all">All Pages</option>
                   <option value="homepage">Homepage</option>
@@ -468,7 +468,7 @@ export default function AuditDetailsPage() {
                 <select
                   value={filterImpact}
                   onChange={(e) => setFilterImpact(e.target.value)}
-                  className="rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
+                  className="flex-1 sm:flex-initial rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
                 >
                   <option value="all">All Impact</option>
                   <option value="HIGH">High Impact</option>
@@ -500,7 +500,7 @@ export default function AuditDetailsPage() {
                       )}
                     >
                       {/* Card Header — badges + mark complete top-right */}
-                      <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5 pb-4 border-b border-border-muted/30">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-5 pt-4 sm:pt-5 pb-3 sm:pb-4 border-b border-border-muted/30">
                         <div className="flex items-center gap-2">
                           <span className="text-accent-violet">
                             {getCategoryIcon(rec.category)}
@@ -509,7 +509,7 @@ export default function AuditDetailsPage() {
                             {rec.pageType} — {rec.category}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                           <Badge variant={rec.impact === 'HIGH' ? 'destructive' : 'warning'}>
                             {rec.impact} Impact
                           </Badge>
@@ -518,7 +518,7 @@ export default function AuditDetailsPage() {
                           <button
                             onClick={() => toggleChecklist(rec.id)}
                             className={cn(
-                              'inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-medium transition-colors duration-150',
+                              'inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs font-medium transition-colors duration-150',
                               isCompleted
                                 ? 'border-accent-emerald/30 bg-accent-emerald/5 text-accent-emerald'
                                 : 'border-border-muted text-text-secondary hover:border-accent-violet hover:text-accent-violet'

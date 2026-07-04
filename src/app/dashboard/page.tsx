@@ -269,9 +269,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Filters and Search Toolbar */}
-        <div className="flex flex-col md:flex-row gap-3 items-center justify-between pt-2">
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pt-2">
           {/* Search bar */}
-          <div className="w-full md:max-w-xs relative">
+          <div className="w-full sm:max-w-xs relative">
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-text-muted" />
             <input
               type="text"
@@ -283,15 +283,17 @@ export default function DashboardPage() {
           </div>
 
           {/* Filter / Sort actions */}
-          <div className="w-full md:w-auto flex flex-wrap gap-2 items-center justify-end">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-semibold text-text-muted uppercase">Status</span>
+          <div className="flex flex-row gap-2 items-center justify-between sm:justify-end">
+            <div className="flex-1 sm:flex-initial flex items-center gap-1.5">
+              <span className="text-[10px] font-semibold text-text-muted uppercase shrink-0">
+                Status
+              </span>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="rounded-md border border-border-muted bg-white px-2 py-1 text-xs text-text-primary focus:outline-none focus:border-accent-violet h-8"
+                className="w-full sm:w-auto rounded-md border border-border-muted bg-white px-2 py-1 text-xs text-text-primary focus:outline-none focus:border-accent-violet h-8"
               >
-                <option value="all">All Statuses</option>
+                <option value="all">All</option>
                 <option value="completed">Completed</option>
                 <option value="running">Running</option>
                 <option value="failed">Failed</option>
@@ -299,12 +301,14 @@ export default function DashboardPage() {
               </select>
             </div>
 
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-semibold text-text-muted uppercase">Sort</span>
+            <div className="flex-1 sm:flex-initial flex items-center gap-1.5">
+              <span className="text-[10px] font-semibold text-text-muted uppercase shrink-0">
+                Sort
+              </span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="rounded-md border border-border-muted bg-white px-2 py-1 text-xs text-text-primary focus:outline-none focus:border-accent-violet h-8"
+                className="w-full sm:w-auto rounded-md border border-border-muted bg-white px-2 py-1 text-xs text-text-primary focus:outline-none focus:border-accent-violet h-8"
               >
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>

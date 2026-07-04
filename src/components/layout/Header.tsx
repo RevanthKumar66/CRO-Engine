@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
     <header className="sticky top-0 z-50 border-b border-border-muted bg-bg-primary/80 backdrop-blur-md">
       <Container>
         <div className="flex h-14 items-center justify-between">
-          <div className="flex items-center gap-6 pl-2">
+          <div className="flex items-center gap-6 pl-1 sm:pl-2">
             <Link
               href={routes.web.home}
               className="flex items-center hover:opacity-85 transition-opacity"
@@ -20,25 +20,25 @@ export const Header: React.FC = () => {
               <Image
                 src="/assets/CRO-main-Logo.png"
                 alt="CRO Engine"
-                width={140}
-                height={44}
-                className="h-11 w-auto object-contain"
+                width={120}
+                height={38}
+                className="h-9 sm:h-11 w-auto object-contain"
                 style={{ mixBlendMode: 'multiply' }}
                 priority
               />
             </Link>
           </div>
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-1 sm:gap-1.5">
             <Link
               href={routes.web.docs}
-              className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary hover:bg-bg-secondary"
+              className="inline-flex items-center gap-1 sm:gap-1.5 rounded-md px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary hover:bg-bg-secondary"
             >
               <BookOpen className="h-3.5 w-3.5" />
               <span>Docs</span>
             </Link>
             <Link
               href={routes.web.dashboard}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-sm font-medium text-text-primary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+              className="inline-flex items-center gap-1 sm:gap-1.5 rounded-md border border-border-muted bg-bg-secondary px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-text-primary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
             >
               <LayoutDashboard className="h-3.5 w-3.5" />
               <span>Dashboard</span>

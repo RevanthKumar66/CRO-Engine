@@ -200,6 +200,24 @@ export default function DocsPage() {
       </div>
 
       <Container>
+        {/* Mobile Section Selector */}
+        <div className="block lg:hidden sticky top-14 z-30 bg-bg-primary/95 backdrop-blur-md py-2.5 border-b border-border-muted">
+          <select
+            value={activeSection}
+            onChange={(e) => {
+              scrollTo(e.target.value);
+              setActiveSection(e.target.value);
+            }}
+            className="w-full rounded-md border border-border-muted bg-white px-3 py-2 text-xs font-semibold text-text-primary focus:outline-none focus:border-accent-violet h-9"
+          >
+            {SECTIONS.map(({ id, title }) => (
+              <option key={id} value={id}>
+                {title}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="flex gap-8 py-8">
           {/* Sidebar */}
           <aside className="hidden lg:block w-64 shrink-0">

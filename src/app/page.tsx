@@ -289,7 +289,10 @@ export default function LandingPage() {
 
           {/* ── URL Form ── */}
           <div className="max-w-2xl mx-auto mt-8">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2 items-center w-full">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center w-full"
+            >
               <div className="flex-1">
                 <input
                   id="url"
@@ -303,7 +306,7 @@ export default function LandingPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting || isButtonLoading}
-                className="h-12 px-6 shrink-0 inline-flex items-center gap-2 font-semibold transition-all duration-150"
+                className="h-12 px-6 shrink-0 inline-flex items-center justify-center gap-2 font-semibold transition-all duration-150 w-full sm:w-auto"
                 variant="primary"
               >
                 {isButtonLoading ? (
