@@ -380,8 +380,8 @@ export default function LandingPage() {
             <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold sm:font-bold tracking-tight">
               How It Works
             </h2>
-            <p className="text-sm text-text-secondary">
-              Three steps from URL to actionable CRO intelligence.
+            <p className="text-xs sm:text-sm text-text-secondary">
+              From URL to CRO recommendations in three steps.
             </p>
           </div>
 
@@ -456,7 +456,7 @@ export default function LandingPage() {
               Engine Capabilities
             </h2>
             <p className="text-xs sm:text-sm text-text-secondary">
-              Every audit covers the full Shopify customer journey.
+              Auditing the full Shopify customer journey.
             </p>
           </div>
 

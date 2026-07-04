@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/cn';
 import { Container } from '@/components/common/Container';
 import {
-  BookOpen,
+  FileText,
   ChevronRight,
   AlertTriangle,
   Layers,
@@ -30,7 +30,7 @@ import {
 const SECTIONS = [
   { id: 'problem', title: '1. Problem Statement', icon: AlertTriangle },
   { id: 'goals', title: '2. Goals & Non-Goals', icon: Target },
-  { id: 'requirements', title: '3. Requirements', icon: BookOpen },
+  { id: 'requirements', title: '3. Requirements', icon: FileText },
   { id: 'architecture', title: '4. System Architecture', icon: Layers },
   { id: 'frontend', title: '5. Frontend Architecture', icon: Globe },
   { id: 'backend', title: '6. Backend Architecture', icon: Server },
