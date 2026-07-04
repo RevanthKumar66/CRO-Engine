@@ -5,17 +5,14 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
   message?: string;
 }
 
-export const Loading: React.FC<LoadingProps> = ({ 
-  message = 'Loading analysis data...', 
+export const Loading: React.FC<LoadingProps> = ({
+  message = 'Loading analysis data...',
   className,
-  ...props 
+  ...props
 }) => {
   return (
-    <div 
-      className={cn(
-        "flex min-h-[400px] flex-col items-center justify-center gap-4 p-6", 
-        className
-      )}
+    <div
+      className={cn('flex min-h-[400px] flex-col items-center justify-center gap-4 p-6', className)}
       {...props}
     >
       <div className="relative h-10 w-10">

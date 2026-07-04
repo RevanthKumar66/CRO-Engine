@@ -9,8 +9,16 @@ export const metadata: Metadata = {
     default: 'CRO Engine — Shopify Conversion Rate Optimization',
     template: '%s | CRO Engine',
   },
-  description: 'Instantly scan Shopify storefront layouts, copywriting, and CTAs against e-commerce psychology heuristics for conversion optimization.',
-  keywords: ['shopify', 'cro', 'conversion rate optimization', 'heuristic review', 'gemini ai', 'ux audit'],
+  description:
+    'Instantly scan Shopify storefront layouts, copywriting, and CTAs against e-commerce psychology heuristics for conversion optimization.',
+  keywords: [
+    'shopify',
+    'cro',
+    'conversion rate optimization',
+    'heuristic review',
+    'gemini ai',
+    'ux audit',
+  ],
   authors: [{ name: 'CRO Engine Team' }],
   applicationName: 'CRO Engine',
   themeColor: '#1e40af',
@@ -20,7 +28,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'CRO Engine — Shopify Conversion Rate Optimization',
-    description: 'Instantly scan Shopify storefront layouts, copywriting, and CTAs against e-commerce psychology heuristics for conversion optimization.',
+    description:
+      'Instantly scan Shopify storefront layouts, copywriting, and CTAs against e-commerce psychology heuristics for conversion optimization.',
     url: 'https://cro-engine.vercel.app',
     siteName: 'CRO Engine',
     images: [
@@ -37,7 +46,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'CRO Engine — Shopify Conversion Rate Optimization',
-    description: 'Instantly scan Shopify storefront layouts, copywriting, and CTAs against e-commerce psychology heuristics.',
+    description:
+      'Instantly scan Shopify storefront layouts, copywriting, and CTAs against e-commerce psychology heuristics.',
     images: ['/assets/cro-ico-logo.png'],
   },
   robots: {

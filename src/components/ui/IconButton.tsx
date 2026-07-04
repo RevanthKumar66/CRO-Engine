@@ -6,16 +6,12 @@ export interface IconButtonProps extends ButtonProps {
   'aria-label': string; // Enforce accessible labels for icon buttons
 }
 
-export const IconButton: React.FC<IconButtonProps> = ({
-  className,
-  children,
-  ...props
-}) => {
+export const IconButton: React.FC<IconButtonProps> = ({ className, children, ...props }) => {
   return (
     <Button
       variant="secondary"
       size="sm"
-      className={cn("h-9 w-9 p-0 flex items-center justify-center rounded-md", className)}
+      className={cn('h-9 w-9 p-0 flex items-center justify-center rounded-md', className)}
       {...props}
     >
       {children}

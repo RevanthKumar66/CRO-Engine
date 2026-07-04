@@ -5,7 +5,9 @@ describe('Validation Schemas Tests', () => {
   describe('urlSchema', () => {
     it('should validate public HTTP and HTTPS URLs', () => {
       expect(urlSchema.safeParse('https://gymshark.com').success).toBe(true);
-      expect(urlSchema.safeParse('http://quickstart-theme-default.myshopify.com').success).toBe(true);
+      expect(urlSchema.safeParse('http://quickstart-theme-default.myshopify.com').success).toBe(
+        true
+      );
     });
 
     it('should reject invalid and empty strings', () => {

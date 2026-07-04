@@ -6,9 +6,26 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import {
-  CheckCircle2, ShieldCheck, Zap, TrendingUp, Sparkles, AlertCircle,
-  Laptop, ArrowRight, Dumbbell, Loader2, Check, Clock, Search,
-  Brain, FileText, ChevronRight, Target, BarChart3, Smartphone, Layout
+  CheckCircle2,
+  ShieldCheck,
+  Zap,
+  TrendingUp,
+  Sparkles,
+  AlertCircle,
+  Laptop,
+  ArrowRight,
+  Dumbbell,
+  Loader2,
+  Check,
+  Clock,
+  Search,
+  Brain,
+  FileText,
+  ChevronRight,
+  Target,
+  BarChart3,
+  Smartphone,
+  Layout,
 } from 'lucide-react';
 
 import { urlSchema } from '@/server/validation/schemas';
@@ -23,14 +40,14 @@ type FormValues = z.infer<typeof formSchema>;
 
 // Intelligent step-by-step loading phases (8 steps requested)
 const LOADING_PHASES = [
-  { id: 'connect',   icon: Laptop,      text: 'Connecting to Store...' },
-  { id: 'download',  icon: Search,      text: 'Downloading HTML...' },
-  { id: 'detect',    icon: Layout,      text: 'Detecting Layout...' },
-  { id: 'extract',   icon: Target,      text: 'Extracting Products...' },
-  { id: 'context',   icon: Brain,       text: 'Building AI Context...' },
-  { id: 'gemini',    icon: Sparkles,    text: 'Running Gemini Analysis...' },
-  { id: 'validate',  icon: ShieldCheck, text: 'Validating Response...' },
-  { id: 'report',    icon: FileText,    text: 'Generating CRO Report...' },
+  { id: 'connect', icon: Laptop, text: 'Connecting to Store...' },
+  { id: 'download', icon: Search, text: 'Downloading HTML...' },
+  { id: 'detect', icon: Layout, text: 'Detecting Layout...' },
+  { id: 'extract', icon: Target, text: 'Extracting Products...' },
+  { id: 'context', icon: Brain, text: 'Building AI Context...' },
+  { id: 'gemini', icon: Sparkles, text: 'Running Gemini Analysis...' },
+  { id: 'validate', icon: ShieldCheck, text: 'Validating Response...' },
+  { id: 'report', icon: FileText, text: 'Generating CRO Report...' },
 ];
 
 // Example stores — real brands communicate confidence
@@ -40,8 +57,15 @@ const EXAMPLE_STORES = [
     name: 'Gymshark',
     logo: (
       <svg className="h-3.5 w-3.5" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="4" fill="#000"/>
-        <path d="M8 22 L16 10 L24 22" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        <rect width="32" height="32" rx="4" fill="#000" />
+        <path
+          d="M8 22 L16 10 L24 22"
+          stroke="white"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
       </svg>
     ),
   },
@@ -50,9 +74,15 @@ const EXAMPLE_STORES = [
     name: 'Allbirds',
     logo: (
       <svg className="h-3.5 w-3.5" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="14" fill="#6B8F5E"/>
-        <path d="M10 20 Q16 10 22 20" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round"/>
-        <circle cx="16" cy="14" r="2" fill="white"/>
+        <circle cx="16" cy="16" r="14" fill="#6B8F5E" />
+        <path
+          d="M10 20 Q16 10 22 20"
+          stroke="white"
+          strokeWidth="2"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <circle cx="16" cy="14" r="2" fill="white" />
       </svg>
     ),
   },
@@ -61,10 +91,16 @@ const EXAMPLE_STORES = [
     name: 'ColourPop',
     logo: (
       <svg className="h-3.5 w-3.5" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="14" fill="#C850C0"/>
-        <circle cx="11" cy="13" r="3" fill="white"/>
-        <circle cx="21" cy="13" r="3" fill="white"/>
-        <path d="M11 20 Q16 24 21 20" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <circle cx="16" cy="16" r="14" fill="#C850C0" />
+        <circle cx="11" cy="13" r="3" fill="white" />
+        <circle cx="21" cy="13" r="3" fill="white" />
+        <path
+          d="M11 20 Q16 24 21 20"
+          stroke="white"
+          strokeWidth="2"
+          fill="none"
+          strokeLinecap="round"
+        />
       </svg>
     ),
   },
@@ -145,9 +181,7 @@ export default function LandingPage() {
             <h2 className="text-xl font-bold tracking-tight text-text-primary">
               Analyzing Storefront
             </h2>
-            <p className="text-sm text-text-secondary">
-              Running conversion heuristics...
-            </p>
+            <p className="text-sm text-text-secondary">Running conversion heuristics...</p>
           </div>
 
           <div className="space-y-3">
@@ -168,8 +202,8 @@ export default function LandingPage() {
                       isDone
                         ? 'border-accent-emerald bg-accent-emerald/10 text-accent-emerald'
                         : isCurrent
-                        ? 'border-accent-violet bg-accent-violet/10 text-accent-violet'
-                        : 'border-border-muted text-text-muted'
+                          ? 'border-accent-violet bg-accent-violet/10 text-accent-violet'
+                          : 'border-border-muted text-text-muted'
                     }`}
                   >
                     {isDone ? (
@@ -185,8 +219,8 @@ export default function LandingPage() {
                       isDone
                         ? 'text-accent-emerald font-medium'
                         : isCurrent
-                        ? 'text-text-primary font-medium'
-                        : 'text-text-muted'
+                          ? 'text-text-primary font-medium'
+                          : 'text-text-muted'
                     }`}
                   >
                     {phase.text}
@@ -197,9 +231,7 @@ export default function LandingPage() {
           </div>
 
           <div className="h-px bg-border-muted" />
-          <p className="text-xs text-text-muted text-center">
-            This usually takes 10–20 seconds
-          </p>
+          <p className="text-xs text-text-muted text-center">This usually takes 10–20 seconds</p>
         </div>
       </div>
     );
@@ -208,7 +240,6 @@ export default function LandingPage() {
   // ─── Landing Page ────────────────────────────────────────────────────────────
   return (
     <div className="w-full">
-
       {/* ── Hero ── */}
       <section
         id="hero"
@@ -220,7 +251,6 @@ export default function LandingPage() {
 
         <Container className="relative z-10">
           <div className="flex flex-col items-center text-center max-w-2xl mx-auto space-y-3">
-
             {/* Logo + Heading tightly grouped */}
             <div className="flex flex-col items-center gap-2">
               <img
@@ -230,14 +260,16 @@ export default function LandingPage() {
                 style={{ mixBlendMode: 'multiply' }}
               />
               <h1 className="text-4xl md:text-[2.75rem] font-bold tracking-tight leading-[1.2] text-text-primary">
-                Find Conversion Bottlenecks<br />
+                Find Conversion Bottlenecks
+                <br />
                 <span className="text-accent-violet">Before Your Customers Do.</span>
               </h1>
             </div>
 
             {/* Subheading */}
             <p className="text-sm md:text-base text-text-secondary leading-relaxed max-w-xl mx-auto pt-1">
-              Analyze any Shopify storefront using AI and receive prioritized conversion recommendations in seconds.
+              Analyze any Shopify storefront using AI and receive prioritized conversion
+              recommendations in seconds.
             </p>
           </div>
 
@@ -261,9 +293,15 @@ export default function LandingPage() {
                 variant="primary"
               >
                 {isButtonLoading ? (
-                  <><Loader2 className="h-4 w-4 animate-spin" /><span>Analyzing...</span></>
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Analyzing...</span>
+                  </>
                 ) : (
-                  <><span>Analyze Store</span><ArrowRight className="h-4 w-4" /></>
+                  <>
+                    <span>Analyze Store</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </>
                 )}
               </Button>
             </form>
@@ -290,7 +328,9 @@ export default function LandingPage() {
 
             {/* ── Try Examples ── */}
             <div className="mt-5 text-center">
-              <span className="text-xs font-semibold text-text-muted select-none">Try Examples</span>
+              <span className="text-xs font-semibold text-text-muted select-none">
+                Try Examples
+              </span>
               <div className="flex flex-wrap items-center justify-center gap-2 mt-2">
                 {EXAMPLE_STORES.map((store) => (
                   <button
@@ -332,7 +372,8 @@ export default function LandingPage() {
               </div>
               <h3 className="text-sm font-semibold mt-4 text-text-primary">1. Scan</h3>
               <p className="text-xs text-text-secondary mt-2 leading-relaxed">
-                We extract CTAs, headings, product layout, and copy from public storefront pages — no installation needed.
+                We extract CTAs, headings, product layout, and copy from public storefront pages —
+                no installation needed.
               </p>
             </div>
 
@@ -351,7 +392,8 @@ export default function LandingPage() {
               </div>
               <h3 className="text-sm font-semibold mt-4 text-text-primary">2. Analyze</h3>
               <p className="text-xs text-text-secondary mt-2 leading-relaxed">
-                Gemini AI maps layouts against e-commerce psychology heuristics to pinpoint exactly where buyers drop off.
+                Gemini AI maps layouts against e-commerce psychology heuristics to pinpoint exactly
+                where buyers drop off.
               </p>
             </div>
 
@@ -370,7 +412,8 @@ export default function LandingPage() {
               </div>
               <h3 className="text-sm font-semibold mt-4 text-text-primary">3. Recommendations</h3>
               <p className="text-xs text-text-secondary mt-2 leading-relaxed">
-                Receive prioritized, developer-ready tasks ranked by impact and implementation effort.
+                Receive prioritized, developer-ready tasks ranked by impact and implementation
+                effort.
               </p>
             </div>
           </div>

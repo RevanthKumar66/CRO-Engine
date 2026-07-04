@@ -4,7 +4,7 @@ import { CollectionSnapshot } from '../interfaces/snapshot-types';
 export class CollectionExtractor {
   /**
    * Extracts catalog list details from Collection pages.
-   * 
+   *
    * @param $ Cheerio API wrapper instance.
    */
   public static extract($: cheerio.CheerioAPI): CollectionSnapshot[] {
@@ -12,7 +12,9 @@ export class CollectionExtractor {
 
     // Parse catalog filters (e.g. checkbox options, sidebar tags)
     const filters: string[] = [];
-    $('[class*="filter" i] label, [id*="filter" i] label, input[type="checkbox"][name*="filter" i]').each((_, el) => {
+    $(
+      '[class*="filter" i] label, [id*="filter" i] label, input[type="checkbox"][name*="filter" i]'
+    ).each((_, el) => {
       const text = $(el).text().trim() || $(el).attr('value')?.trim();
       if (text && !filters.includes(text)) {
         filters.push(text);
@@ -28,7 +30,9 @@ export class CollectionExtractor {
 
     // Parse list of catalog items in grids
     const productTitles: string[] = [];
-    $('[class*="product-title" i], [class*="product-grid" i] a, [class*="grid-view-item__title" i], .product-item__title').each((_, el) => {
+    $(
+      '[class*="product-title" i], [class*="product-grid" i] a, [class*="grid-view-item__title" i], .product-item__title'
+    ).each((_, el) => {
       const text = $(el).text().trim();
       if (text && !productTitles.includes(text)) {
         productTitles.push(text);
@@ -40,12 +44,14 @@ export class CollectionExtractor {
       return [];
     }
 
-    return [{
-      collectionTitle,
-      filters: filters.slice(0, 15), // cap at 15
-      sortingOptions,
-      productTitles: productTitles.slice(0, 30), // cap at 30 items
-    }];
+    return [
+      {
+        collectionTitle,
+        filters: filters.slice(0, 15), // cap at 15
+        sortingOptions,
+        productTitles: productTitles.slice(0, 30), // cap at 30 items
+      },
+    ];
   }
 }
 

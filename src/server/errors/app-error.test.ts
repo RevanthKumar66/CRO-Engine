@@ -4,7 +4,9 @@ import { ErrorCodes } from './error-codes';
 
 describe('Error Classes Tests', () => {
   it('should instantiate base AppError with correct status and codes', () => {
-    const err = new AppError(ErrorCodes.INTERNAL_SERVER_ERROR, 'System failed', 503, { reason: 'timeout' });
+    const err = new AppError(ErrorCodes.INTERNAL_SERVER_ERROR, 'System failed', 503, {
+      reason: 'timeout',
+    });
     expect(err).toBeInstanceOf(Error);
     expect(err.code).toBe(ErrorCodes.INTERNAL_SERVER_ERROR);
     expect(err.message).toBe('System failed');

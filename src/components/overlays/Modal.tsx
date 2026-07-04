@@ -12,13 +12,7 @@ export interface ModalProps {
   footer?: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-  footer,
-}) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, footer }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Close on Escape key press

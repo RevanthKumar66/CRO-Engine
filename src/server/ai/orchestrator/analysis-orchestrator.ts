@@ -23,7 +23,7 @@ export class AnalysisOrchestrator {
    * Compiles snapshot contexts, prompts Gemini, parses/validates results,
    * and maps items to UI domain AuditReport models.
    * Includes schema self-correction feedback loop.
-   * 
+   *
    * @param snapshot Preprocessed website snapshots.
    */
   public async analyze(snapshot: WebsiteSnapshot): Promise<AuditReport> {
@@ -92,8 +92,8 @@ Please review, fix all properties, and return the corrected JSON object matching
         });
 
         if (attempts >= maxAttempts) {
-          throw error instanceof ApiError 
-            ? error 
+          throw error instanceof ApiError
+            ? error
             : new ApiError(
                 ErrorCodes.AI_PROCESSING_ERROR,
                 `AI analysis failed after ${maxAttempts} attempts: ${error instanceof Error ? error.message : 'Unknown error'}`,
@@ -101,7 +101,7 @@ Please review, fix all properties, and return the corrected JSON object matching
                 error
               );
         }
-        
+
         // Wait briefly before retrying
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }

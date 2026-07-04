@@ -15,7 +15,7 @@ export class SnapshotOrchestrator {
   /**
    * Orchestrates the complete URL parsing and preprocessing pipeline.
    * Compiles HTML content into a validated structured WebsiteSnapshot object.
-   * 
+   *
    * @param rawUrl Input storefront URL.
    */
   public static async generateSnapshot(rawUrl: string): Promise<WebsiteSnapshot> {
@@ -76,7 +76,7 @@ export class SnapshotOrchestrator {
     if (pageType === 'product') {
       primaryPageSnapshot.products = ProductExtractor.extract($);
     }
-    
+
     // If Collection page type, extract collection details
     if (pageType === 'collection') {
       primaryPageSnapshot.collections = CollectionExtractor.extract($);

@@ -62,7 +62,7 @@ export class AuditRepository {
 
   /**
    * Persists an AuditReport document to MongoDB.
-   * 
+   *
    * @param report Domain AuditReport object.
    */
   public static async save(report: AuditReport): Promise<void> {
@@ -87,7 +87,7 @@ export class AuditRepository {
 
   /**
    * Queries and returns an AuditReport by its unique ID.
-   * 
+   *
    * @param id The unique audit ID string.
    */
   public static async findById(id: string): Promise<AuditReport | null> {
@@ -115,7 +115,7 @@ export class AuditRepository {
 
   /**
    * Retrieves the most recent audits, sorted chronologically.
-   * 
+   *
    * @param limit Maximum number of records to retrieve (default is 10).
    */
   public static async findRecent(limit: number = 10): Promise<AuditReport[]> {
@@ -123,11 +123,7 @@ export class AuditRepository {
       const db = await this.getDb();
       const col = db.collection<AuditReport>(this.COLLECTION_NAME);
 
-      const results = await col
-        .find({})
-        .sort({ analyzedAt: -1 })
-        .limit(limit)
-        .toArray();
+      const results = await col.find({}).sort({ analyzedAt: -1 }).limit(limit).toArray();
 
       return results.map((doc) => {
         const { _id, ...cleanReport } = doc as any;

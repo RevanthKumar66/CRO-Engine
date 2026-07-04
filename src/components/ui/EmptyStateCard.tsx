@@ -21,7 +21,13 @@ export const EmptyStateCard: React.FC<EmptyStateCardProps> = ({
   ...props
 }) => {
   return (
-    <Card className={cn("glassmorphic-card flex flex-col items-center justify-center p-8 md:p-12 text-center border-dashed border-2", className)} {...props}>
+    <Card
+      className={cn(
+        'glassmorphic-card flex flex-col items-center justify-center p-8 md:p-12 text-center border-dashed border-2',
+        className
+      )}
+      {...props}
+    >
       <CardContent className="flex flex-col items-center gap-4 max-w-sm p-0">
         {icon && (
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-bg-secondary border border-border-muted text-text-muted">

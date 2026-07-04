@@ -18,7 +18,13 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   ...props
 }) => {
   return (
-    <Card className={cn("glassmorphic-card transition-all duration-200 hover:border-accent-violet/30", className)} {...props}>
+    <Card
+      className={cn(
+        'glassmorphic-card transition-all duration-200 hover:border-accent-violet/30',
+        className
+      )}
+      {...props}
+    >
       <CardHeader className="flex flex-row items-center gap-3 p-0 pb-3">
         {icon && (
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-bg-secondary border border-border-muted text-accent-violet">
@@ -37,9 +43,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        <p className="text-sm text-text-secondary leading-relaxed">
-          {description}
-        </p>
+        <p className="text-sm text-text-secondary leading-relaxed">{description}</p>
       </CardContent>
     </Card>
   );

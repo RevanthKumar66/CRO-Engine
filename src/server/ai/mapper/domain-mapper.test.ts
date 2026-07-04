@@ -38,7 +38,7 @@ describe('DomainMapper Tests', () => {
     expect(mapped.storeUrl).toBe(storeUrl);
     expect(mapped.overallScore).toBe(78);
     expect(mapped.pageScores.homepage).toBe(80);
-    
+
     expect(mapped.recommendations.length).toBe(1);
     const rec = mapped.recommendations[0];
     expect(rec.id).toBe('rec_custom_id');

@@ -58,11 +58,11 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             key={t.id}
             onClick={() => dismiss(t.id)}
             className={cn(
-              "pointer-events-auto flex flex-col gap-1 rounded-lg border p-4 shadow-lg backdrop-blur-md transition-all duration-300 transform translate-y-0 cursor-pointer animate-in fade-in slide-in-from-bottom-2",
-              t.type === 'default' && "bg-bg-card border-border-muted text-text-primary",
-              t.type === 'success' && "bg-bg-card border-accent-emerald/30 text-accent-emerald",
-              t.type === 'warning' && "bg-bg-card border-accent-amber/30 text-accent-amber",
-              t.type === 'error' && "bg-bg-card border-accent-rose/30 text-accent-rose"
+              'pointer-events-auto flex flex-col gap-1 rounded-lg border p-4 shadow-lg backdrop-blur-md transition-all duration-300 transform translate-y-0 cursor-pointer animate-in fade-in slide-in-from-bottom-2',
+              t.type === 'default' && 'bg-bg-card border-border-muted text-text-primary',
+              t.type === 'success' && 'bg-bg-card border-accent-emerald/30 text-accent-emerald',
+              t.type === 'warning' && 'bg-bg-card border-accent-amber/30 text-accent-amber',
+              t.type === 'error' && 'bg-bg-card border-accent-rose/30 text-accent-rose'
             )}
           >
             {t.title && <h5 className="font-semibold text-sm leading-none">{t.title}</h5>}

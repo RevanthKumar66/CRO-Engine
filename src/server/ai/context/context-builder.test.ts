@@ -27,19 +27,15 @@ describe('ContextBuilder Tests', () => {
             title: 'Mens Gym Clothes & Activewear',
             metaDescription: 'Shop athletic apparel.',
           },
-          headings: [
-            { tag: 'h1', text: 'Mens Workout Tops' },
-          ],
-          ctas: [
-            { label: 'Shop Men', url: '/mens' },
-          ],
+          headings: [{ tag: 'h1', text: 'Mens Workout Tops' }],
+          ctas: [{ label: 'Shop Men', url: '/mens' }],
           cleanedTextSnippet: 'Large blocks of text from the gymshark store layout.',
         },
       ],
     };
 
     const context = ContextBuilder.build(mockSnapshot);
-    
+
     expect(context).toContain('STOREFRONT URL: https://gymshark-mock.com');
     expect(context).toContain('IS SHOPIFY PLATFORM: YES');
     expect(context).toContain('NAVIGATION LINKS: [Mens](/mens)');
@@ -48,6 +44,8 @@ describe('ContextBuilder Tests', () => {
     expect(context).toContain('TITLE: Mens Gym Clothes & Activewear');
     expect(context).toContain('PAGE HEADINGS: H1: Mens Workout Tops');
     expect(context).toContain('CALL-TO-ACTIONS: "Shop Men" -> /mens');
-    expect(context).toContain('CLEAN TEXT BLOCKS: Large blocks of text from the gymshark store layout.');
+    expect(context).toContain(
+      'CLEAN TEXT BLOCKS: Large blocks of text from the gymshark store layout.'
+    );
   });
 });

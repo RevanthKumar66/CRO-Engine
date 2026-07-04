@@ -5,7 +5,7 @@ export class JsonParser {
   /**
    * Cleans and parses raw AI output text into typed JSON objects.
    * Strips markdown code fencing, repairs trailing commas, and sanitizes characters.
-   * 
+   *
    * @param rawText Text output from the model.
    */
   public static parseCleaned<T>(rawText: string): T {
@@ -17,7 +17,10 @@ export class JsonParser {
 
     // 1. Remove markdown fences (e.g. ```json ... ```)
     if (clean.startsWith('```')) {
-      clean = clean.replace(/^```(?:json)?/i, '').replace(/```$/i, '').trim();
+      clean = clean
+        .replace(/^```(?:json)?/i, '')
+        .replace(/```$/i, '')
+        .trim();
     }
 
     // 2. Simple regex repair to strip trailing commas in objects and arrays

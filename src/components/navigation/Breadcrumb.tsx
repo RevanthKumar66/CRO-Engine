@@ -11,15 +11,14 @@ export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   items: BreadcrumbItem[];
 }
 
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({
-  className,
-  items,
-  ...props
-}) => {
+export const Breadcrumb: React.FC<BreadcrumbProps> = ({ className, items, ...props }) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={cn("flex items-center text-sm font-sans text-text-secondary select-none", className)}
+      className={cn(
+        'flex items-center text-sm font-sans text-text-secondary select-none',
+        className
+      )}
       {...props}
     >
       <ol className="flex items-center gap-2">
@@ -36,7 +35,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
                   {item.label}
                 </Link>
               ) : (
-                <span className={cn("text-text-primary font-medium", isLast && "text-text-muted")}>
+                <span className={cn('text-text-primary font-medium', isLast && 'text-text-muted')}>
                   {item.label}
                 </span>
               )}

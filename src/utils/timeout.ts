@@ -1,6 +1,6 @@
 /**
  * Rejects a promise with an error if the wrapped task exceeds the specified time limit.
- * 
+ *
  * @param promise The target task promise.
  * @param ms Limit boundary in milliseconds.
  * @param errorMessage Optional custom exception description.

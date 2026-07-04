@@ -7,7 +7,7 @@ import { ErrorCodes } from '../errors/error-codes';
 export class UrlNormalizer {
   /**
    * Cleans and validates incoming URL parameters.
-   * 
+   *
    * @param inputUrl The raw storefront URL.
    * @returns Normalized URL string.
    */
@@ -31,14 +31,18 @@ export class UrlNormalizer {
 
     try {
       const protocol = parsed.protocol.toLowerCase();
-      
+
       if (protocol !== 'http:' && protocol !== 'https:') {
-        throw new ApiError(ErrorCodes.INVALID_URL, 'Unsupported protocol. Only HTTP and HTTPS are allowed.', 400);
+        throw new ApiError(
+          ErrorCodes.INVALID_URL,
+          'Unsupported protocol. Only HTTP and HTTPS are allowed.',
+          400
+        );
       }
 
       const hostname = parsed.hostname.toLowerCase();
       const cleanHost = hostname.replace(/[\[\]]/g, '');
-      
+
       // Block localhost loopbacks
       const localhosts = ['localhost', '127.0.0.1', '::1', '0.0.0.0'];
       if (localhosts.some((h) => cleanHost === h)) {

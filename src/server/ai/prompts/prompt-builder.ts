@@ -10,7 +10,7 @@ export interface CompiledPrompt {
 export class PromptBuilder {
   /**
    * Compiles prompt templates and version-controlled instructions.
-   * 
+   *
    * @param storefrontContext Minified storefront context string.
    */
   public static buildV1(storefrontContext: string): CompiledPrompt {

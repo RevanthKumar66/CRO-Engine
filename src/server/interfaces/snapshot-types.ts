@@ -1,4 +1,5 @@
-export type PageType = 'homepage' | 'product' | 'collection' | 'cart' | 'policy' | 'blog' | 'unknown';
+export type PageType =
+  'homepage' | 'product' | 'collection' | 'cart' | 'policy' | 'blog' | 'unknown';
 
 export interface StoreMetadata {
   title: string;

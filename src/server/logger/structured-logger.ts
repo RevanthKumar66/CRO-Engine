@@ -22,7 +22,10 @@ export class StructuredLogger {
     };
 
     if (meta !== undefined) {
-      payload.meta = meta instanceof Error ? { name: meta.name, message: meta.message, stack: meta.stack } : meta;
+      payload.meta =
+        meta instanceof Error
+          ? { name: meta.name, message: meta.message, stack: meta.stack }
+          : meta;
     }
 
     // In production, enforce structured JSON format. In dev/test, use clean readable outputs.
@@ -31,10 +34,10 @@ export class StructuredLogger {
     } else {
       const metaString = meta ? ` | Meta: ${JSON.stringify(payload.meta)}` : '';
       const colorMap = {
-        info: '\x1b[32mINFO\x1b[0m',  // Green
-        warn: '\x1b[33mWARN\x1b[0m',  // Yellow
-        error: '\x1b[31mERROR\x1b[0m',// Red
-        debug: '\x1b[36mDEBUG\x1b[0m',// Cyan
+        info: '\x1b[32mINFO\x1b[0m', // Green
+        warn: '\x1b[33mWARN\x1b[0m', // Yellow
+        error: '\x1b[31mERROR\x1b[0m', // Red
+        debug: '\x1b[36mDEBUG\x1b[0m', // Cyan
       };
       return `[${payload.timestamp}] [${colorMap[level]}]: ${message}${metaString}`;
     }

@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const result = auditRequestSchema.safeParse(body);
-    
+
     if (!result.success) {
       throw new ValidationError('Validation failed', result.error.format());
     }
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       id: auditReport.id,
       message: `Audit successfully created for: ${auditReport.storeUrl}`,
     });
-    
+
     return NextResponse.json(payload, { status: 201 });
   } catch (error) {
     const { status, payload } = responseHelpers.fromError(error);

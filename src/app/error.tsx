@@ -18,7 +18,9 @@ export default function ErrorPage({
   return (
     <div className="flex min-h-[calc(100vh-10rem)] flex-col items-center justify-center p-6 text-center">
       <h1 className="text-6xl font-extrabold tracking-tight text-accent-rose">Error</h1>
-      <h2 className="mt-4 text-2xl font-bold text-text-primary">An unexpected exception occurred</h2>
+      <h2 className="mt-4 text-2xl font-bold text-text-primary">
+        An unexpected exception occurred
+      </h2>
       <p className="mt-2 max-w-sm text-sm text-text-secondary">
         The application encountered an error while rendering this page interface.
       </p>

@@ -41,16 +41,16 @@ export const Drawer: React.FC<DrawerProps> = ({
         role="dialog"
         aria-modal="true"
         className={cn(
-          "absolute bg-bg-secondary border p-6 shadow-xl flex flex-col gap-4 transition-transform duration-300 pointer-events-auto",
-          side === 'right' && "top-0 right-0 h-full w-full max-w-sm border-l border-border-muted animate-in slide-in-from-right",
-          side === 'bottom' && "bottom-0 left-0 w-full h-auto max-h-[80vh] border-t border-border-muted rounded-t-lg animate-in slide-in-from-bottom"
+          'absolute bg-bg-secondary border p-6 shadow-xl flex flex-col gap-4 transition-transform duration-300 pointer-events-auto',
+          side === 'right' &&
+            'top-0 right-0 h-full w-full max-w-sm border-l border-border-muted animate-in slide-in-from-right',
+          side === 'bottom' &&
+            'bottom-0 left-0 w-full h-auto max-h-[80vh] border-t border-border-muted rounded-t-lg animate-in slide-in-from-bottom'
         )}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-border-muted pb-3">
-          <h2 className="text-lg font-semibold tracking-tight text-text-primary">
-            {title}
-          </h2>
+          <h2 className="text-lg font-semibold tracking-tight text-text-primary">{title}</h2>
           <Button
             variant="ghost"
             size="sm"

@@ -3,13 +3,10 @@ import { responseHelpers } from '@/server/api/response-helpers';
 import { NotFoundError } from '@/server/errors/app-error';
 import { AuditRepository } from '@/server/db/audit-repository';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    
+
     // Query database for the audit report by its unique ID
     const audit = await AuditRepository.findById(id);
 

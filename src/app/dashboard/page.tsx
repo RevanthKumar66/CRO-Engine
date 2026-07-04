@@ -2,8 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { FileText, Search, AlertCircle,
-  ArrowRight, Plus, RefreshCw, Calendar, LayoutDashboard,
+import {
+  FileText,
+  Search,
+  AlertCircle,
+  ArrowRight,
+  Plus,
+  RefreshCw,
+  Calendar,
+  LayoutDashboard,
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
@@ -43,9 +50,20 @@ export default function DashboardPage() {
   }, []);
 
   const getScoreInfo = (score: number) => {
-    if (score >= 80) return { label: 'Good', color: 'text-accent-emerald bg-accent-emerald/5 border-accent-emerald/20' };
-    if (score >= 50) return { label: 'Needs Improvement', color: 'text-accent-amber bg-accent-amber/5 border-accent-amber/20' };
-    return { label: 'Needs Attention', color: 'text-accent-rose bg-accent-rose/5 border-accent-rose/20' };
+    if (score >= 80)
+      return {
+        label: 'Good',
+        color: 'text-accent-emerald bg-accent-emerald/5 border-accent-emerald/20',
+      };
+    if (score >= 50)
+      return {
+        label: 'Needs Improvement',
+        color: 'text-accent-amber bg-accent-amber/5 border-accent-amber/20',
+      };
+    return {
+      label: 'Needs Attention',
+      color: 'text-accent-rose bg-accent-rose/5 border-accent-rose/20',
+    };
   };
 
   const filteredAudits = audits.filter((audit) =>
@@ -71,7 +89,12 @@ export default function DashboardPage() {
               <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
               Refresh
             </Button>
-            <Button variant="primary" onClick={() => router.push(routes.web.home)} size="sm" className="h-9">
+            <Button
+              variant="primary"
+              onClick={() => router.push(routes.web.home)}
+              size="sm"
+              className="h-9"
+            >
               <Plus className="h-4 w-4 mr-1.5" />
               New Audit
             </Button>
@@ -102,7 +125,8 @@ export default function DashboardPage() {
             <div className="space-y-1">
               <h3 className="text-base font-bold text-text-primary">No Audits Found</h3>
               <p className="text-xs text-text-secondary max-w-sm mx-auto">
-                You haven&apos;t run any storefront conversion audits yet. Submit a Shopify store URL on the home page to start.
+                You haven&apos;t run any storefront conversion audits yet. Submit a Shopify store
+                URL on the home page to start.
               </p>
             </div>
             <Button variant="primary" onClick={() => router.push(routes.web.home)} size="sm">
@@ -144,7 +168,12 @@ export default function DashboardPage() {
                             <Calendar className="h-3.5 w-3.5" />
                             {new Date(audit.analyzedAt).toLocaleDateString()}
                           </span>
-                          <span className={cn('text-xs font-semibold px-2 py-0.5 rounded border capitalize', scoreMeta.color)}>
+                          <span
+                            className={cn(
+                              'text-xs font-semibold px-2 py-0.5 rounded border capitalize',
+                              scoreMeta.color
+                            )}
+                          >
                             {scoreMeta.label}
                           </span>
                         </div>
@@ -167,10 +196,16 @@ export default function DashboardPage() {
                               <span className="text-[10px] text-text-muted capitalize block">
                                 {page === 'pdp' ? 'PDP' : page}
                               </span>
-                              <span className={cn(
-                                'text-xs font-bold block mt-0.5',
-                                score >= 80 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-amber' : 'text-accent-rose'
-                              )}>
+                              <span
+                                className={cn(
+                                  'text-xs font-bold block mt-0.5',
+                                  score >= 80
+                                    ? 'text-accent-emerald'
+                                    : score >= 50
+                                      ? 'text-accent-amber'
+                                      : 'text-accent-rose'
+                                )}
+                              >
                                 {score}
                               </span>
                             </div>

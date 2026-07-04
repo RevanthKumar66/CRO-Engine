@@ -9,7 +9,7 @@ export interface CleanedDomResult {
 export class DomParser {
   /**
    * Loads raw HTML content and strips script, style, svg, json-ld, and cookie banner structures.
-   * 
+   *
    * @param rawHtml Raw HTML string fetched from the site.
    * @returns Cleaned DOM wrapper.
    */
@@ -23,7 +23,7 @@ export class DomParser {
     $('iframe').remove();
     $('noscript').remove();
     $('link[rel="stylesheet"]').remove();
-    
+
     // Remove specific application/ld+json script blocks
     $('script[type="application/ld+json"]').remove();
 
@@ -53,10 +53,7 @@ export class DomParser {
 
     // 4. Extract cleaned text, reducing spaces and duplicate grids
     let cleanedText = $('body').text() || '';
-    cleanedText = cleanedText
-      .replace(/\s+/g, ' ')
-      .replace(/\n+/g, ' ')
-      .trim();
+    cleanedText = cleanedText.replace(/\s+/g, ' ').replace(/\n+/g, ' ').trim();
 
     return {
       $,

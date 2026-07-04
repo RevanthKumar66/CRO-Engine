@@ -13,7 +13,10 @@ export const Header: React.FC = () => {
       <Container>
         <div className="flex h-14 items-center justify-between">
           <div className="flex items-center gap-6 pl-2">
-            <Link href={routes.web.home} className="flex items-center hover:opacity-85 transition-opacity">
+            <Link
+              href={routes.web.home}
+              className="flex items-center hover:opacity-85 transition-opacity"
+            >
               <Image
                 src="/assets/CRO-main-Logo.png"
                 alt="CRO Engine"

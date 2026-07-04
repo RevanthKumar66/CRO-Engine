@@ -12,7 +12,10 @@ export const Section: React.FC<SectionProps> = ({
 }) => {
   return (
     <Component
-      className={cn("py-8 md:py-12 lg:py-16 border-b border-border-muted/30 last:border-b-0", className)}
+      className={cn(
+        'py-8 md:py-12 lg:py-16 border-b border-border-muted/30 last:border-b-0',
+        className
+      )}
       {...props}
     />
   );

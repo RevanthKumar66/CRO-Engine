@@ -4,31 +4,48 @@ import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '@/utils/cn';
 import { Container } from '@/components/common/Container';
 import {
-  BookOpen, ChevronRight, AlertTriangle, Layers, Code2,
-  Brain, Database, Globe, FolderOpen, Lock, Zap,
-  TestTube2, Rocket, Scale, Lightbulb, Search, Target,
-  BarChart3, Server, Cpu, FlaskConical,
+  BookOpen,
+  ChevronRight,
+  AlertTriangle,
+  Layers,
+  Code2,
+  Brain,
+  Database,
+  Globe,
+  FolderOpen,
+  Lock,
+  Zap,
+  TestTube2,
+  Rocket,
+  Scale,
+  Lightbulb,
+  Search,
+  Target,
+  BarChart3,
+  Server,
+  Cpu,
+  FlaskConical,
 } from 'lucide-react';
 
 const SECTIONS = [
-  { id: 'problem',       title: '1. Problem Statement',           icon: AlertTriangle },
-  { id: 'goals',         title: '2. Goals & Non-Goals',           icon: Target },
-  { id: 'requirements',  title: '3. Requirements',                icon: BookOpen },
-  { id: 'architecture',  title: '4. System Architecture',         icon: Layers },
-  { id: 'frontend',      title: '5. Frontend Architecture',       icon: Globe },
-  { id: 'backend',       title: '6. Backend Architecture',        icon: Server },
-  { id: 'ai-pipeline',   title: '7. AI Pipeline Design',          icon: Brain },
-  { id: 'intelligence',  title: '8. Website Intelligence',        icon: Search },
-  { id: 'mongodb',       title: '9. MongoDB Design',              icon: Database },
-  { id: 'api',           title: '10. API Design & Contracts',     icon: Code2 },
-  { id: 'structure',     title: '11. Folder Structure',           icon: FolderOpen },
-  { id: 'prompts',       title: '12. Prompt Engineering',         icon: Cpu },
-  { id: 'security',      title: '13. Security Architecture',      icon: Lock },
-  { id: 'performance',   title: '14. Performance Architecture',   icon: Zap },
-  { id: 'testing',       title: '15. Testing Strategy',           icon: FlaskConical },
-  { id: 'deployment',    title: '16. Deployment Architecture',    icon: Rocket },
-  { id: 'tradeoffs',     title: '17. Engineering Trade-offs',     icon: Scale },
-  { id: 'future',        title: '18. Future Work & Roadmap',      icon: Lightbulb },
+  { id: 'problem', title: '1. Problem Statement', icon: AlertTriangle },
+  { id: 'goals', title: '2. Goals & Non-Goals', icon: Target },
+  { id: 'requirements', title: '3. Requirements', icon: BookOpen },
+  { id: 'architecture', title: '4. System Architecture', icon: Layers },
+  { id: 'frontend', title: '5. Frontend Architecture', icon: Globe },
+  { id: 'backend', title: '6. Backend Architecture', icon: Server },
+  { id: 'ai-pipeline', title: '7. AI Pipeline Design', icon: Brain },
+  { id: 'intelligence', title: '8. Website Intelligence', icon: Search },
+  { id: 'mongodb', title: '9. MongoDB Design', icon: Database },
+  { id: 'api', title: '10. API Design & Contracts', icon: Code2 },
+  { id: 'structure', title: '11. Folder Structure', icon: FolderOpen },
+  { id: 'prompts', title: '12. Prompt Engineering', icon: Cpu },
+  { id: 'security', title: '13. Security Architecture', icon: Lock },
+  { id: 'performance', title: '14. Performance Architecture', icon: Zap },
+  { id: 'testing', title: '15. Testing Strategy', icon: FlaskConical },
+  { id: 'deployment', title: '16. Deployment Architecture', icon: Rocket },
+  { id: 'tradeoffs', title: '17. Engineering Trade-offs', icon: Scale },
+  { id: 'future', title: '18. Future Work & Roadmap', icon: Lightbulb },
 ];
 
 function CodeBlock({ children }: { children: string }) {
@@ -41,7 +58,10 @@ function CodeBlock({ children }: { children: string }) {
 
 function SectionTitle({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <h2 id={id} className="mt-12 mb-4 text-xl font-bold tracking-tight text-text-primary scroll-mt-24 border-b border-border-muted pb-3">
+    <h2
+      id={id}
+      className="mt-12 mb-4 text-xl font-bold tracking-tight text-text-primary scroll-mt-24 border-b border-border-muted pb-3"
+    >
       {children}
     </h2>
   );
@@ -55,7 +75,13 @@ function P({ children, className }: { children: React.ReactNode; className?: str
   return <p className={cn('mb-3 text-sm leading-7 text-text-secondary', className)}>{children}</p>;
 }
 
-function Callout({ type = 'info', children }: { type?: 'info' | 'warning' | 'critical'; children: React.ReactNode }) {
+function Callout({
+  type = 'info',
+  children,
+}: {
+  type?: 'info' | 'warning' | 'critical';
+  children: React.ReactNode;
+}) {
   const styles = {
     info: 'bg-blue-50 border-accent-violet/30 text-blue-900',
     warning: 'bg-amber-50 border-accent-amber/30 text-amber-900',
@@ -75,7 +101,9 @@ function Table({ headers, rows }: { headers: string[]; rows: string[][] }) {
         <thead className="bg-bg-secondary border-b border-border-muted">
           <tr>
             {headers.map((h) => (
-              <th key={h} className="px-4 py-2.5 text-left font-semibold text-text-primary">{h}</th>
+              <th key={h} className="px-4 py-2.5 text-left font-semibold text-text-primary">
+                {h}
+              </th>
             ))}
           </tr>
         </thead>
@@ -83,7 +111,9 @@ function Table({ headers, rows }: { headers: string[]; rows: string[][] }) {
           {rows.map((row, i) => (
             <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-bg-secondary/50'}>
               {row.map((cell, j) => (
-                <td key={j} className="px-4 py-2.5 text-text-secondary">{cell}</td>
+                <td key={j} className="px-4 py-2.5 text-text-secondary">
+                  {cell}
+                </td>
               ))}
             </tr>
           ))}
@@ -101,7 +131,12 @@ function Badge({ children, color = 'violet' }: { children: string; color?: strin
     amber: 'bg-accent-amber/10 text-accent-amber border-accent-amber/20',
   };
   return (
-    <span className={cn('inline-block rounded border px-1.5 py-0.5 text-[10px] font-semibold', colors[color] || colors.violet)}>
+    <span
+      className={cn(
+        'inline-block rounded border px-1.5 py-0.5 text-[10px] font-semibold',
+        colors[color] || colors.violet
+      )}
+    >
       {children}
     </span>
   );
@@ -144,11 +179,16 @@ export default function DocsPage() {
             <div className="flex items-center gap-2 text-xs text-text-muted mb-2">
               <span>CRO Engine</span>
               <ChevronRight className="h-3 w-3" />
-              <span className="text-text-primary font-medium">Architecture & Engineering Design</span>
+              <span className="text-text-primary font-medium">
+                Architecture & Engineering Design
+              </span>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-text-primary">Engineering Documentation</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-text-primary">
+              Engineering Documentation
+            </h1>
             <p className="text-sm text-text-secondary max-w-2xl">
-              Comprehensive system architecture, design decisions, implementation details, and engineering trade-offs for the CRO Engine — written at senior engineer level.
+              Comprehensive system architecture, design decisions, implementation details, and
+              engineering trade-offs for the CRO Engine — written at senior engineer level.
             </p>
             <div className="flex flex-wrap gap-2 pt-2">
               <Badge color="violet">Version 1.0.0</Badge>
@@ -164,7 +204,9 @@ export default function DocsPage() {
           {/* Sidebar */}
           <aside className="hidden lg:block w-64 shrink-0">
             <div className="sticky top-20 space-y-0.5">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted px-3 pb-2">Sections</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-text-muted px-3 pb-2">
+                Sections
+              </p>
               {SECTIONS.map(({ id, title, icon: Icon }) => (
                 <button
                   key={id}
@@ -185,22 +227,41 @@ export default function DocsPage() {
 
           {/* Main content */}
           <main ref={contentRef} className="flex-1 min-w-0 max-w-3xl">
-
             {/* ── 1. Problem Statement ─────────────────────────────── */}
             <SectionTitle id="problem">1. Problem Statement</SectionTitle>
             <SubTitle>1.1 Background</SubTitle>
-            <P>Conversion Rate Optimization (CRO) is the systematic process of increasing the percentage of website visitors who take a desired action — purchasing a product, adding items to cart, or completing checkout.</P>
-            <P>For Shopify merchants, the difference between a 1% and 3% conversion rate on a store generating $1M/year is <strong>$20,000 in incremental revenue</strong> — without acquiring a single additional visitor.</P>
+            <P>
+              Conversion Rate Optimization (CRO) is the systematic process of increasing the
+              percentage of website visitors who take a desired action — purchasing a product,
+              adding items to cart, or completing checkout.
+            </P>
+            <P>
+              For Shopify merchants, the difference between a 1% and 3% conversion rate on a store
+              generating $1M/year is <strong>$20,000 in incremental revenue</strong> — without
+              acquiring a single additional visitor.
+            </P>
             <Callout type="warning">
-              Professional CRO audits from agencies cost $5,000–$25,000 per engagement, take 2–4 weeks, and require specialized knowledge of e-commerce UX heuristics, consumer psychology, and Shopify-specific patterns.
+              Professional CRO audits from agencies cost $5,000–$25,000 per engagement, take 2–4
+              weeks, and require specialized knowledge of e-commerce UX heuristics, consumer
+              psychology, and Shopify-specific patterns.
             </Callout>
             <SubTitle>1.2 The Problem</SubTitle>
-            <P>There is no accessible, automated tool that: understands Shopify-specific storefront patterns, applies established CRO heuristics, produces actionable prioritized recommendations, and runs at internet scale in seconds rather than weeks.</P>
+            <P>
+              There is no accessible, automated tool that: understands Shopify-specific storefront
+              patterns, applies established CRO heuristics, produces actionable prioritized
+              recommendations, and runs at internet scale in seconds rather than weeks.
+            </P>
             <Table
               headers={['Solution', 'Gap']}
               rows={[
-                ['Google PageSpeed / GTmetrix', 'Technical performance only — no conversion psychology'],
-                ['Hotjar / VWO / Optimizely', 'Requires existing traffic data and weeks of A/B testing'],
+                [
+                  'Google PageSpeed / GTmetrix',
+                  'Technical performance only — no conversion psychology',
+                ],
+                [
+                  'Hotjar / VWO / Optimizely',
+                  'Requires existing traffic data and weeks of A/B testing',
+                ],
                 ['Agency CRO Audits', 'Expensive ($5K–$25K), slow (2–4 weeks), not scalable'],
               ]}
             />
@@ -222,8 +283,14 @@ export default function DocsPage() {
             <Table
               headers={['Non-Goal', 'Rationale']}
               rows={[
-                ['Real-time A/B testing', 'Requires traffic instrumentation — separate product domain'],
-                ['Browser-rendered SPA scraping', 'Puppeteer overhead 10x — most Shopify stores render SSR'],
+                [
+                  'Real-time A/B testing',
+                  'Requires traffic instrumentation — separate product domain',
+                ],
+                [
+                  'Browser-rendered SPA scraping',
+                  'Puppeteer overhead 10x — most Shopify stores render SSR',
+                ],
                 ['Multi-language support', 'English-only in v1'],
                 ['User authentication', 'Single-user portfolio project in v1'],
               ]}
@@ -232,12 +299,30 @@ export default function DocsPage() {
             {/* ── 3. Requirements ──────────────────────────────────── */}
             <SectionTitle id="requirements">3. Requirements</SectionTitle>
             <SubTitle>3.1 Functional Requirements</SubTitle>
-            <P><strong>FR-01 — URL Input:</strong> Accept a public HTTPS URL, normalize it, validate against SSRF protection, reject malformed inputs before any I/O.</P>
-            <P><strong>FR-02 — Storefront Scraping:</strong> Fetch and parse the HTML, extracting headings, CTAs, navigation, and product metadata without executing JavaScript.</P>
-            <P><strong>FR-03 — DOM Minification:</strong> Strip scripts, styles, SVG, and redundant layout — reduce HTML token count by ≥70%.</P>
-            <P><strong>FR-04 — AI Audit:</strong> Use a versioned prompt with Gemini to produce a structured JSON `AuditReport`.</P>
-            <P><strong>FR-05 — Self-Correction:</strong> Validate AI responses via Zod. Retry with a self-correction prompt up to 3 times on failure.</P>
-            <P><strong>FR-06 — Persistence:</strong> Persist each `AuditReport` to MongoDB Atlas with idempotent upsert on audit ID.</P>
+            <P>
+              <strong>FR-01 — URL Input:</strong> Accept a public HTTPS URL, normalize it, validate
+              against SSRF protection, reject malformed inputs before any I/O.
+            </P>
+            <P>
+              <strong>FR-02 — Storefront Scraping:</strong> Fetch and parse the HTML, extracting
+              headings, CTAs, navigation, and product metadata without executing JavaScript.
+            </P>
+            <P>
+              <strong>FR-03 — DOM Minification:</strong> Strip scripts, styles, SVG, and redundant
+              layout — reduce HTML token count by ≥70%.
+            </P>
+            <P>
+              <strong>FR-04 — AI Audit:</strong> Use a versioned prompt with Gemini to produce a
+              structured JSON `AuditReport`.
+            </P>
+            <P>
+              <strong>FR-05 — Self-Correction:</strong> Validate AI responses via Zod. Retry with a
+              self-correction prompt up to 3 times on failure.
+            </P>
+            <P>
+              <strong>FR-06 — Persistence:</strong> Persist each `AuditReport` to MongoDB Atlas with
+              idempotent upsert on audit ID.
+            </P>
             <SubTitle>3.2 Non-Functional Requirements</SubTitle>
             <Table
               headers={['NFR', 'Target']}
@@ -254,9 +339,14 @@ export default function DocsPage() {
 
             {/* ── 4. Architecture ──────────────────────────────────── */}
             <SectionTitle id="architecture">4. System Architecture Overview</SectionTitle>
-            <P>CRO Engine is a full-stack Next.js 15 application. The frontend, backend API routes, and server-side services all live within a single Next.js project — eliminating the need for a separate API server.</P>
+            <P>
+              CRO Engine is a full-stack Next.js 15 application. The frontend, backend API routes,
+              and server-side services all live within a single Next.js project — eliminating the
+              need for a separate API server.
+            </P>
             <SubTitle>4.1 Request Lifecycle</SubTitle>
-            <CodeBlock>{`1. User submits URL → POST /api/v1/analyze
+            <CodeBlock>
+              {`1. User submits URL → POST /api/v1/analyze
 2. requestId generated: "req_" + 8-char alphanumeric
 3. Input parsed → Zod validation (400 on failure)
 4. URL normalized → SSRF check (422 on block)
@@ -291,7 +381,8 @@ export default function DocsPage() {
               ]}
             />
             <SubTitle>5.1 App Router Structure</SubTitle>
-            <CodeBlock>{`src/app/
+            <CodeBlock>
+              {`src/app/
 ├── layout.tsx         # Root layout: Header, Footer, global metadata
 ├── page.tsx           # Landing page (/)
 ├── error.tsx          # Global error boundary
@@ -305,8 +396,16 @@ export default function DocsPage() {
 └── api/v1/            # Backend API routes`}
             </CodeBlock>
             <SubTitle>5.2 Design System</SubTitle>
-            <P>The design system is defined entirely in <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">src/styles/globals.css</code> using CSS custom properties. Tailwind v4 references these tokens via the <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">@theme</code> directive:</P>
-            <CodeBlock>{`/* Typography */
+            <P>
+              The design system is defined entirely in{' '}
+              <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">
+                src/styles/globals.css
+              </code>{' '}
+              using CSS custom properties. Tailwind v4 references these tokens via the{' '}
+              <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">@theme</code> directive:
+            </P>
+            <CodeBlock>
+              {`/* Typography */
 --text-primary: #0f172a;
 --text-secondary: #475569;
 --text-muted: #94a3b8;
@@ -325,9 +424,16 @@ export default function DocsPage() {
 
             {/* ── 6. Backend ──────────────────────────────────────── */}
             <SectionTitle id="backend">6. Backend Architecture</SectionTitle>
-            <P>CRO Engine uses Next.js 15 App Router API routes (<code className="text-xs bg-bg-secondary rounded px-1 py-0.5">route.ts</code> files) as the backend layer. This eliminates the need for a separate Express.js server, reducing operational complexity and enabling TypeScript sharing across client and server.</P>
+            <P>
+              CRO Engine uses Next.js 15 App Router API routes (
+              <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">route.ts</code> files)
+              as the backend layer. This eliminates the need for a separate Express.js server,
+              reducing operational complexity and enabling TypeScript sharing across client and
+              server.
+            </P>
             <SubTitle>6.1 Error Hierarchy</SubTitle>
-            <CodeBlock>{`class ApiError extends Error {
+            <CodeBlock>
+              {`class ApiError extends Error {
   constructor(
     public code: ErrorCodes,
     public message: string,
@@ -342,7 +448,8 @@ class ScrapingError   extends ApiError { /* 422 */ }
 class AiAnalysisError extends ApiError { /* 503 */ }`}
             </CodeBlock>
             <SubTitle>6.2 Structured Logging</SubTitle>
-            <CodeBlock>{`// Every log entry is structured JSON
+            <CodeBlock>
+              {`// Every log entry is structured JSON
 {
   "timestamp": "2026-07-04T16:00:00.000Z",
   "level": "INFO",
@@ -356,12 +463,18 @@ class AiAnalysisError extends ApiError { /* 503 */ }`}
 
             {/* ── 7. AI Pipeline ───────────────────────────────────── */}
             <SectionTitle id="ai-pipeline">7. AI Pipeline Design</SectionTitle>
-            <P>The AI analysis pipeline transforms variable, messy real-world HTML into a structured, typed domain model through a series of deterministic transformations.</P>
+            <P>
+              The AI analysis pipeline transforms variable, messy real-world HTML into a structured,
+              typed domain model through a series of deterministic transformations.
+            </P>
             <SubTitle>7.1 Self-Correction Retry Loop</SubTitle>
             <Callout type="info">
-              The self-correction loop is the most critical reliability mechanism. When Gemini output fails Zod validation, the system retries with a prompt that includes the exact validation errors — giving the model precise instructions on what to fix.
+              The self-correction loop is the most critical reliability mechanism. When Gemini
+              output fails Zod validation, the system retries with a prompt that includes the exact
+              validation errors — giving the model precise instructions on what to fix.
             </Callout>
-            <CodeBlock>{`for (let attempt = 1; attempt <= 3; attempt++) {
+            <CodeBlock>
+              {`for (let attempt = 1; attempt <= 3; attempt++) {
   // First attempt: standard prompt
   // Subsequent: self-correction prompt with error context
   const prompt = attempt === 1
@@ -396,7 +509,11 @@ throw new AiAnalysisError('Max retries exceeded');`}
             {/* ── 8. Website Intelligence ──────────────────────────── */}
             <SectionTitle id="intelligence">8. Website Intelligence Pipeline</SectionTitle>
             <SubTitle>8.1 DOM Minification</SubTitle>
-            <P>The DOM Minifier is the most important performance engineering decision. Raw Shopify HTML frequently exceeds 400–800KB. The minifier applies Cheerio-based transforms to reduce this to ~15% of original size:</P>
+            <P>
+              The DOM Minifier is the most important performance engineering decision. Raw Shopify
+              HTML frequently exceeds 400–800KB. The minifier applies Cheerio-based transforms to
+              reduce this to ~15% of original size:
+            </P>
             <Table
               headers={['Store', 'Raw HTML', 'Minified', 'Reduction']}
               rows={[
@@ -405,7 +522,8 @@ throw new AiAnalysisError('Max retries exceeded');`}
                 ['ColourPop', '698 KB', '104 KB', '85.1%'],
               ]}
             />
-            <CodeBlock>{`// Phases of minification
+            <CodeBlock>
+              {`// Phases of minification
 $('script, style, noscript, svg, iframe').remove();
 $('link[rel="stylesheet"]').remove();
 $('[data-reactroot], #__NEXT_DATA__').remove();
@@ -426,7 +544,8 @@ return $.html().replace(/\\s+/g, ' ').trim();`}
             {/* ── 9. MongoDB ───────────────────────────────────────── */}
             <SectionTitle id="mongodb">9. MongoDB Database Design</SectionTitle>
             <SubTitle>9.1 Collection: audits</SubTitle>
-            <CodeBlock>{`{
+            <CodeBlock>
+              {`{
   id: string,           // "aud_" + nanoid(8), unique
   storeUrl: string,     // Normalized store URL
   overallScore: number, // 0–100 CRO composite score
@@ -462,8 +581,15 @@ return $.html().replace(/\\s+/g, ' ').trim();`}
 
             {/* ── 10. API ──────────────────────────────────────────── */}
             <SectionTitle id="api">10. API Design & Contracts</SectionTitle>
-            <P>All API responses use a consistent <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">ApiResponse&lt;T&gt;</code> envelope for predictable client-side handling:</P>
-            <CodeBlock>{`// Success
+            <P>
+              All API responses use a consistent{' '}
+              <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">
+                ApiResponse&lt;T&gt;
+              </code>{' '}
+              envelope for predictable client-side handling:
+            </P>
+            <CodeBlock>
+              {`// Success
 { "success": true, "data": { /* T */ } }
 
 // Error
@@ -487,7 +613,8 @@ return $.html().replace(/\\s+/g, ' ').trim();`}
 
             {/* ── 11. Folder Structure ─────────────────────────────── */}
             <SectionTitle id="structure">11. Folder Structure</SectionTitle>
-            <CodeBlock>{`src/
+            <CodeBlock>
+              {`src/
 ├── app/              # Next.js App Router (pages + API routes)
 ├── components/       # UI component library
 │   ├── common/       # Container, PageWrapper, ErrorBoundary
@@ -513,9 +640,15 @@ return $.html().replace(/\\s+/g, ' ').trim();`}
             {/* ── 12. Prompts ──────────────────────────────────────── */}
             <SectionTitle id="prompts">12. Prompt Engineering</SectionTitle>
             <SubTitle>12.1 Versioning Strategy</SubTitle>
-            <P>All system prompts are stored as flat markdown files under <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">prompts/v1.0.0/</code>. Prompt versions follow semantic versioning — a major bump signals a breaking change to the output schema.</P>
+            <P>
+              All system prompts are stored as flat markdown files under{' '}
+              <code className="text-xs bg-bg-secondary rounded px-1 py-0.5">prompts/v1.0.0/</code>.
+              Prompt versions follow semantic versioning — a major bump signals a breaking change to
+              the output schema.
+            </P>
             <SubTitle>12.2 Prompt Structure</SubTitle>
-            <CodeBlock>{`SYSTEM PROMPT:
+            <CodeBlock>
+              {`SYSTEM PROMPT:
 "You are an expert Conversion Rate Optimization specialist with 15 years
 of e-commerce experience. Evaluate the storefront against:
 - Hick's Law (decision fatigue)
@@ -536,20 +669,27 @@ CONTENT SAMPLE: [2000 chars of minified body text]"`}
             {/* ── 13. Security ─────────────────────────────────────── */}
             <SectionTitle id="security">13. Security Architecture</SectionTitle>
             <Callout type="critical">
-              SSRF (Server-Side Request Forgery) is the most critical security risk. An attacker could supply internal URLs like <code>http://169.254.169.254/</code> (AWS metadata) or <code>http://localhost:27017</code> (MongoDB) to pivot into internal infrastructure.
+              SSRF (Server-Side Request Forgery) is the most critical security risk. An attacker
+              could supply internal URLs like <code>http://169.254.169.254/</code> (AWS metadata) or{' '}
+              <code>http://localhost:27017</code> (MongoDB) to pivot into internal infrastructure.
             </Callout>
             <SubTitle>13.1 SSRF Protection — 4-Stage Pipeline</SubTitle>
             <Table
               headers={['Stage', 'Check', 'Blocks']}
               rows={[
-                ['1', 'Blocklisted hostnames', 'localhost, 127.0.0.1, ::1, metadata.google.internal'],
+                [
+                  '1',
+                  'Blocklisted hostnames',
+                  'localhost, 127.0.0.1, ::1, metadata.google.internal',
+                ],
                 ['2', 'Private IP ranges (post-DNS)', '10.x, 172.16–31.x, 192.168.x, fc00:, fe80:'],
                 ['3', 'Protocol enforcement', 'Only https: accepted'],
                 ['4', 'URL parsing hardening', 'Malformed URLs that throw TypeError'],
               ]}
             />
             <SubTitle>13.2 Security Headers</SubTitle>
-            <CodeBlock>{`'X-Frame-Options': 'DENY'
+            <CodeBlock>
+              {`'X-Frame-Options': 'DENY'
 'X-Content-Type-Options': 'nosniff'
 'Referrer-Policy': 'strict-origin-when-cross-origin'
 'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
@@ -559,7 +699,9 @@ CONTENT SAMPLE: [2000 chars of minified body text]"`}
             {/* ── 14. Performance ──────────────────────────────────── */}
             <SectionTitle id="performance">14. Performance Architecture</SectionTitle>
             <SubTitle>14.1 Token Cost Optimization (AI)</SubTitle>
-            <P>The DOM Minifier is the primary cost lever. Gemini Flash is priced per input token:</P>
+            <P>
+              The DOM Minifier is the primary cost lever. Gemini Flash is priced per input token:
+            </P>
             <Table
               headers={['Scenario', '100 req/day', 'Cost/day']}
               rows={[
@@ -581,7 +723,8 @@ CONTENT SAMPLE: [2000 chars of minified body text]"`}
             {/* ── 15. Testing ──────────────────────────────────────── */}
             <SectionTitle id="testing">15. Testing Strategy</SectionTitle>
             <Callout type="info">
-              Core principle: "Test the contract, not the implementation." Each test verifies behavior from the outside, making tests robust to internal refactoring.
+              Core principle: "Test the contract, not the implementation." Each test verifies
+              behavior from the outside, making tests robust to internal refactoring.
             </Callout>
             <Table
               headers={['Test Suite', 'Cases', 'Coverage']}
@@ -615,7 +758,8 @@ CONTENT SAMPLE: [2000 chars of minified body text]"`}
               ]}
             />
             <SubTitle>16.1 CI Pipeline</SubTitle>
-            <CodeBlock>{`# .github/workflows/ci.yml
+            <CodeBlock>
+              {`# .github/workflows/ci.yml
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -670,23 +814,43 @@ jobs:
                 ['Scheduled Audits', 'P2', 'Weekly automated re-analysis per store'],
                 ['Recommendation Tracking', 'P1', 'Mark implemented, track score delta'],
                 ['Competitor Comparison', 'P3', 'Side-by-side audit of two stores'],
-                ['Puppeteer Fallback', 'P2', 'Render JS-heavy SPA stores when Cheerio misses content'],
+                [
+                  'Puppeteer Fallback',
+                  'P2',
+                  'Render JS-heavy SPA stores when Cheerio misses content',
+                ],
                 ['Redis Caching', 'P2', 'Cache identical URL analyses for 24h'],
                 ['Shopify App Integration', 'P3', 'Native Shopify App Store listing with OAuth'],
-                ['Fine-tuned Model', 'P3', 'Improve schema reliability with domain-specific training'],
+                [
+                  'Fine-tuned Model',
+                  'P3',
+                  'Improve schema reliability with domain-specific training',
+                ],
               ]}
             />
             <SubTitle>Open Architecture Questions</SubTitle>
-            <P><strong>1. Multi-page crawling:</strong> Should we crawl 3–5 pages (homepage + PDP + collection + cart) simultaneously rather than just the homepage for deeper coverage?</P>
-            <P><strong>2. Vector embeddings:</strong> Could we embed past recommendations and semantically search them to provide "similar findings" context — improving AI quality without increasing prompt length?</P>
-            <P><strong>3. Fine-tuning:</strong> Could a fine-tuned model on historical CRO audit data outperform prompt-based Gemini on structured output reliability and domain-specific recommendation quality?</P>
+            <P>
+              <strong>1. Multi-page crawling:</strong> Should we crawl 3–5 pages (homepage + PDP +
+              collection + cart) simultaneously rather than just the homepage for deeper coverage?
+            </P>
+            <P>
+              <strong>2. Vector embeddings:</strong> Could we embed past recommendations and
+              semantically search them to provide "similar findings" context — improving AI quality
+              without increasing prompt length?
+            </P>
+            <P>
+              <strong>3. Fine-tuning:</strong> Could a fine-tuned model on historical CRO audit data
+              outperform prompt-based Gemini on structured output reliability and domain-specific
+              recommendation quality?
+            </P>
 
             <div className="mt-16 pt-8 border-t border-border-muted text-center">
               <p className="text-xs text-text-muted">
                 CRO Engine Engineering Documentation · Version 1.0.0 · Sprint 7 · July 2026
               </p>
               <p className="text-xs text-text-muted mt-1">
-                This document is maintained alongside the codebase. Update when architecture decisions change.
+                This document is maintained alongside the codebase. Update when architecture
+                decisions change.
               </p>
             </div>
           </main>

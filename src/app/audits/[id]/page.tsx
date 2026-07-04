@@ -3,9 +3,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
-  CheckCircle2, AlertCircle, ArrowLeft, Copy, Eye, Layout, ShoppingCart,
-  TrendingUp, TrendingDown, Minus, Star, RefreshCw, ExternalLink,
-  ClipboardList, BarChart2, Lightbulb, Check, Square,
+  CheckCircle2,
+  AlertCircle,
+  ArrowLeft,
+  Copy,
+  Eye,
+  Layout,
+  ShoppingCart,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  Star,
+  RefreshCw,
+  ExternalLink,
+  ClipboardList,
+  BarChart2,
+  Lightbulb,
+  Check,
+  Square,
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
@@ -37,17 +52,31 @@ const getScoreStars = (score: number) => {
 };
 
 const getPageTrend = (score: number) => {
-  if (score >= 80) return { icon: <TrendingUp className="h-3 w-3" />, label: 'Strong', color: 'text-accent-emerald' };
-  if (score >= 50) return { icon: <Minus className="h-3 w-3" />, label: 'Average', color: 'text-accent-amber' };
-  return { icon: <TrendingDown className="h-3 w-3" />, label: 'Needs Work', color: 'text-accent-rose' };
+  if (score >= 80)
+    return {
+      icon: <TrendingUp className="h-3 w-3" />,
+      label: 'Strong',
+      color: 'text-accent-emerald',
+    };
+  if (score >= 50)
+    return { icon: <Minus className="h-3 w-3" />, label: 'Average', color: 'text-accent-amber' };
+  return {
+    icon: <TrendingDown className="h-3 w-3" />,
+    label: 'Needs Work',
+    color: 'text-accent-rose',
+  };
 };
 
 const getCategoryIcon = (category: string) => {
   switch (category) {
-    case 'copywriting': return <Copy className="h-3.5 w-3.5" />;
-    case 'cta': return <ShoppingCart className="h-3.5 w-3.5" />;
-    case 'layout': return <Layout className="h-3.5 w-3.5" />;
-    default: return <Eye className="h-3.5 w-3.5" />;
+    case 'copywriting':
+      return <Copy className="h-3.5 w-3.5" />;
+    case 'cta':
+      return <ShoppingCart className="h-3.5 w-3.5" />;
+    case 'layout':
+      return <Layout className="h-3.5 w-3.5" />;
+    default:
+      return <Eye className="h-3.5 w-3.5" />;
   }
 };
 
@@ -57,7 +86,7 @@ const TABS = [
   { id: 'recommendations', label: 'Recommendations', icon: <Lightbulb className="h-3.5 w-3.5" /> },
 ] as const;
 
-type TabId = typeof TABS[number]['id'];
+type TabId = (typeof TABS)[number]['id'];
 
 export default function AuditDetailsPage() {
   const params = useParams();
@@ -154,7 +183,11 @@ export default function AuditDetailsPage() {
                 onClick={handleCopyReport}
                 className="inline-flex items-center gap-1.5 rounded-md border border-border-muted px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
               >
-                {copied ? <Check className="h-3.5 w-3.5 text-accent-emerald" /> : <Copy className="h-3.5 w-3.5" />}
+                {copied ? (
+                  <Check className="h-3.5 w-3.5 text-accent-emerald" />
+                ) : (
+                  <Copy className="h-3.5 w-3.5" />
+                )}
                 {copied ? 'Copied!' : 'Copy Report'}
               </button>
               <button
@@ -206,29 +239,41 @@ export default function AuditDetailsPage() {
 
       <Container>
         <PageWrapper className="space-y-8">
-
           {/* ── Overview Section ── */}
           <div id="overview" className="grid md:grid-cols-3 gap-5">
-
             {/* Store + page scores */}
             <Card className="glassmorphic-card md:col-span-2">
               <CardHeader className="pb-4">
-                <span className="text-xs text-accent-violet font-semibold uppercase tracking-wider">Storefront Audit</span>
-                <CardTitle className="text-xl mt-1 break-all leading-snug">{audit.storeUrl}</CardTitle>
+                <span className="text-xs text-accent-violet font-semibold uppercase tracking-wider">
+                  Storefront Audit
+                </span>
+                <CardTitle className="text-xl mt-1 break-all leading-snug">
+                  {audit.storeUrl}
+                </CardTitle>
                 <CardDescription className="text-xs">
-                  Analyzed on {new Date(audit.analyzedAt).toLocaleDateString('en-US', { dateStyle: 'long' })}
+                  Analyzed on{' '}
+                  {new Date(audit.analyzedAt).toLocaleDateString('en-US', { dateStyle: 'long' })}
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-3 border-t border-border-muted/30 pt-4">
                 {Object.entries(audit.pageScores).map(([page, score]) => {
                   const trend = getPageTrend(score);
                   return (
-                    <div key={page} className="rounded-md border border-border-muted p-3 text-center space-y-1">
-                      <span className="text-xs text-text-secondary font-medium capitalize block">{page === 'pdp' ? 'PDP' : page}</span>
-                      <div className={`text-xl font-bold ${score >= 80 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-amber' : 'text-accent-rose'}`}>
+                    <div
+                      key={page}
+                      className="rounded-md border border-border-muted p-3 text-center space-y-1"
+                    >
+                      <span className="text-xs text-text-secondary font-medium capitalize block">
+                        {page === 'pdp' ? 'PDP' : page}
+                      </span>
+                      <div
+                        className={`text-xl font-bold ${score >= 80 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-amber' : 'text-accent-rose'}`}
+                      >
                         {score}
                       </div>
-                      <div className={`inline-flex items-center gap-0.5 text-xs font-medium ${trend.color}`}>
+                      <div
+                        className={`inline-flex items-center gap-0.5 text-xs font-medium ${trend.color}`}
+                      >
                         {trend.icon}
                         <span>{trend.label}</span>
                       </div>
@@ -240,11 +285,15 @@ export default function AuditDetailsPage() {
 
             {/* Overall score card */}
             <Card className="glassmorphic-card flex flex-col items-center justify-center p-6 text-center gap-3">
-              <span className="text-xs font-semibold text-text-secondary uppercase tracking-wide">Overall Score</span>
-              <div className={cn(
-                'flex h-24 w-24 items-center justify-center rounded-full border-4 text-3xl font-extrabold',
-                getScoreRingColor(audit.overallScore)
-              )}>
+              <span className="text-xs font-semibold text-text-secondary uppercase tracking-wide">
+                Overall Score
+              </span>
+              <div
+                className={cn(
+                  'flex h-24 w-24 items-center justify-center rounded-full border-4 text-3xl font-extrabold',
+                  getScoreRingColor(audit.overallScore)
+                )}
+              >
                 {audit.overallScore}
               </div>
               {/* Star rating */}
@@ -252,7 +301,10 @@ export default function AuditDetailsPage() {
                 {stars.map((filled, i) => (
                   <Star
                     key={i}
-                    className={cn('h-4 w-4', filled ? 'fill-accent-amber text-accent-amber' : 'text-border-muted')}
+                    className={cn(
+                      'h-4 w-4',
+                      filled ? 'fill-accent-amber text-accent-amber' : 'text-border-muted'
+                    )}
                   />
                 ))}
               </div>
@@ -273,17 +325,16 @@ export default function AuditDetailsPage() {
 
           {/* ── Recommendations Section ── */}
           <div id="recommendations" ref={recsRef} className="space-y-5">
-
             {/* Section header with filters and progress */}
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between border-b border-border-muted/30 pb-4">
               <div className="space-y-0.5">
-                <h3 className="text-base font-bold tracking-tight">
-                  Optimization Opportunities
-                </h3>
+                <h3 className="text-base font-bold tracking-tight">Optimization Opportunities</h3>
                 {totalRecs > 0 && (
                   <p className="text-xs text-text-muted">
                     Completed{' '}
-                    <span className="font-semibold text-text-secondary">{completedCount} / {totalRecs}</span>{' '}
+                    <span className="font-semibold text-text-secondary">
+                      {completedCount} / {totalRecs}
+                    </span>{' '}
                     recommendations
                   </p>
                 )}
@@ -317,7 +368,9 @@ export default function AuditDetailsPage() {
             {/* Cards */}
             {filteredRecommendations.length === 0 ? (
               <div className="glassmorphic-card rounded-lg border border-dashed border-border-muted p-12 text-center">
-                <p className="text-sm text-text-secondary">No recommendations match your active filters.</p>
+                <p className="text-sm text-text-secondary">
+                  No recommendations match your active filters.
+                </p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -328,13 +381,17 @@ export default function AuditDetailsPage() {
                       key={rec.id}
                       className={cn(
                         'glassmorphic-card rounded-lg border-l-2 transition-all duration-150',
-                        isCompleted ? 'opacity-60 border-l-accent-emerald' : 'border-l-accent-violet'
+                        isCompleted
+                          ? 'opacity-60 border-l-accent-emerald'
+                          : 'border-l-accent-violet'
                       )}
                     >
                       {/* Card Header — badges + mark complete top-right */}
                       <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5 pb-4 border-b border-border-muted/30">
                         <div className="flex items-center gap-2">
-                          <span className="text-accent-violet">{getCategoryIcon(rec.category)}</span>
+                          <span className="text-accent-violet">
+                            {getCategoryIcon(rec.category)}
+                          </span>
                           <span className="text-sm font-semibold capitalize text-text-primary">
                             {rec.pageType} — {rec.category}
                           </span>
@@ -355,9 +412,13 @@ export default function AuditDetailsPage() {
                             )}
                           >
                             {isCompleted ? (
-                              <><CheckCircle2 className="h-3.5 w-3.5" /> Done</>
+                              <>
+                                <CheckCircle2 className="h-3.5 w-3.5" /> Done
+                              </>
                             ) : (
-                              <><Square className="h-3.5 w-3.5" /> Complete</>
+                              <>
+                                <Square className="h-3.5 w-3.5" /> Complete
+                              </>
                             )}
                           </button>
                         </div>
@@ -366,20 +427,31 @@ export default function AuditDetailsPage() {
                       {/* Card Body — spacing instead of dividers */}
                       <div className="px-5 py-5 space-y-5">
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">Finding</h4>
+                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">
+                            Finding
+                          </h4>
                           <p className="text-sm text-text-primary leading-relaxed">{rec.finding}</p>
                         </div>
 
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">Rationale</h4>
-                          <p className="text-sm text-text-secondary leading-relaxed">{rec.rationale}</p>
+                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">
+                            Rationale
+                          </h4>
+                          <p className="text-sm text-text-secondary leading-relaxed">
+                            {rec.rationale}
+                          </p>
                         </div>
 
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-2">Developer Tasks</h4>
+                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-2">
+                            Developer Tasks
+                          </h4>
                           <ul className="space-y-2">
                             {rec.actionSteps.map((step, idx) => (
-                              <li key={idx} className="flex items-start gap-2.5 text-sm text-text-secondary">
+                              <li
+                                key={idx}
+                                className="flex items-start gap-2.5 text-sm text-text-secondary"
+                              >
                                 {/* Interactive checkbox feel */}
                                 <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-border-muted bg-bg-secondary">
                                   <span className="h-1.5 w-1.5 rounded-sm bg-accent-violet" />

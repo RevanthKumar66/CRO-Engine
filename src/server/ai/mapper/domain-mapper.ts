@@ -5,7 +5,7 @@ export class DomainMapper {
   /**
    * Converts Zod-validated AI outputs into the core domain AuditReport representation.
    * Ensures internal IDs are correctly formatted and sanitizes endpoints.
-   * 
+   *
    * @param rawResult Validated AI output structure.
    * @param storeUrl Normalized storefront URL.
    */

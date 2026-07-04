@@ -5,7 +5,7 @@
 export function formatDate(date: Date | string | number): string {
   const d = new Date(date);
   if (isNaN(d.getTime())) return 'Invalid Date';
-  
+
   return d.toLocaleString('en-US', {
     month: 'short',
     day: 'numeric',

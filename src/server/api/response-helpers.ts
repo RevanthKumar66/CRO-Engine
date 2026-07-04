@@ -30,11 +30,7 @@ export const responseHelpers = {
   /**
    * Generates a structured error JSON response envelope.
    */
-  error(
-    code: ErrorCodes,
-    message: string,
-    details: unknown = null
-  ): ApiErrorResponse {
+  error(code: ErrorCodes, message: string, details: unknown = null): ApiErrorResponse {
     return {
       success: false,
       error: {

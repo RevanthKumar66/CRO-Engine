@@ -4,17 +4,17 @@ import { NavigationSnapshot, TrustSignals } from '../interfaces/snapshot-types';
 export class LayoutExtractor {
   /**
    * Extracts storefront navigation headers.
-   * 
+   *
    * @param $ Cheerio API wrapper.
    */
   public static extractNavigation($: cheerio.CheerioAPI): NavigationSnapshot {
     const links: Array<{ label: string; url: string }> = [];
-    
+
     // Find anchors inside nav elements
     $('nav a, header a, [class*="menu" i] a').each((_, el) => {
       const label = $(el).text().trim().replace(/\s+/g, ' ');
       const url = $(el).attr('href') || '';
-      
+
       if (label && url && !url.startsWith('#') && !url.startsWith('javascript:')) {
         // Prevent duplicate links in navigation lists
         if (!links.some((l) => l.url === url)) {
@@ -24,7 +24,10 @@ export class LayoutExtractor {
     });
 
     // Logo detection
-    const logoText = $('header [class*="logo" i]').first().text().trim() || $('header img').first().attr('alt')?.trim() || '';
+    const logoText =
+      $('header [class*="logo" i]').first().text().trim() ||
+      $('header img').first().attr('alt')?.trim() ||
+      '';
 
     return {
       links: links.slice(0, 20), // cap at 20 primary menu items
@@ -34,13 +37,13 @@ export class LayoutExtractor {
 
   /**
    * Extracts trust badges, payment processor signals, refund/return terms, and shipping terms.
-   * 
+   *
    * @param $ Cheerio API wrapper.
    */
   public static extractTrust($: cheerio.CheerioAPI): TrustSignals {
     const trustBadges: string[] = [];
     const paymentIcons: string[] = [];
-    
+
     // Parse payment indicators (e.g. svg icons or image classes)
     $('[class*="payment" i] img, [class*="payment" i] svg, .payment-icon').each((_, el) => {
       const title = $(el).attr('alt') || $(el).attr('id') || $(el).attr('class') || '';
@@ -68,7 +71,9 @@ export class LayoutExtractor {
 
     // Parse return/refund details
     let returnPolicy = '';
-    const returnNode = $('a[href*="return" i], a[href*="refund" i], [class*="return" i], [class*="refund" i]').first();
+    const returnNode = $(
+      'a[href*="return" i], a[href*="refund" i], [class*="return" i], [class*="refund" i]'
+    ).first();
     if (returnNode.length > 0) {
       returnPolicy = returnNode.text().trim().replace(/\s+/g, ' ');
     }

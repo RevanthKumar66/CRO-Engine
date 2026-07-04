@@ -7,7 +7,7 @@ export const Caption: React.FC<CaptionProps> = ({ className, ...props }) => {
   return (
     <span
       className={cn(
-        "font-sans text-xs font-normal tracking-wide text-text-muted leading-tight",
+        'font-sans text-xs font-normal tracking-wide text-text-muted leading-tight',
         className
       )}
       {...props}

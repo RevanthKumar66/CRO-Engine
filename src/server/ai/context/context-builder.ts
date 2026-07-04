@@ -4,7 +4,7 @@ export class ContextBuilder {
   /**
    * Compiles the preprocessed WebsiteSnapshot into a tight, token-efficient,
    * structured string context to serve as Gemini prompt input.
-   * 
+   *
    * @param snapshot Preprocessed website data.
    */
   public static build(snapshot: WebsiteSnapshot): string {
@@ -12,7 +12,7 @@ export class ContextBuilder {
 
     lines.push(`STOREFRONT URL: ${snapshot.storeUrl}`);
     lines.push(`IS SHOPIFY PLATFORM: ${snapshot.isShopify ? 'YES' : 'NO'}`);
-    
+
     // 1. Navigation outline
     if (snapshot.navigation.links.length > 0) {
       const linksOutline = snapshot.navigation.links
@@ -49,21 +49,23 @@ export class ContextBuilder {
 
       // Add call-to-actions list
       if (page.ctas.length > 0) {
-        const ctasOutline = page.ctas
-          .map((c) => `"${c.label}" -> ${c.url}`)
-          .join(', ');
+        const ctasOutline = page.ctas.map((c) => `"${c.label}" -> ${c.url}`).join(', ');
         lines.push(`CALL-TO-ACTIONS: ${ctasOutline}`);
       }
 
       // If PDP product details exist
       if (page.products && page.products.length > 0) {
         page.products.forEach((prod) => {
-          lines.push(`PRODUCT ATTR: Title: ${prod.title} | Price: $${prod.price || 'N/A'} | Availability: ${prod.availability ? 'In Stock' : 'Out of Stock'}`);
+          lines.push(
+            `PRODUCT ATTR: Title: ${prod.title} | Price: $${prod.price || 'N/A'} | Availability: ${prod.availability ? 'In Stock' : 'Out of Stock'}`
+          );
           if (prod.variants && prod.variants.length > 0) {
             lines.push(`PRODUCT OPTIONS: ${prod.variants.join(', ')}`);
           }
           if (prod.rating) {
-            lines.push(`PRODUCT RATING: ${prod.rating}/5 stars from ${prod.reviewCount || 0} reviews`);
+            lines.push(
+              `PRODUCT RATING: ${prod.rating}/5 stars from ${prod.reviewCount || 0} reviews`
+            );
           }
           if (prod.description) {
             lines.push(`PRODUCT DETAIL SNIPPET: ${prod.description.substring(0, 200)}`);

@@ -16,10 +16,7 @@ export const Progress: React.FC<ProgressProps> = ({
 
   return (
     <div
-      className={cn(
-        "relative h-2 w-full overflow-hidden rounded-full bg-zinc-800",
-        className
-      )}
+      className={cn('relative h-2 w-full overflow-hidden rounded-full bg-zinc-800', className)}
       role="progressbar"
       aria-valuenow={value}
       aria-valuemin={0}

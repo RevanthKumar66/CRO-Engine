@@ -4,7 +4,7 @@ import { PageType } from '../interfaces/snapshot-types';
 export class PageClassifier {
   /**
    * Classifies a storefront page type based on its URL path and DOM elements.
-   * 
+   *
    * @param url Normalized storefront URL.
    * @param $ Cheerio API wrapper.
    */
@@ -26,7 +26,11 @@ export class PageClassifier {
       if (pathname === '/cart' || pathname === '/checkout') {
         return 'cart';
       }
-      if (pathname.includes('/policies/') || pathname.includes('/pages/privacy') || pathname.includes('/pages/refund')) {
+      if (
+        pathname.includes('/policies/') ||
+        pathname.includes('/pages/privacy') ||
+        pathname.includes('/pages/refund')
+      ) {
         return 'policy';
       }
       if (pathname.includes('/blogs/') || pathname.includes('/news/')) {
@@ -37,7 +41,10 @@ export class PageClassifier {
       if ($('form[action*="/cart/add" i]').length > 0) {
         return 'product';
       }
-      if ($('[class*="product-grid" i], [class*="collection" i]').length > 0 && $('h1').text().toLowerCase().includes('collection')) {
+      if (
+        $('[class*="product-grid" i], [class*="collection" i]').length > 0 &&
+        $('h1').text().toLowerCase().includes('collection')
+      ) {
         return 'collection';
       }
       if ($('form[action*="/cart" i]').length > 0) {

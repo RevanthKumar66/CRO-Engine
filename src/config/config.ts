@@ -23,7 +23,8 @@ export const config = {
   scraper: {
     timeoutMs: 8000,
     maxHtmlSizeBytes: 5242880, // 5MB limit
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
   },
   cache: {
     defaultTtlSeconds: 86400, // 24 hours

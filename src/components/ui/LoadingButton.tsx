@@ -17,11 +17,7 @@ export const LoadingButton: React.FC<LoadingButtonProps> = ({
   ...props
 }) => {
   return (
-    <Button
-      className={cn("relative gap-2", className)}
-      disabled={disabled || loading}
-      {...props}
-    >
+    <Button className={cn('relative gap-2', className)} disabled={disabled || loading} {...props}>
       {loading && <Spinner size="sm" className="text-current" />}
       {loading && loadingText ? <span>{loadingText}</span> : children}
     </Button>

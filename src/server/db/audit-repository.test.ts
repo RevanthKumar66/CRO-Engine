@@ -49,11 +49,7 @@ describe('AuditRepository Tests', () => {
     await AuditRepository.save(report);
 
     expect(mockReplaceOne).toHaveBeenCalledTimes(1);
-    expect(mockReplaceOne).toHaveBeenLastCalledWith(
-      { id: 'aud_test1' },
-      report,
-      { upsert: true }
-    );
+    expect(mockReplaceOne).toHaveBeenLastCalledWith({ id: 'aud_test1' }, report, { upsert: true });
   });
 
   it('should successfully fetch AuditReport document and strip internal _id field', async () => {
@@ -86,8 +82,24 @@ describe('AuditRepository Tests', () => {
 
   it('should successfully fetch recent audits and strip internal _id fields', async () => {
     const mockList = [
-      { _id: '1', id: 'aud_1', storeUrl: 'https://store1.com', overallScore: 80, analyzedAt: '2026-07-04T12:00:00Z', pageScores: {}, recommendations: [] },
-      { _id: '2', id: 'aud_2', storeUrl: 'https://store2.com', overallScore: 75, analyzedAt: '2026-07-04T11:00:00Z', pageScores: {}, recommendations: [] },
+      {
+        _id: '1',
+        id: 'aud_1',
+        storeUrl: 'https://store1.com',
+        overallScore: 80,
+        analyzedAt: '2026-07-04T12:00:00Z',
+        pageScores: {},
+        recommendations: [],
+      },
+      {
+        _id: '2',
+        id: 'aud_2',
+        storeUrl: 'https://store2.com',
+        overallScore: 75,
+        analyzedAt: '2026-07-04T11:00:00Z',
+        pageScores: {},
+        recommendations: [],
+      },
     ];
     mockToArray.mockResolvedValueOnce(mockList);
 

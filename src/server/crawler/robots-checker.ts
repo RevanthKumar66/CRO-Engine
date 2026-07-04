@@ -3,7 +3,7 @@ import { logger } from '../logger/structured-logger';
 export class RobotsChecker {
   /**
    * Evaluates robots.txt parameters to verify if a path is allowed to be crawled.
-   * 
+   *
    * @param storeUrl Normalized root storefront URL.
    * @param path The URL path (e.g. /products/shoes).
    * @param userAgent The bot's user agent name.
@@ -40,7 +40,7 @@ export class RobotsChecker {
     const lines = robotsTxt.split(/\r?\n/);
     let currentUserAgentMatches = false;
     let wildcardMatches = false;
-    
+
     const disallowedPathsForUserAgent: string[] = [];
     const disallowedPathsForWildcard: string[] = [];
 
@@ -74,9 +74,10 @@ export class RobotsChecker {
     }
 
     // Determine paths list to check (specific user-agent rules take priority over wildcard)
-    const activeDisallowedPaths = disallowedPathsForUserAgent.length > 0 
-      ? disallowedPathsForUserAgent 
-      : disallowedPathsForWildcard;
+    const activeDisallowedPaths =
+      disallowedPathsForUserAgent.length > 0
+        ? disallowedPathsForUserAgent
+        : disallowedPathsForWildcard;
 
     // Check if the path is prefix-blocked
     for (const blockedPrefix of activeDisallowedPaths) {

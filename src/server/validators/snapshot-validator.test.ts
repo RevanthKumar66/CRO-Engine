@@ -29,12 +29,8 @@ describe('Snapshot Validator Tests', () => {
             title: 'Welcome to Mock Store',
             metaDescription: 'Buy premium mock products here.',
           },
-          headings: [
-            { tag: 'h1', text: 'Premium Mock Collection' },
-          ],
-          ctas: [
-            { label: 'Shop Now', url: '/collections/all' },
-          ],
+          headings: [{ tag: 'h1', text: 'Premium Mock Collection' }],
+          ctas: [{ label: 'Shop Now', url: '/collections/all' }],
           cleanedTextSnippet: 'Mock text contents of the storefront.',
         },
       ],
