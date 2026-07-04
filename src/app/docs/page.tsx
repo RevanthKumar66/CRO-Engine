@@ -50,7 +50,7 @@ const SECTIONS = [
 
 function CodeBlock({ children }: { children: string }) {
   return (
-    <pre className="my-4 overflow-x-auto rounded-md bg-slate-950 border border-slate-800 p-4 text-xs leading-relaxed text-slate-300 font-mono">
+    <pre className="my-3 sm:my-4 overflow-x-auto rounded-md bg-slate-950 border border-slate-800 p-3 sm:p-4 text-[10px] sm:text-xs leading-relaxed text-slate-300 font-mono">
       <code>{children}</code>
     </pre>
   );
@@ -60,7 +60,7 @@ function SectionTitle({ id, children }: { id: string; children: React.ReactNode 
   return (
     <h2
       id={id}
-      className="mt-12 mb-4 text-xl font-bold tracking-tight text-text-primary scroll-mt-24 border-b border-border-muted pb-3"
+      className="mt-8 sm:mt-12 mb-3 sm:mb-4 text-base sm:text-xl font-semibold sm:font-bold tracking-tight text-text-primary scroll-mt-24 border-b border-border-muted pb-2 sm:pb-3"
     >
       {children}
     </h2>
@@ -68,11 +68,24 @@ function SectionTitle({ id, children }: { id: string; children: React.ReactNode 
 }
 
 function SubTitle({ children }: { children: React.ReactNode }) {
-  return <h3 className="mt-6 mb-2 text-base font-semibold text-text-primary">{children}</h3>;
+  return (
+    <h3 className="mt-4 sm:mt-6 mb-1.5 sm:mb-2 text-sm sm:text-base font-semibold text-text-primary">
+      {children}
+    </h3>
+  );
 }
 
 function P({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <p className={cn('mb-3 text-sm leading-7 text-text-secondary', className)}>{children}</p>;
+  return (
+    <p
+      className={cn(
+        'mb-3 text-xs sm:text-sm leading-6 sm:leading-7 text-text-secondary',
+        className
+      )}
+    >
+      {children}
+    </p>
+  );
 }
 
 function Callout({
@@ -88,7 +101,12 @@ function Callout({
     critical: 'bg-rose-50 border-accent-rose/30 text-rose-900',
   };
   return (
-    <div className={cn('my-4 rounded-md border-l-4 p-4 text-sm leading-6', styles[type])}>
+    <div
+      className={cn(
+        'my-3 sm:my-4 rounded-md border-l-4 p-3 sm:p-4 text-xs sm:text-sm leading-5 sm:leading-6',
+        styles[type]
+      )}
+    >
       {children}
     </div>
   );
@@ -96,12 +114,15 @@ function Callout({
 
 function Table({ headers, rows }: { headers: string[]; rows: string[][] }) {
   return (
-    <div className="my-4 overflow-x-auto rounded-md border border-border-muted">
-      <table className="w-full text-xs">
+    <div className="my-3 sm:my-4 overflow-x-auto rounded-md border border-border-muted">
+      <table className="w-full text-[10px] sm:text-xs">
         <thead className="bg-bg-secondary border-b border-border-muted">
           <tr>
             {headers.map((h) => (
-              <th key={h} className="px-4 py-2.5 text-left font-semibold text-text-primary">
+              <th
+                key={h}
+                className="px-3 py-2 sm:px-4 sm:py-2.5 text-left font-semibold text-text-primary"
+              >
                 {h}
               </th>
             ))}
@@ -111,7 +132,7 @@ function Table({ headers, rows }: { headers: string[]; rows: string[][] }) {
           {rows.map((row, i) => (
             <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-bg-secondary/50'}>
               {row.map((cell, j) => (
-                <td key={j} className="px-4 py-2.5 text-text-secondary">
+                <td key={j} className="px-3 py-2 sm:px-4 sm:py-2.5 text-text-secondary">
                   {cell}
                 </td>
               ))}
@@ -133,7 +154,7 @@ function Badge({ children, color = 'violet' }: { children: string; color?: strin
   return (
     <span
       className={cn(
-        'inline-block rounded border px-1.5 py-0.5 text-[10px] font-semibold',
+        'inline-block rounded border px-1.5 py-0.5 text-[9px] sm:text-[10px] font-semibold',
         colors[color] || colors.violet
       )}
     >
@@ -175,7 +196,7 @@ export default function DocsPage() {
       {/* Page header */}
       <div className="border-b border-border-muted bg-bg-secondary/60">
         <Container>
-          <div className="py-8 space-y-1">
+          <div className="py-5 sm:py-8 space-y-1">
             <div className="flex items-center gap-2 text-xs text-text-muted mb-2">
               <span>CRO Engine</span>
               <ChevronRight className="h-3 w-3" />
@@ -186,7 +207,7 @@ export default function DocsPage() {
             <h1 className="text-xl sm:text-2xl font-semibold sm:font-bold tracking-tight text-text-primary">
               Engineering Documentation
             </h1>
-            <p className="text-sm text-text-secondary max-w-2xl">
+            <p className="text-xs sm:text-sm text-text-secondary max-w-2xl">
               Comprehensive system architecture, design decisions, implementation details, and
               engineering trade-offs for the CRO Engine — written at senior engineer level.
             </p>
@@ -218,7 +239,7 @@ export default function DocsPage() {
           </select>
         </div>
 
-        <div className="flex gap-8 py-8">
+        <div className="flex gap-5 lg:gap-8 py-5 sm:py-8">
           {/* Sidebar */}
           <aside className="hidden lg:block w-64 shrink-0">
             <div className="sticky top-20 space-y-0.5">
