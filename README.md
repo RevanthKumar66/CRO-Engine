@@ -1,216 +1,168 @@
-# CRO Engine
+# 🚀 Shopify CRO Opportunity Engine
 
-> **AI-powered Conversion Rate Optimization audits for Shopify storefronts — in under 30 seconds.**
+> **AI-powered Conversion Rate Optimization (CRO) audits for Shopify storefronts — in under 30 seconds.**
 
-[![CI](https://github.com/your-username/cro-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/cro-engine/actions)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue)](https://www.typescriptlang.org)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen)]()
-
----
-
-## What It Does
-
-CRO Engine crawls any public Shopify storefront, extracts structural layout, CTAs, headings, and product page elements, then runs a structured Gemini AI audit pipeline to generate prioritized conversion recommendations — organized by page, impact, and implementation effort.
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg?style=flat-square)](https://www.typescriptlang.org)
+[![Next.js](https://img.shields.io/badge/Next.js-15.0-black.svg?style=flat-square)](https://nextjs.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4.0-38bdf8.svg?style=flat-square)](https://tailwindcss.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 ---
 
-## Features
+## 📖 Overview
 
-| Feature | Description |
-|---|---|
-| 🕷️ **Smart Scraper** | Cheerio-based HTML crawler with custom DOM minifier — reduces input token count by ~85% |
-| 🧠 **Gemini AI Audit** | Structured JSON responses via Gemini 1.5 Flash with automatic self-correction retry loop |
-| 🛡️ **SSRF Protection** | Blocks private IP ranges, local loopbacks, and internal hostnames |
-| 📊 **Scored Reports** | Per-page scores (Homepage, PDP, Collection, Cart) + overall CRO score |
-| 🎯 **Impact Matrix** | Each recommendation tagged by impact level, effort, and page type |
-| 💾 **Persistent Audits** | MongoDB Atlas storage with async-safe connection pooling and index management |
-| 🔍 **Past Audits Dashboard** | Browse all previous audits with search filtering and score badges |
-| ✅ **42 Tests** | Full unit and integration test coverage via Vitest |
+The **Shopify CRO Opportunity Engine** is a high-performance SaaS auditing platform. It crawls any public Shopify storefront, extracts structural elements, CTAs, headings, product page layouts, and branded styling, then feeds them into a multi-stage **Gemini 1.5 Flash AI Pipeline**. It yields structured, action-oriented conversion optimization recommendations categorized by page type, impact matrix, and developer implementation effort.
 
 ---
 
-## Tech Stack
+## ⚡ Features
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 15 (App Router) |
-| Language | TypeScript 5.6 (strict) |
-| AI Engine | Google Gemini 1.5 Flash via `@google/genai` |
-| Database | MongoDB Atlas |
-| Scraper | Cheerio + Axios |
-| Validation | Zod |
-| Styling | Tailwind CSS v4 |
-| Forms | React Hook Form |
-| Testing | Vitest |
-| CI | GitHub Actions |
+| Feature | Engineering & Business Value |
+| :--- | :--- |
+| 🕷️ **Optimized DOM Scraper** | Axios + Cheerio crawler with a custom HTML-minification pipeline. Discards styles, scripts, and media attributes to reduce prompt tokens by **~85%**. |
+| 🧠 **Structured Gemini Pipeline** | Strict structured JSON outputs via Gemini 1.5 Flash. Integrated Zod schema verification and a self-correcting corrective prompt retry loop. |
+| 🎨 **Automated Branding Extractor** | Parses storefronts to fetch, resolve, and normalize Favicons, Logo URLs, and Store Names for high-fidelity report customization. |
+| 🛡️ **Network SSRF Protection** | Multi-tier validation: rejects RFC1918 private IP ranges, local loops, internal hostnames, and non-valid storefront subdomains. |
+| 📊 **Segmented Page Scoring** | Calculates conversion quality scores for key funnel pages: **Homepage**, **Product Detail Page (PDP)**, **Collection**, and **Cart**. |
+| 📱 **Stripe-grade Mobile PWA UI** | Stunning glassmorphic headers, responsive radial scores, compact checkbox cards, and single-line typography designed for premium mobile UX. |
+| 💾 **MongoDB Atlas Repository** | Thread-safe connection pooling, index caching, and lazy auto-index generation to guarantee sub-millisecond retrieval. |
 
 ---
 
-## Architecture
+## 🏗️ Architecture Flow
 
-```
-Browser → Next.js App Router
-       ↓
-/api/v1/analyze (POST)
-       ↓
-   URL Normalizer           ← SSRF protection, Shopify URL normalization
-       ↓
-   SnapshotOrchestrator
-       ├── WebsiteFetcher   ← Axios + Cheerio DOM extraction
-       └── DomMinifier      ← Strips scripts, styles, SVG (~85% token reduction)
-       ↓
-   AnalysisOrchestrator
-       ├── ContextBuilder   ← Formats page metadata into AI prompt context
-       ├── PromptBuilder    ← Versioned system prompt (v1.0.0)
-       ├── GeminiClient     ← AI inference with self-correction retry loop
-       ├── JsonParser       ← Extracts JSON from markdown-fenced responses
-       ├── SchemaValidator  ← Zod strict validation
-       └── DomainMapper     ← Raw AI output → AuditReport domain model
-       ↓
-   AuditRepository          ← MongoDB Atlas upsert (with lazy index init)
-       ↓
-   Returns { id }  →  Browser redirects to /audits/:id
+```mermaid
+graph TD
+    Client[Client / Browser] -->|POST /api/v1/analyze| Router[Next.js App Router]
+    Router --> Normalizer[URL Normalizer & DNS SSRF Check]
+    Normalizer -->|Validated URL| Orchestrator[SnapshotOrchestrator]
+    Orchestrator -->|Cheerio Scrape| Scraper[WebsiteFetcher]
+    Orchestrator -->|Asset Scrape| BrandExtractor[BrandingExtractor]
+    Orchestrator -->|Minify HTML| Minifier[DomMinifier -85% tokens]
+    
+    Orchestrator -->|Raw Snapshot| AI[AnalysisOrchestrator]
+    AI -->|Heuristics Context| Context[ContextBuilder]
+    AI -->|Versioned Prompt v1| Prompts[PromptBuilder]
+    AI -->|Structured Request| Gemini[GeminiClient 1.5 Flash]
+    Gemini -->|Auto-Correct Loop| Zod[SchemaValidator & Zod Check]
+    
+    Zod -->|Domain Mapping| Repo[AuditRepository]
+    Repo -->|Lazy Schema Setup| MongoDB[(MongoDB Atlas)]
+    Repo -->|Return Report ID| Client
 ```
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
-CRO/
-├── .github/workflows/        # GitHub Actions CI pipeline
-├── docs/                     # Architecture, API contracts, design decisions
-│   ├── 01-prd.md
-│   ├── 02-hld.md
-│   ├── 09-engineering-decisions.md
-│   ├── 14-showcase-materials.md
-│   └── 15-final-metrics.md
-├── prompts/                  # Versioned Gemini system prompts
-├── public/assets/            # Favicon, app icons, logos
+shopify-cro-opportunity-engine/
+├── .github/workflows/        # Automated GitHub Actions CI pipeline
+├── docs/                     # Engineering documentation and final metrics
+│   ├── 01-prd.md             # Product Requirements Document
+│   ├── 02-hld.md             # High-Level Architecture Design
+│   ├── 09-engineering-decisions.md  # Core architectural tradeoffs
+│   └── 15-final-metrics.md   # System performance stats
+├── prompts/                  # System prompts versioning (v1.0.0)
+├── public/assets/            # Branded logos, illustrations, and favicons
 ├── src/
-│   ├── app/                  # Next.js App Router pages + API routes
-│   │   ├── api/v1/           # analyze, audits, extract, health endpoints
-│   │   ├── audits/[id]/      # Audit detail dashboard
-│   │   ├── dashboard/        # Past audits list
-│   │   └── page.tsx          # Landing page with AI loading experience
-│   ├── components/           # Reusable UI component library
-│   ├── server/               # Backend services
-│   │   ├── ai/               # Gemini client, orchestrator, parser, validator
-│   │   ├── crawler/          # Storefront fetcher
-│   │   ├── db/               # MongoDB repository
-│   │   ├── errors/           # Typed application error classes
-│   │   ├── logger/           # Structured JSON logger
-│   │   ├── normalizer/       # URL normalization + SSRF protection
-│   │   └── snapshot/         # DOM extraction orchestration
-│   ├── lib/                  # Shared utilities (analytics abstraction)
-│   ├── styles/               # Global CSS and design tokens
-│   └── utils/                # Helpers (cn, retry, timeout, safe-json-parse)
-└── types/                    # Shared TypeScript domain type definitions
+│   ├── app/                  # Next.js App Router layout and pages
+│   │   ├── api/v1/           # Scraper, analyzer, and database API endpoints
+│   │   ├── audits/[id]/      # Beautiful interactive audit report details
+│   │   ├── dashboard/        # Audit list with advanced search & filtering
+│   │   └── page.tsx          # Real-time progress landing page
+│   ├── components/           # Reusable atomic UI system components
+│   ├── server/               # Enterprise domain logic services
+│   │   ├── ai/               # Gemini client, context mapping, Zod schemas
+│   │   ├── crawler/          # Fetchers & Cheerio scraping services
+│   │   ├── db/               # MongoDB driver connection & repository
+│   │   ├── errors/           # Custom AppError classes
+│   │   ├── normalizer/       # URL validator and DNS resolver
+│   │   └── snapshot/         # Unified branding and layout extractor
+│   ├── styles/               # Tailwind CSS v4 directives and globals
+│   └── utils/                # Lightweight helpers (cn, delay, retry)
+└── types/                    # Domain models and TypeScript declarations
 ```
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js ≥ 18
-- Google Gemini API key ([Get one free](https://aistudio.google.com))
-- MongoDB Atlas URI ([Free M0 tier](https://www.mongodb.com/cloud/atlas))
+- **Node.js**: `v18.0.0` or higher
+- **MongoDB**: Access to a MongoDB Atlas cluster ([Get free M0 tier](https://www.mongodb.com/cloud/atlas))
+- **Gemini API Key**: Access token for Google Gemini ([Get free API Key](https://aistudio.google.com))
 
-### Installation
+### 1. Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/cro-engine.git
-cd cro-engine
+git clone https://github.com/RevanthKumar66/CRO-Engine.git
+cd CRO-Engine
 
 # Install dependencies
 npm install
 
-# Configure environment
+# Setup environment variables
 cp .env.example .env
 ```
 
-### Environment Variables
+### 2. Configure Environment
+
+Open `.env` and fill in your keys:
 
 ```env
-# Required
-GEMINI_API_KEY=your_gemini_api_key_here
-MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/cro-engine
+# Required API Keys & Database Connections
+GEMINI_API_KEY=your_google_gemini_api_key
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/cro-engine
 
-# Optional
-NEXT_PUBLIC_APP_URL=https://your-deployed-domain.com
+# App URL Configuration
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-### Development
+### 3. Running Scripts
 
 ```bash
-npm run dev          # Start dev server at localhost:3000
-npm run test         # Run all 42 unit + integration tests
-npm run check-types  # TypeScript strict compilation check
-npm run lint         # ESLint code quality check
-npm run build        # Production build
+# Run local development server
+npm run dev
+
+# Run test suites (Vitest unit & integration tests)
+npm run test
+
+# Check TypeScript compilations
+npm run check-types
+
+# Format files with Prettier
+npm run format
+
+# Build production bundle
+npm run build
 ```
 
 ---
 
-## API Reference
+## 🔌 API Reference
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/v1/analyze` | Submit a storefront URL for AI audit |
-| `GET` | `/api/v1/audits` | Retrieve recent audits list |
-| `GET` | `/api/v1/audits/:id` | Retrieve a specific audit report |
-| `POST` | `/api/v1/extract` | Extract raw storefront DOM snapshot |
-| `GET` | `/api/v1/health` | Health check endpoint |
-
-**Analyze Request:**
-```json
-POST /api/v1/analyze
-{ "url": "https://gymshark.com" }
-```
-
-**Analyze Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "id": "aud_abc123",
-    "storeUrl": "https://gymshark.com",
-    "overallScore": 74,
-    "analyzedAt": "2026-07-04T16:00:00Z",
-    "pageScores": { "homepage": 80, "pdp": 72, "collection": 70, "cart": 74 },
-    "recommendations": [...]
-  }
-}
-```
-
-See [`docs/api.md`](docs/api.md) for full API documentation.
+| Endpoint | Method | Payload / Response | Description |
+| :--- | :--- | :--- | :--- |
+| `/api/v1/analyze` | `POST` | `{ "url": "https://store.com" }` | Starts DOM crawl and AI audit pipeline. |
+| `/api/v1/audits` | `GET` | Returns list of all stored reports. | Paginated, searchable audit history list. |
+| `/api/v1/audits/:id` | `GET` | Returns full `AuditReport` domain model. | Retrieves comprehensive audit details. |
+| `/api/v1/health` | `GET` | `{ "status": "healthy" }` | Basic system health check. |
 
 ---
 
-## Engineering Highlights
+## 🛠️ Core Engineering Mechanics
 
 ### DOM Minification Pipeline
-Raw Shopify HTML can exceed 500KB. CRO Engine strips scripts, styles, SVGs, and redundant layout tags via a Cheerio-based minifier, reducing content to ~15% of original size for cost-efficient AI prompting.
+Raw Shopify HTML files frequently exceed **500KB**, which causes severe context window bloat and increased API cost. The crawler runs a custom HTML-stripping parser that removes scripts, stylesheets, inline styling, SVGs, and redundant parameters. The output is a highly minified layout structure (~15% of original size), delivering identical heuristic audit quality at a fraction of the cost.
 
 ### Gemini Self-Correction Loop
-Gemini outputs are validated against a strict Zod schema. If validation fails, the system automatically retries with a corrective prompt up to 3 times before raising a typed error — achieving reliable structured JSON from real-world storefront complexity.
-
-### SSRF Protection
-All submitted URLs are normalized through a multi-stage validator that resolves DNS, rejects private IP ranges (RFC1918), blocks local loopbacks, and normalizes Shopify-specific URL patterns before any network request is made.
+In order to enforce strict domain models, the prompt demands JSON response formatting matching a predefined Zod schema. If the output fails Zod parsing (e.g. truncated JSON or missing fields), the pipeline intercepts the error, wraps the failure logs into a corrective prompt, and retries up to 3 times automatically before returning a failure state.
 
 ---
 
-## Contributing
+## 📄 License
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidelines on submitting issues and pull requests.
-
----
-
-## License
-
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
