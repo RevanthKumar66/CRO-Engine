@@ -212,7 +212,8 @@ export default function AuditDetailsPage() {
         <Container>
           <div className="flex items-center justify-between py-4">
             <Button variant="ghost" onClick={() => router.push(routes.web.home)} size="sm">
-              <ArrowLeft className="h-4 w-4 mr-1.5" /> <span className="hidden sm:inline">New Audit</span>
+              <ArrowLeft className="h-4 w-4 mr-1.5" />{' '}
+              <span className="hidden sm:inline">New Audit</span>
             </Button>
             <div className="flex items-center gap-1.5">
               <button
