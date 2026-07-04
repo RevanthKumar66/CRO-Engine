@@ -180,13 +180,20 @@ export default function AuditDetailsPage() {
   if (error || !audit) {
     return (
       <Container>
-        <PageWrapper className="flex flex-col items-center justify-center min-h-[calc(100vh-12rem)] text-center space-y-6">
-          <AlertCircle className="h-14 w-14 text-accent-rose" />
-          <h2 className="text-xl font-bold text-text-primary">Audit Not Found</h2>
-          <p className="max-w-md text-sm text-text-secondary">
+        <PageWrapper className="flex flex-col items-center justify-center min-h-[calc(100vh-16rem)] py-8 text-center space-y-4 sm:space-y-6">
+          <AlertCircle className="h-10 w-10 sm:h-14 sm:w-14 text-accent-rose" />
+          <h2 className="text-lg sm:text-xl font-semibold sm:font-bold text-text-primary">
+            Audit Not Found
+          </h2>
+          <p className="max-w-xs sm:max-w-md text-xs sm:text-sm text-text-secondary leading-relaxed">
             {error || 'The audit report you requested does not exist or has expired.'}
           </p>
-          <Button onClick={() => router.push(routes.web.home)} variant="secondary" size="sm">
+          <Button
+            onClick={() => router.push(routes.web.home)}
+            variant="secondary"
+            size="sm"
+            className="h-9 sm:h-8"
+          >
             <ArrowLeft className="h-4 w-4 mr-2" /> Start New Audit
           </Button>
         </PageWrapper>
@@ -289,7 +296,7 @@ export default function AuditDetailsPage() {
               />
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-base sm:text-lg font-bold tracking-tight text-text-primary leading-tight">
+                  <h1 className="text-base sm:text-lg font-semibold sm:font-bold tracking-tight text-text-primary leading-tight">
                     {audit.storeName || audit.storeUrl.replace(/^https?:\/\/(www\.)?/, '')}
                   </h1>
                   {audit.platform === 'shopify' ? (
@@ -364,7 +371,7 @@ export default function AuditDetailsPage() {
                 <span className="text-[10px] sm:text-xs text-accent-violet font-semibold uppercase tracking-wider">
                   Storefront Audit
                 </span>
-                <CardTitle className="text-lg sm:text-xl mt-1 break-all leading-snug">
+                <CardTitle className="text-lg sm:text-xl font-semibold sm:font-bold mt-1 break-all leading-snug">
                   {audit.storeUrl}
                 </CardTitle>
                 <CardDescription className="text-[10px] sm:text-xs">
@@ -445,7 +452,7 @@ export default function AuditDetailsPage() {
             {/* Section header with filters and progress */}
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between border-b border-border-muted/30 pb-4">
               <div className="space-y-0.5">
-                <h3 className="text-sm sm:text-base font-bold tracking-tight">
+                <h3 className="text-sm sm:text-base font-semibold sm:font-bold tracking-tight">
                   Optimization Opportunities
                 </h3>
                 {totalRecs > 0 && (

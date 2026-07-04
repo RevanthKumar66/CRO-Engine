@@ -183,7 +183,7 @@ export default function DocsPage() {
                 Architecture & Engineering Design
               </span>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-text-primary">
+            <h1 className="text-xl sm:text-2xl font-semibold sm:font-bold tracking-tight text-text-primary">
               Engineering Documentation
             </h1>
             <p className="text-sm text-text-secondary max-w-2xl">

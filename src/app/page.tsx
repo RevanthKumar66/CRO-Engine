@@ -258,7 +258,7 @@ export default function LandingPage() {
       {/* ── Hero ── */}
       <section
         id="hero"
-        className="relative overflow-hidden border-b border-border-muted/30 pt-8 pb-16 md:pt-10 md:pb-20 bg-gradient-to-b from-bg-primary via-bg-primary to-bg-secondary/40"
+        className="relative overflow-hidden border-b border-border-muted/30 pt-8 pb-10 sm:pb-16 md:pt-10 md:pb-20 bg-gradient-to-b from-bg-primary via-bg-primary to-bg-secondary/40"
       >
         {/* Soft corner blobs */}
         <div className="absolute top-[-15%] left-[-8%] w-[300px] h-[300px] bg-sky-400/30 rounded-full blur-3xl animate-pulse pointer-events-none" />
@@ -277,7 +277,7 @@ export default function LandingPage() {
                 style={{ mixBlendMode: 'multiply' }}
                 priority
               />
-              <h1 className="text-[19px] sm:text-[28px] md:text-[2.75rem] font-bold tracking-tight leading-[1.3] text-text-primary">
+              <h1 className="text-[19px] sm:text-[28px] md:text-[2.75rem] font-semibold sm:font-bold tracking-tight leading-[1.3] text-text-primary">
                 Find Conversion Bottlenecks
                 <br />
                 <span className="text-accent-violet">Before Your Customers Do.</span>
@@ -373,11 +373,13 @@ export default function LandingPage() {
       {/* ── How It Works ── */}
       <section
         id="how-it-works"
-        className="pt-14 pb-16 md:pt-16 md:pb-20 border-b border-border-muted/30 bg-bg-primary"
+        className="pt-10 pb-10 sm:pt-16 sm:pb-20 border-b border-border-muted/30 bg-bg-primary"
       >
-        <Container className="space-y-10">
+        <Container className="space-y-6 sm:space-y-10">
           <div className="text-center max-w-xl mx-auto space-y-2">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">How It Works</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold sm:font-bold tracking-tight">
+              How It Works
+            </h2>
             <p className="text-sm text-text-secondary">
               Three steps from URL to actionable CRO intelligence.
             </p>
@@ -450,7 +452,7 @@ export default function LandingPage() {
       <section className="py-10 md:py-18 bg-bg-primary/50">
         <Container className="space-y-6 sm:space-y-10 px-4 sm:px-0">
           <div className="text-center max-w-xl mx-auto space-y-1 sm:space-y-2">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold sm:font-bold tracking-tight">
               Engine Capabilities
             </h2>
             <p className="text-xs sm:text-sm text-text-secondary">

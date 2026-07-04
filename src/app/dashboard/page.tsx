@@ -193,7 +193,7 @@ export default function DashboardPage() {
         {/* Header section */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border-muted/30 pb-5">
           <div className="space-y-0.5">
-            <h1 className="text-lg sm:text-xl font-bold tracking-tight text-text-primary flex items-center gap-2">
+            <h1 className="text-lg sm:text-xl font-semibold sm:font-bold tracking-tight text-text-primary flex items-center gap-2">
               <LayoutDashboard className="h-4.5 w-4.5 text-accent-violet" />
               Audit History
             </h1>
