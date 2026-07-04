@@ -23,8 +23,23 @@ export interface Recommendation {
 
 export interface AuditReport {
   id: string;
+  url?: string;
   storeUrl: string;
+  domain?: string;
+  storeName?: string;
+  title?: string;
+  description?: string;
+  logoUrl?: string;
+  faviconUrl?: string;
+  appleTouchIcon?: string;
+  themeColor?: string;
+  brandColor?: string;
+  platform?: string;
   overallScore: number;
+  status?: 'completed' | 'running' | 'failed' | 'queued';
+  analysisTime?: number;
+  createdAt?: string;
+  updatedAt?: string;
   analyzedAt: string;
   pageScores: {
     homepage: number;
@@ -32,6 +47,7 @@ export interface AuditReport {
     collection: number;
     cart: number;
   };
+  issues?: any[];
   recommendations: Recommendation[];
 }
 

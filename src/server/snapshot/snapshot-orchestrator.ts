@@ -4,6 +4,7 @@ import { RobotsChecker } from '../crawler/robots-checker';
 import { DomParser } from '../parser/dom-parser';
 import { PageClassifier } from './classifier';
 import { MetadataExtractor } from '../extractor/metadata-extractor';
+import { BrandingExtractor } from '../extractor/branding-extractor';
 import { ProductExtractor } from '../extractor/product-extractor';
 import { CollectionExtractor } from '../extractor/collection-extractor';
 import { LayoutExtractor } from '../extractor/layout-extractor';
@@ -34,8 +35,9 @@ export class SnapshotOrchestrator {
     // 4. Parse DOM & Minify
     const { $, cleanedHtml, cleanedText } = DomParser.parseAndClean(homepageHtml);
 
-    // 5. Extract metadata & layout details
+    // 5. Extract metadata, branding & layout details
     const metadata = MetadataExtractor.extract($);
+    const branding = await BrandingExtractor.extract($, url);
     const navigation = LayoutExtractor.extractNavigation($);
     const globalTrust = LayoutExtractor.extractTrust($);
 
@@ -89,6 +91,7 @@ export class SnapshotOrchestrator {
       navigation,
       pages: [primaryPageSnapshot],
       globalTrust,
+      branding,
     };
 
     // 7. Validate snapshot schema with Zod

@@ -7,6 +7,7 @@ import { AnalysisOrchestrator } from '@/server/ai/orchestrator/analysis-orchestr
 import { AuditRepository } from '@/server/db/audit-repository';
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
   try {
     const body = await request.json();
     const result = auditRequestSchema.safeParse(body);
@@ -24,6 +25,9 @@ export async function POST(request: NextRequest) {
     const orchestrator = new AnalysisOrchestrator();
     const auditReport = await orchestrator.analyze(snapshot);
 
+    const totalDuration = Date.now() - startTime;
+    auditReport.analysisTime = parseFloat((totalDuration / 1000).toFixed(2));
+
     // 3. Save to database
     await AuditRepository.save(auditReport);
 
@@ -39,11 +43,29 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    // Query most recent 10 audits from MongoDB
-    const recentAudits = await AuditRepository.findRecent(10);
-    const payload = responseHelpers.success(recentAudits);
+    const { searchParams } = new URL(request.url);
+    const search = searchParams.get('search') || undefined;
+    const status = searchParams.get('status') || undefined;
+    const sort = searchParams.get('sort') || undefined;
+    const page = searchParams.get('page') ? parseInt(searchParams.get('page')!, 10) : undefined;
+    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!, 10) : undefined;
+
+    const result = await AuditRepository.findWithFilters({
+      search,
+      status,
+      sort,
+      page,
+      limit,
+    });
+
+    const stats = await AuditRepository.getStats();
+
+    const payload = responseHelpers.success({
+      ...result,
+      stats,
+    });
     return NextResponse.json(payload, { status: 200 });
   } catch (error) {
     const { status, payload } = responseHelpers.fromError(error);

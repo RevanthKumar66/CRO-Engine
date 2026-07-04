@@ -746,6 +746,14 @@ Before passing content to the AI pipeline, the `SnapshotValidator` ensures the e
 
 Shopify detection uses a CSS class heuristic: Shopify stores almost always include the class `shopify-payment-button`, the meta generator `Shopify`, or have `cdn.shopify.com` resources. Platform detection is informational — it does not gate analysis.
 
+### 8.6 Brand Identity Extraction
+
+To ensure analysed stores are rendered with authentic branding throughout the application, the pipeline implements automated metadata and visual asset extraction:
+- **Favicon & Icons**: Scraped in order of priority: `<link rel="icon">` -> `<link rel="shortcut icon">` -> `<link rel="apple-touch-icon">` -> `<link rel="mask-icon">` -> fallback to default `/favicon.ico`.
+- **Probable Logos**: DOM imagery is inspected using Alt/Class/ID selectors (e.g., `img[alt*="logo" i]`, `img[class*="logo" i]`, `header img`), falling back to OpenGraph banners (`og:image`), Apple Icons, or favicon assets.
+- **Verification Loop**: Resolved relative URLs are transformed into absolute paths, and tested for availability asynchronously (HEAD/GET requests with a 1.5-second timeout threshold). Broken images are discarded.
+- **Store Attributes**: Scrapes and normalizes HTML Lang attributes, platform types, page titles, descriptions, domain strings, and Meta theme colors.
+
 ---
 
 ## 9. MongoDB Database Design
@@ -769,7 +777,22 @@ MongoDB Atlas was selected over a relational database for the following reasons:
 ```typescript
 interface AuditDocument {
   id: string;                // Primary identifier: "aud_" + nanoid(8)
+  url?: string;              // Schema-compliant store URL
   storeUrl: string;          // Normalized store URL
+  domain?: string;           // Extracted store domain
+  storeName?: string;        // Extracted merchant brand name
+  title?: string;            // HTML Head title
+  description?: string;      // HTML Head description metadata
+  logoUrl?: string;          // Verified merchant logo image URL
+  faviconUrl?: string;       // Verified shortcut favicon asset URL
+  appleTouchIcon?: string;   // Mobile home screen launcher icon
+  themeColor?: string;       // Meta themeColor
+  brandColor?: string;       // Computed brand color heuristic
+  platform?: string;         // E-commerce engine platform: 'shopify' | 'unknown'
+  status?: string;           // Audit pipeline status: 'completed' | 'running' | 'failed' | 'queued'
+  analysisTime?: number;     // Total pipeline duration in seconds (e.g. 5.4)
+  createdAt?: string;        // Record creation ISO timestamp
+  updatedAt?: string;        // Record last update ISO timestamp
   overallScore: number;      // 0-100 composite CRO score
   analyzedAt: string;        // ISO 8601 timestamp
   pageScores: {
@@ -778,6 +801,7 @@ interface AuditDocument {
     collection: number;      // 0-100
     cart: number;            // 0-100
   };
+  issues?: any[];            // Database schema array placeholder
   recommendations: Array<{
     id: string;              // "rec_" + nanoid(8)
     pageType: string;        // 'homepage' | 'pdp' | 'collection' | 'cart'
@@ -793,7 +817,7 @@ interface AuditDocument {
 
 ### 9.3 Indexes
 
-Three indexes are maintained on the `audits` collection:
+Five indexes are maintained on the `audits` collection to support queries and performant dashboard operations:
 
 ```javascript
 // Unique index on audit ID for O(1) lookups
@@ -804,6 +828,12 @@ Three indexes are maintained on the `audits` collection:
 
 // Index on analyzedAt (descending) for "recent audits" queries
 { analyzedAt: -1 } // name: 'ix_audits_analyzed_at'
+
+// Index on overallScore (descending) for highest/lowest score sorting
+{ overallScore: -1 } // name: 'ix_audits_overall_score'
+
+// Index on storeName (ascending) for alphabetical sorting
+{ storeName: 1 } // name: 'ix_audits_store_name'
 ```
 
 ### 9.4 Connection Architecture
@@ -898,11 +928,35 @@ Errors:   400 (validation), 422 (scraping), 503 (AI failure), 500 (unexpected)
 
 **GET /api/v1/audits**
 ```
-Request:  (no body)
-Response: { "success": true, "data": AuditReport[] }
+Request:  Query Parameters (optional):
+          - search: Case-insensitive search on storeName, domain, or storeUrl
+          - status: Filter by 'completed' | 'running' | 'failed' | 'queued' | 'all'
+          - sort: Sort by 'newest' | 'oldest' | 'highestScore' | 'lowestScore' | 'alphabetical'
+          - page: Current page number (default 1)
+          - limit: Items per page (default 10)
+Response: { 
+            "success": true, 
+            "data": {
+              "audits": AuditReport[],
+              "pagination": {
+                "total": number,
+                "page": number,
+                "limit": number,
+                "totalPages": number
+              },
+              "stats": {
+                "total": number,
+                "completed": number,
+                "running": number,
+                "failed": number,
+                "averageScore": number,
+                "highestScore": number
+              }
+            }
+          }
 Status:   200 OK
 Errors:   500 (DB failure)
-Notes:    Returns 10 most recent, sorted by analyzedAt DESC
+Notes:    Returns filtered, sorted, paginated audits along with general metrics.
 ```
 
 **GET /api/v1/audits/:id**

@@ -64,7 +64,7 @@ export class AnalysisOrchestrator {
           });
 
           // Map raw data back to domain structures
-          return DomainMapper.mapToAuditReport(validation.data, snapshot.storeUrl);
+          return DomainMapper.mapToAuditReport(validation.data, snapshot);
         }
 
         // If validation fails, compile error details for retry thread

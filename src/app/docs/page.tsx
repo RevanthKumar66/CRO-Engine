@@ -540,6 +540,15 @@ $('*').each((_, el) => {
 // Collapse whitespace
 return $.html().replace(/\\s+/g, ' ').trim();`}
             </CodeBlock>
+            <SubTitle>8.2 Brand Identity Extraction</SubTitle>
+            <P>
+              To populate storefront visual elements dynamically, the pipeline crawlers scrape brand
+              visual assets. Icons and favicons are resolved in order of priority
+              (rel=&quot;icon&quot; &amp;rarr; rel=&quot;shortcut icon&quot; &amp;rarr;
+              rel=&quot;apple-touch-icon&quot;), and DOM image elements are inspected using
+              Alt/Class/ID selectors to identify logos. All resolved assets are verified as active
+              and reachable asynchronously using a 1.5-second fetch HEAD/GET validation cycle.
+            </P>
 
             {/* ── 9. MongoDB ───────────────────────────────────────── */}
             <SectionTitle id="mongodb">9. MongoDB Database Design</SectionTitle>
@@ -547,7 +556,22 @@ return $.html().replace(/\\s+/g, ' ').trim();`}
             <CodeBlock>
               {`{
   id: string,           // "aud_" + nanoid(8), unique
+  url?: string,         // Fully qualified store URL
   storeUrl: string,     // Normalized store URL
+  domain?: string,      // Scraped store domain
+  storeName?: string,   // Scraped store brand name
+  title?: string,       // Store home page title
+  description?: string, // Store meta description
+  logoUrl?: string,     // Verified storefront logo
+  faviconUrl?: string,  // Verified storefront favicon
+  appleTouchIcon?: string, // Mobile launcher touch icon
+  themeColor?: string,  // HTML Meta themeColor value
+  brandColor?: string,  // Computed brand color value
+  platform?: string,    // Engine: 'shopify' | 'unknown'
+  status?: string,      // Execution state: 'completed' | 'running' | 'failed'
+  analysisTime?: number, // Execution latency in seconds
+  createdAt?: string,   // Record ISO timestamp
+  updatedAt?: string,   // Update ISO timestamp
   overallScore: number, // 0–100 CRO composite score
   analyzedAt: string,   // ISO 8601 timestamp
   pageScores: {
@@ -576,6 +600,16 @@ return $.html().replace(/\\s+/g, ' ').trim();`}
                 ['ux_audits_id', '{ id: 1 } unique', 'O(1) audit lookup by ID'],
                 ['ix_audits_store_url', '{ storeUrl: 1 }', 'Filter audits by store'],
                 ['ix_audits_analyzed_at', '{ analyzedAt: -1 }', 'Chronological sort for dashboard'],
+                [
+                  'ix_audits_overall_score',
+                  '{ overallScore: -1 }',
+                  'Sort dashboard by CRO performance',
+                ],
+                [
+                  'ix_audits_store_name',
+                  '{ storeName: 1 }',
+                  'Alphabetical sorting by merchant name',
+                ],
               ]}
             />
 
@@ -603,10 +637,20 @@ return $.html().replace(/\\s+/g, ' ').trim();`}
             <Table
               headers={['Method', 'Endpoint', 'Description', 'Auth']}
               rows={[
-                ['POST', '/api/v1/analyze', 'Submit URL for AI audit', 'None'],
-                ['GET', '/api/v1/audits', 'List 10 most recent audits', 'None'],
-                ['GET', '/api/v1/audits/:id', 'Get specific audit by ID', 'None'],
-                ['POST', '/api/v1/extract', 'Debug: raw DOM snapshot only', 'None'],
+                [
+                  'POST',
+                  '/api/v1/analyze',
+                  'Submit URL for AI audit and extract brand assets',
+                  'None',
+                ],
+                [
+                  'GET',
+                  '/api/v1/audits',
+                  'List paginated, filtered, and sorted audits with stats',
+                  'None',
+                ],
+                ['GET', '/api/v1/audits/:id', 'Get specific audit details by ID', 'None'],
+                ['POST', '/api/v1/extract', 'Debug: raw DOM snapshot and branding parsing', 'None'],
                 ['GET', '/api/v1/health', 'Health check', 'None'],
               ]}
             />

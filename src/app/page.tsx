@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -124,6 +124,16 @@ export default function LandingPage() {
     resolver: zodResolver(formSchema),
     defaultValues: { url: '' },
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlParam = params.get('url');
+      if (urlParam) {
+        setValue('url', urlParam, { shouldValidate: true });
+      }
+    }
+  }, [setValue]);
 
   // Intelligent loading — tick through phases with realistic timing
   const runLoadingSequence = async (auditId: string) => {

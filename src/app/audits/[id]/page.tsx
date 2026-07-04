@@ -33,6 +33,42 @@ import { Loading } from '@/components/common/Loading';
 import { routes } from '@/config/routes';
 import { AuditReport, Recommendation } from '../../../../types';
 
+const BrandIcon: React.FC<{
+  logoUrl?: string;
+  faviconUrl?: string;
+  storeName: string;
+}> = ({ logoUrl, faviconUrl, storeName }) => {
+  const [logoFailed, setLogoFailed] = useState(false);
+  const [favFailed, setFavFailed] = useState(false);
+
+  if (logoUrl && !logoFailed) {
+    return (
+      <img
+        src={logoUrl}
+        alt={`${storeName} logo`}
+        onError={() => setLogoFailed(true)}
+        className="h-8 w-auto max-w-[150px] object-contain"
+        style={{ mixBlendMode: 'multiply' }}
+        loading="lazy"
+      />
+    );
+  }
+
+  if (faviconUrl && !favFailed) {
+    return (
+      <img
+        src={faviconUrl}
+        alt={`${storeName} favicon`}
+        onError={() => setFavFailed(true)}
+        className="h-5 w-5 object-contain"
+        loading="lazy"
+      />
+    );
+  }
+
+  return null;
+};
+
 // Score helpers
 const getScoreLabel = (score: number) => {
   if (score >= 80) return { label: 'Good Performance', color: 'text-accent-emerald' };
@@ -239,6 +275,83 @@ export default function AuditDetailsPage() {
 
       <Container>
         <PageWrapper className="space-y-8">
+          {/* ── Branded Report Header ── */}
+          <Card className="glassmorphic-card p-5 rounded-md border-border-muted/50 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div className="flex items-center gap-4">
+              <BrandIcon
+                logoUrl={audit.logoUrl}
+                faviconUrl={audit.faviconUrl}
+                storeName={audit.storeName || audit.storeUrl}
+              />
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h1 className="text-lg font-bold tracking-tight text-text-primary leading-tight">
+                    {audit.storeName || audit.storeUrl.replace(/^https?:\/\/(www\.)?/, '')}
+                  </h1>
+                  {audit.platform === 'shopify' ? (
+                    <span className="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded bg-accent-violet/10 text-accent-violet border border-accent-violet/20 uppercase tracking-wider">
+                      Shopify
+                    </span>
+                  ) : null}
+                </div>
+                <div className="flex items-center gap-2 text-xs text-text-secondary flex-wrap">
+                  <span>
+                    {audit.domain ||
+                      audit.storeUrl.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]}
+                  </span>
+                  <span className="text-border-muted">•</span>
+                  <span>
+                    Analyzed:{' '}
+                    {new Date(audit.analyzedAt || audit.createdAt || '').toLocaleString(undefined, {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </span>
+                  {audit.analysisTime ? (
+                    <>
+                      <span className="text-border-muted">•</span>
+                      <span>Duration: {audit.analysisTime}s</span>
+                    </>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            {/* Right side stats */}
+            <div className="flex items-center gap-4 shrink-0 justify-between md:justify-end">
+              <div className="text-right">
+                <span className="text-[9px] text-text-muted uppercase font-bold tracking-wider block">
+                  Status
+                </span>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-accent-emerald mt-0.5">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> Completed
+                </span>
+              </div>
+              <div className="border-l border-border-muted/50 h-8 hidden md:block" />
+              <div className="flex items-center gap-2">
+                <div className="text-right">
+                  <span className="text-[9px] text-text-muted uppercase font-bold tracking-wider block">
+                    Overall Score
+                  </span>
+                  <span className={cn('text-xs font-bold block mt-0.5', scoreInfo.color)}>
+                    {scoreInfo.label}
+                  </span>
+                </div>
+                <div
+                  className={cn(
+                    'flex h-11 w-11 items-center justify-center rounded-full border-2 text-base font-extrabold shrink-0',
+                    getScoreRingColor(audit.overallScore)
+                  )}
+                >
+                  {audit.overallScore}
+                </div>
+              </div>
+            </div>
+          </Card>
+
           {/* ── Overview Section ── */}
           <div id="overview" className="grid md:grid-cols-3 gap-5">
             {/* Store + page scores */}

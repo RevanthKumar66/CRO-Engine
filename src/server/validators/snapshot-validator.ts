@@ -87,6 +87,21 @@ export const pageSnapshotSchema = z.object({
   trust: trustSignalsSchema.optional(),
 });
 
+export const brandingDataSchema = z.object({
+  storeName: z.string().optional(),
+  domain: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  logoUrl: z.string().optional(),
+  faviconUrl: z.string().optional(),
+  appleTouchIcon: z.string().optional(),
+  ogImage: z.string().optional(),
+  themeColor: z.string().optional(),
+  brandColor: z.string().optional(),
+  language: z.string().optional(),
+  platform: z.string().optional(),
+});
+
 export const websiteSnapshotSchema = z.object({
   storeUrl: z.string().url(),
   isShopify: z.boolean(),
@@ -94,5 +109,6 @@ export const websiteSnapshotSchema = z.object({
   navigation: navigationSnapshotSchema,
   pages: z.array(pageSnapshotSchema),
   globalTrust: trustSignalsSchema,
+  branding: brandingDataSchema.optional(),
 });
 export default websiteSnapshotSchema;
