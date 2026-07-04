@@ -7,7 +7,7 @@ import {
   AlertCircle,
   Plus,
   RefreshCw,
-  BarChart3,
+  Home,
   Calendar,
   Clock,
   ExternalLink,
@@ -194,7 +194,7 @@ export default function DashboardPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border-muted/30 pb-5">
           <div className="space-y-0.5">
             <h1 className="text-lg sm:text-xl font-semibold sm:font-bold tracking-tight text-text-primary flex items-center gap-2">
-              <BarChart3 className="h-4.5 w-4.5 text-accent-violet" />
+              <Home className="h-4.5 w-4.5 text-accent-violet" />
               Audit History
             </h1>
             <p className="text-[11px] sm:text-xs text-text-secondary">
@@ -343,7 +343,7 @@ export default function DashboardPage() {
         ) : audits.length === 0 ? (
           <div className="rounded-lg border border-dashed border-border-muted bg-bg-secondary p-12 text-center max-w-xl mx-auto space-y-3">
             <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-accent-violet/10 text-accent-violet">
-              <BarChart3 className="h-5 w-5" />
+              <Home className="h-5 w-5" />
             </div>
             <div className="space-y-1">
               <h3 className="text-sm font-bold text-text-primary">No Audits Found</h3>
