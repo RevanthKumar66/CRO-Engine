@@ -353,7 +353,8 @@ export default function DashboardPage() {
         ) : (
           <div className="space-y-4">
             {/* Audit List Grid */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Desktop Audit List Grid */}
+            <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {audits.map((audit) => {
                 const scoreColor = getScoreColor(audit.overallScore);
                 const displayStoreName =
@@ -481,6 +482,52 @@ export default function DashboardPage() {
                       </div>
                     </div>
                   </Card>
+                );
+              })}
+            </div>
+
+            {/* Mobile Audit List Stack */}
+            <div className="flex sm:hidden flex-col gap-2">
+              {audits.map((audit) => {
+                const scoreColor = getScoreColor(audit.overallScore);
+                const displayStoreName =
+                  audit.storeName || audit.storeUrl.replace(/^https?:\/\/(www\.)?/, '');
+                return (
+                  <div
+                    key={audit.id}
+                    className="flex items-center justify-between p-3 bg-white border border-border-muted/50 rounded-lg hover:border-accent-violet/60 transition-all cursor-pointer gap-3"
+                    onClick={() => router.push(routes.web.audits(audit.id))}
+                  >
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <BrandIcon
+                        logoUrl={audit.logoUrl}
+                        faviconUrl={audit.faviconUrl}
+                        storeName={displayStoreName}
+                      />
+                      <div className="min-w-0">
+                        <h3 className="text-xs font-bold text-text-primary truncate">
+                          {displayStoreName}
+                        </h3>
+                        <p className="text-[9px] text-text-muted mt-0.5">
+                          {new Date(audit.analyzedAt || audit.createdAt || '').toLocaleDateString(
+                            undefined,
+                            { month: 'short', day: 'numeric', year: 'numeric' }
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {getStatusBadge(audit.status)}
+                      <span
+                        className={cn(
+                          'text-xs font-extrabold px-1.5 py-0.5 rounded border leading-none',
+                          scoreColor
+                        )}
+                      >
+                        {audit.overallScore}
+                      </span>
+                    </div>
+                  </div>
                 );
               })}
             </div>

@@ -269,11 +269,11 @@ export default function LandingPage() {
                 alt="CRO Engine"
                 width={80}
                 height={80}
-                className="h-20 w-auto object-contain"
+                className="h-12 sm:h-20 w-auto object-contain"
                 style={{ mixBlendMode: 'multiply' }}
                 priority
               />
-              <h1 className="text-4xl md:text-[2.75rem] font-bold tracking-tight leading-[1.2] text-text-primary">
+              <h1 className="text-2xl sm:text-3xl md:text-[2.75rem] font-bold tracking-tight leading-[1.2] text-text-primary">
                 Find Conversion Bottlenecks
                 <br />
                 <span className="text-accent-violet">Before Your Customers Do.</span>
@@ -281,7 +281,7 @@ export default function LandingPage() {
             </div>
 
             {/* Subheading */}
-            <p className="text-sm md:text-base text-text-secondary leading-relaxed max-w-xl mx-auto pt-1">
+            <p className="text-xs sm:text-sm md:text-base text-text-secondary leading-relaxed max-w-xl mx-auto pt-1">
               Analyze any Shopify storefront using AI and receive prioritized conversion
               recommendations in seconds.
             </p>
@@ -299,25 +299,25 @@ export default function LandingPage() {
                   type="text"
                   placeholder="https://your-store.com"
                   disabled={isSubmitting}
-                  className="w-full h-12 rounded-md border border-border-muted bg-bg-secondary px-4 text-sm text-text-primary placeholder:text-text-muted transition-colors duration-150 focus:border-accent-violet focus:outline-none focus:ring-1 focus:ring-accent-violet disabled:opacity-60"
+                  className="w-full h-10 sm:h-12 rounded-md border border-border-muted bg-bg-secondary px-3.5 sm:px-4 text-xs sm:text-sm text-text-primary placeholder:text-text-muted transition-colors duration-150 focus:border-accent-violet focus:outline-none focus:ring-1 focus:ring-accent-violet disabled:opacity-60"
                   {...register('url')}
                 />
               </div>
               <Button
                 type="submit"
                 disabled={isSubmitting || isButtonLoading}
-                className="h-12 px-6 shrink-0 inline-flex items-center justify-center gap-2 font-semibold transition-all duration-150 w-full sm:w-auto"
+                className="h-10 sm:h-12 px-5 sm:px-6 shrink-0 inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold transition-all duration-150 w-full sm:w-auto"
                 variant="primary"
               >
                 {isButtonLoading ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin" />
                     <span>Analyzing...</span>
                   </>
                 ) : (
                   <>
                     <span>Analyze Store</span>
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </>
                 )}
               </Button>

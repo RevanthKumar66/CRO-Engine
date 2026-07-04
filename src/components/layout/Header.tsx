@@ -20,9 +20,9 @@ export const Header: React.FC = () => {
               <Image
                 src="/assets/CRO-main-Logo.png"
                 alt="CRO Engine"
-                width={120}
-                height={38}
-                className="h-9 sm:h-11 w-auto object-contain"
+                width={110}
+                height={34}
+                className="h-8 sm:h-11 w-auto object-contain"
                 style={{ mixBlendMode: 'multiply' }}
                 priority
               />
@@ -31,17 +31,19 @@ export const Header: React.FC = () => {
           <nav className="flex items-center gap-1 sm:gap-1.5">
             <Link
               href={routes.web.docs}
-              className="inline-flex items-center gap-1 sm:gap-1.5 rounded-md px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary hover:bg-bg-secondary"
+              className="inline-flex items-center gap-1.5 rounded-md px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm text-text-secondary transition-colors duration-150 hover:text-text-primary hover:bg-bg-secondary"
+              title="Documentation"
             >
               <BookOpen className="h-3.5 w-3.5" />
-              <span>Docs</span>
+              <span className="hidden sm:inline">Docs</span>
             </Link>
             <Link
               href={routes.web.dashboard}
-              className="inline-flex items-center gap-1 sm:gap-1.5 rounded-md border border-border-muted bg-bg-secondary px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-text-primary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+              className="inline-flex items-center gap-1.5 rounded-md border border-border-muted bg-bg-secondary px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium text-text-primary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+              title="Dashboard"
             >
               <LayoutDashboard className="h-3.5 w-3.5" />
-              <span>Dashboard</span>
+              <span className="hidden sm:inline">Dashboard</span>
             </Link>
           </nav>
         </div>

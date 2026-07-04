@@ -212,35 +212,38 @@ export default function AuditDetailsPage() {
         <Container>
           <div className="flex items-center justify-between py-4">
             <Button variant="ghost" onClick={() => router.push(routes.web.home)} size="sm">
-              <ArrowLeft className="h-4 w-4 mr-1.5" /> New Audit
+              <ArrowLeft className="h-4 w-4 mr-1.5" /> <span className="hidden sm:inline">New Audit</span>
             </Button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={handleCopyReport}
-                className="inline-flex items-center gap-1.5 rounded-md border border-border-muted px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                className="inline-flex items-center justify-center h-8 w-8 sm:w-auto sm:gap-1.5 rounded-md border border-border-muted sm:px-3 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                title="Copy Report"
               >
                 {copied ? (
                   <Check className="h-3.5 w-3.5 text-accent-emerald" />
                 ) : (
                   <Copy className="h-3.5 w-3.5" />
                 )}
-                {copied ? 'Copied!' : 'Copy Report'}
+                <span className="hidden sm:inline">{copied ? 'Copied!' : 'Copy Report'}</span>
               </button>
               <button
                 onClick={() => router.push(routes.web.home)}
-                className="inline-flex items-center gap-1.5 rounded-md border border-border-muted px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                className="inline-flex items-center justify-center h-8 w-8 sm:w-auto sm:gap-1.5 rounded-md border border-border-muted sm:px-3 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                title="Analyze Another"
               >
                 <RefreshCw className="h-3.5 w-3.5" />
-                Analyze Another
+                <span className="hidden sm:inline">Analyze Another</span>
               </button>
               <a
                 href={audit.storeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-md border border-border-muted px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                className="inline-flex items-center justify-center h-8 w-8 sm:w-auto sm:gap-1.5 rounded-md border border-border-muted sm:px-3 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent-violet hover:text-accent-violet"
+                title="View Store"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
-                View Store
+                <span className="hidden sm:inline">View Store</span>
               </a>
             </div>
           </div>
@@ -276,7 +279,7 @@ export default function AuditDetailsPage() {
       <Container>
         <PageWrapper className="space-y-8">
           {/* ── Branded Report Header ── */}
-          <Card className="glassmorphic-card p-5 rounded-md border-border-muted/50 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <Card className="glassmorphic-card p-4 sm:p-5 rounded-md border-border-muted/50 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
             <div className="flex items-center gap-4">
               <BrandIcon
                 logoUrl={audit.logoUrl}
@@ -285,7 +288,7 @@ export default function AuditDetailsPage() {
               />
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-lg font-bold tracking-tight text-text-primary leading-tight">
+                  <h1 className="text-base sm:text-lg font-bold tracking-tight text-text-primary leading-tight">
                     {audit.storeName || audit.storeUrl.replace(/^https?:\/\/(www\.)?/, '')}
                   </h1>
                   {audit.platform === 'shopify' ? (
@@ -342,7 +345,7 @@ export default function AuditDetailsPage() {
                 </div>
                 <div
                   className={cn(
-                    'flex h-11 w-11 items-center justify-center rounded-full border-2 text-base font-extrabold shrink-0',
+                    'flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full border-2 text-xs sm:text-base font-extrabold shrink-0',
                     getScoreRingColor(audit.overallScore)
                   )}
                 >
