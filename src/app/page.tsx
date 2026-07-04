@@ -273,7 +273,7 @@ export default function LandingPage() {
                 style={{ mixBlendMode: 'multiply' }}
                 priority
               />
-              <h1 className="text-2xl sm:text-3xl md:text-[2.75rem] font-bold tracking-tight leading-[1.2] text-text-primary">
+              <h1 className="text-[19px] sm:text-[28px] md:text-[2.75rem] font-bold tracking-tight leading-[1.3] text-text-primary">
                 Find Conversion Bottlenecks
                 <br />
                 <span className="text-accent-violet">Before Your Customers Do.</span>

@@ -9,7 +9,7 @@ import { Container } from '../common/Container';
 
 export const Header: React.FC = () => {
   return (
-    <header className="sticky top-0 z-50 border-b border-border-muted bg-bg-primary/80 backdrop-blur-md rounded-b-[10px] sm:rounded-none">
+    <header className="sticky top-0 z-50 border-b border-border-muted bg-white/75 backdrop-blur-md shadow-sm rounded-b-[10px] sm:rounded-none">
       <Container>
         <div className="flex h-14 items-center justify-between">
           <div className="flex items-center gap-6 pl-1 sm:pl-2">
