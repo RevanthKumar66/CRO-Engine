@@ -192,17 +192,22 @@ export default function DashboardPage() {
       <PageWrapper className="space-y-6 select-none py-6">
         {/* Header section */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border-muted/30 pb-5">
-          <div className="space-y-1">
-            <h1 className="text-xl font-bold tracking-tight text-text-primary flex items-center gap-2">
-              <LayoutDashboard className="h-5 w-5 text-accent-violet" />
+          <div className="space-y-0.5">
+            <h1 className="text-lg sm:text-xl font-bold tracking-tight text-text-primary flex items-center gap-2">
+              <LayoutDashboard className="h-4.5 w-4.5 text-accent-violet" />
               Audit History
             </h1>
-            <p className="text-xs text-text-secondary">
+            <p className="text-[11px] sm:text-xs text-text-secondary">
               Review and manage conversion optimization reports for analyzed storefronts.
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" onClick={fetchAudits} size="sm" className="h-8">
+          <div className="grid grid-cols-2 gap-2 w-full sm:w-auto">
+            <Button
+              variant="ghost"
+              onClick={fetchAudits}
+              size="sm"
+              className="h-8 w-full sm:w-auto justify-center"
+            >
               <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
               Refresh
             </Button>
@@ -210,7 +215,7 @@ export default function DashboardPage() {
               variant="primary"
               onClick={() => router.push(routes.web.home)}
               size="sm"
-              className="h-8"
+              className="h-8 w-full sm:w-auto justify-center"
             >
               <Plus className="h-3.5 w-3.5 mr-1.5" />
               New Audit
@@ -219,48 +224,48 @@ export default function DashboardPage() {
         </div>
 
         {/* Top Statistics Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="glassmorphic-card p-4 rounded-md border-border-muted/60">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
+          <Card className="glassmorphic-card p-3 sm:p-4 rounded-md border-border-muted/60">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+              <span className="text-[9px] sm:text-[10px] font-semibold text-text-muted uppercase tracking-wider">
                 Total Audits
               </span>
               <Activity className="h-3.5 w-3.5 text-text-muted" />
             </div>
-            <p className="text-lg font-bold text-text-primary mt-1">{stats.total}</p>
+            <p className="text-base sm:text-lg font-bold text-text-primary mt-1">{stats.total}</p>
           </Card>
-          <Card className="glassmorphic-card p-4 rounded-md border-border-muted/60">
+          <Card className="glassmorphic-card p-3 sm:p-4 rounded-md border-border-muted/60">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+              <span className="text-[9px] sm:text-[10px] font-semibold text-text-muted uppercase tracking-wider">
                 Average Score
               </span>
               <TrendingUp className="h-3.5 w-3.5 text-accent-violet" />
             </div>
-            <p className="text-lg font-bold text-text-primary mt-1">
+            <p className="text-base sm:text-lg font-bold text-text-primary mt-1">
               {stats.averageScore} <span className="text-[10px] text-text-muted">/100</span>
             </p>
           </Card>
-          <Card className="glassmorphic-card p-4 rounded-md border-border-muted/60">
+          <Card className="glassmorphic-card p-3 sm:p-4 rounded-md border-border-muted/60">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+              <span className="text-[9px] sm:text-[10px] font-semibold text-text-muted uppercase tracking-wider">
                 Highest Score
               </span>
               <Award className="h-3.5 w-3.5 text-accent-emerald" />
             </div>
-            <p className="text-lg font-bold text-text-primary mt-1">
+            <p className="text-base sm:text-lg font-bold text-text-primary mt-1">
               {stats.highestScore} <span className="text-[10px] text-text-muted">/100</span>
             </p>
           </Card>
-          <Card className="glassmorphic-card p-4 rounded-md border-border-muted/60">
+          <Card className="glassmorphic-card p-3 sm:p-4 rounded-md border-border-muted/60">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+              <span className="text-[9px] sm:text-[10px] font-semibold text-text-muted uppercase tracking-wider">
                 Status Overview
               </span>
-              <span className="text-[10px] text-accent-emerald font-semibold">
+              <span className="text-[9px] sm:text-[10px] text-accent-emerald font-semibold">
                 {stats.completed} OK
               </span>
             </div>
-            <div className="flex gap-2 mt-1.5 text-[10px] text-text-secondary">
+            <div className="flex gap-2 mt-1.5 text-[9px] sm:text-[10px] text-text-secondary">
               <span>{stats.running} running</span>
               <span className="text-border-muted">|</span>
               <span>{stats.failed} failed</span>

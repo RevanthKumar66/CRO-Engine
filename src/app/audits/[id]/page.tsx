@@ -357,39 +357,39 @@ export default function AuditDetailsPage() {
           </Card>
 
           {/* ── Overview Section ── */}
-          <div id="overview" className="grid md:grid-cols-3 gap-5">
+          <div id="overview" className="grid md:grid-cols-3 gap-4 sm:gap-5">
             {/* Store + page scores */}
             <Card className="glassmorphic-card md:col-span-2">
-              <CardHeader className="pb-4">
-                <span className="text-xs text-accent-violet font-semibold uppercase tracking-wider">
+              <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-4">
+                <span className="text-[10px] sm:text-xs text-accent-violet font-semibold uppercase tracking-wider">
                   Storefront Audit
                 </span>
-                <CardTitle className="text-xl mt-1 break-all leading-snug">
+                <CardTitle className="text-lg sm:text-xl mt-1 break-all leading-snug">
                   {audit.storeUrl}
                 </CardTitle>
-                <CardDescription className="text-xs">
+                <CardDescription className="text-[10px] sm:text-xs">
                   Analyzed on{' '}
                   {new Date(audit.analyzedAt).toLocaleDateString('en-US', { dateStyle: 'long' })}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-3 border-t border-border-muted/30 pt-4">
+              <CardContent className="p-4 pt-0 border-t border-border-muted/30 pt-4 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
                 {Object.entries(audit.pageScores).map(([page, score]) => {
                   const trend = getPageTrend(score);
                   return (
                     <div
                       key={page}
-                      className="rounded-md border border-border-muted p-3 text-center space-y-1"
+                      className="rounded-md border border-border-muted p-2.5 sm:p-3 text-center space-y-1 bg-bg-secondary/20"
                     >
-                      <span className="text-xs text-text-secondary font-medium capitalize block">
+                      <span className="text-[10px] sm:text-xs text-text-secondary font-medium capitalize block">
                         {page === 'pdp' ? 'PDP' : page}
                       </span>
                       <div
-                        className={`text-xl font-bold ${score >= 80 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-amber' : 'text-accent-rose'}`}
+                        className={`text-lg sm:text-xl font-extrabold ${score >= 80 ? 'text-accent-emerald' : score >= 50 ? 'text-accent-amber' : 'text-accent-rose'}`}
                       >
                         {score}
                       </div>
                       <div
-                        className={`inline-flex items-center gap-0.5 text-xs font-medium ${trend.color}`}
+                        className={`inline-flex items-center gap-0.5 text-[10px] sm:text-xs font-medium ${trend.color}`}
                       >
                         {trend.icon}
                         <span>{trend.label}</span>
@@ -401,13 +401,13 @@ export default function AuditDetailsPage() {
             </Card>
 
             {/* Overall score card */}
-            <Card className="glassmorphic-card flex flex-col items-center justify-center p-6 text-center gap-3">
-              <span className="text-xs font-semibold text-text-secondary uppercase tracking-wide">
+            <Card className="glassmorphic-card flex flex-col items-center justify-center p-4 sm:p-6 text-center gap-2 sm:gap-3">
+              <span className="text-[10px] sm:text-xs font-semibold text-text-secondary uppercase tracking-wide">
                 Overall Score
               </span>
               <div
                 className={cn(
-                  'flex h-24 w-24 items-center justify-center rounded-full border-4 text-3xl font-extrabold',
+                  'flex h-16 w-16 sm:h-24 sm:w-24 items-center justify-center rounded-full border-4 text-xl sm:text-3xl font-extrabold',
                   getScoreRingColor(audit.overallScore)
                 )}
               >
@@ -419,7 +419,7 @@ export default function AuditDetailsPage() {
                   <Star
                     key={i}
                     className={cn(
-                      'h-4 w-4',
+                      'h-3.5 w-3.5 sm:h-4 sm:w-4',
                       filled ? 'fill-accent-amber text-accent-amber' : 'text-border-muted'
                     )}
                   />
@@ -441,13 +441,15 @@ export default function AuditDetailsPage() {
           </div>
 
           {/* ── Recommendations Section ── */}
-          <div id="recommendations" ref={recsRef} className="space-y-5">
+          <div id="recommendations" ref={recsRef} className="space-y-4 sm:space-y-5">
             {/* Section header with filters and progress */}
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between border-b border-border-muted/30 pb-4">
               <div className="space-y-0.5">
-                <h3 className="text-base font-bold tracking-tight">Optimization Opportunities</h3>
+                <h3 className="text-sm sm:text-base font-bold tracking-tight">
+                  Optimization Opportunities
+                </h3>
                 {totalRecs > 0 && (
-                  <p className="text-xs text-text-muted">
+                  <p className="text-[10px] sm:text-xs text-text-muted">
                     Completed{' '}
                     <span className="font-semibold text-text-secondary">
                       {completedCount} / {totalRecs}
@@ -461,7 +463,7 @@ export default function AuditDetailsPage() {
                 <select
                   value={filterPageType}
                   onChange={(e) => setFilterPageType(e.target.value)}
-                  className="flex-1 sm:flex-initial rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
+                  className="flex-1 sm:flex-initial rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-[11px] sm:text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
                 >
                   <option value="all">All Pages</option>
                   <option value="homepage">Homepage</option>
@@ -472,7 +474,7 @@ export default function AuditDetailsPage() {
                 <select
                   value={filterImpact}
                   onChange={(e) => setFilterImpact(e.target.value)}
-                  className="flex-1 sm:flex-initial rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
+                  className="flex-1 sm:flex-initial rounded-md border border-border-muted bg-bg-secondary px-3 py-1.5 text-[11px] sm:text-xs text-text-primary focus:border-accent-violet focus:outline-none transition-colors duration-150"
                 >
                   <option value="all">All Impact</option>
                   <option value="HIGH">High Impact</option>
@@ -542,35 +544,37 @@ export default function AuditDetailsPage() {
                       </div>
 
                       {/* Card Body — spacing instead of dividers */}
-                      <div className="px-5 py-5 space-y-5">
+                      <div className="px-4 sm:px-5 py-4 sm:py-5 space-y-4 sm:space-y-5">
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">
+                          <h4 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-text-muted mb-1">
                             Finding
                           </h4>
-                          <p className="text-sm text-text-primary leading-relaxed">{rec.finding}</p>
+                          <p className="text-xs sm:text-sm text-text-primary leading-relaxed">
+                            {rec.finding}
+                          </p>
                         </div>
 
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">
+                          <h4 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-text-muted mb-1">
                             Rationale
                           </h4>
-                          <p className="text-sm text-text-secondary leading-relaxed">
+                          <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
                             {rec.rationale}
                           </p>
                         </div>
 
                         <div>
-                          <h4 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-2">
+                          <h4 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-text-muted mb-1.5">
                             Developer Tasks
                           </h4>
-                          <ul className="space-y-2">
+                          <ul className="space-y-1.5 sm:space-y-2">
                             {rec.actionSteps.map((step, idx) => (
                               <li
                                 key={idx}
-                                className="flex items-start gap-2.5 text-sm text-text-secondary"
+                                className="flex items-start gap-2 text-xs sm:text-sm text-text-secondary"
                               >
                                 {/* Interactive checkbox feel */}
-                                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-border-muted bg-bg-secondary">
+                                <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded border border-border-muted bg-bg-secondary">
                                   <span className="h-1.5 w-1.5 rounded-sm bg-accent-violet" />
                                 </span>
                                 <span className="leading-relaxed">{step}</span>
